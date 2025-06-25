@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->text('short_description')->nullable();
+            $table->text('mode_emploi')->nullable();
+            $table->text('caracteristiques')->nullable();
             $table->decimal('price', 10, 2);
             $table->decimal('sale_price', 10, 2)->nullable();
             $table->integer('stock_quantity')->default(0);
@@ -31,7 +33,7 @@ return new class extends Migration
             $table->boolean('is_on_sale')->default(false);
             $table->date('sale_start_date')->nullable();
             $table->date('sale_end_date')->nullable();
-            $table->integer('category_id')->unsigned();
+            $table->unsignedBigInteger('category_id');
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();
