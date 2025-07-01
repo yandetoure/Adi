@@ -80,10 +80,12 @@ Route::middleware(['auth', 'role:admin|super-admin'])->prefix('admin')->name('ad
 });
 
 // Assistant routes
-Route::middleware(['auth', 'role:assistant|admin|super-admin'])->prefix('assistant')->name('assistant.')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'assistant'])->name('dashboard');
+Route::middleware(['auth', 'assistant'])->prefix('assistant')->name('assistant.')->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\Assistant\DashboardController::class, 'index'])->name('dashboard');
     Route::resource('orders', \App\Http\Controllers\Assistant\OrderController::class);
     Route::resource('products', \App\Http\Controllers\Assistant\ProductController::class);
+    Route::resource('categories', \App\Http\Controllers\Assistant\CategoryController::class);
+    Route::resource('users', \App\Http\Controllers\Assistant\UserController::class);
 });
 
 // SEO routes

@@ -34,7 +34,7 @@
                     </div>
                     <div class="ml-4">
                         <p class="text-sm font-medium text-gray-500">Total Produits</p>
-                        <p class="text-2xl font-bold text-gray-900">{{ $totalProducts }}</p>
+                        <p class="text-2xl font-bold text-gray-900">{{ $stats['totalProducts'] }}</p>
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                     </div>
                     <div class="ml-4">
                         <p class="text-sm font-medium text-gray-500">Total Catégories</p>
-                        <p class="text-2xl font-bold text-gray-900">{{ $totalCategories }}</p>
+                        <p class="text-2xl font-bold text-gray-900">{{ $stats['totalCategories'] }}</p>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="ml-4">
                         <p class="text-sm font-medium text-gray-500">Total Commandes</p>
-                        <p class="text-2xl font-bold text-gray-900">{{ $totalOrders }}</p>
+                        <p class="text-2xl font-bold text-gray-900">{{ $stats['totalOrders'] }}</p>
                     </div>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                     </div>
                     <div class="ml-4">
                         <p class="text-sm font-medium text-gray-500">Total Utilisateurs</p>
-                        <p class="text-2xl font-bold text-gray-900">{{ $totalUsers }}</p>
+                        <p class="text-2xl font-bold text-gray-900">{{ $stats['totalUsers'] }}</p>
                     </div>
                 </div>
             </div>

@@ -17,19 +17,19 @@ class OrderController extends Controller
             ->latest()
             ->paginate(15);
 
-        return view('assistant.orders.index', compact('orders'));
+        return view('admin.orders.index', compact('orders'));
     }
 
     public function show(Order $order): View
     {
         $order->load(['user', 'items.product']);
-        return view('assistant.orders.show', compact('order'));
+        return view('admin.orders.show', compact('order'));
     }
 
     public function edit(Order $order): View
     {
         $order->load(['user', 'items.product']);
-        return view('assistant.orders.edit', compact('order'));
+        return view('admin.orders.edit', compact('order'));
     }
 
     public function update(Request $request, Order $order): RedirectResponse
