@@ -51,6 +51,7 @@ class ProductController extends Controller
             'meta_description' => 'nullable|string|max:160',
             'meta_keywords' => 'nullable|string|max:255',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'default_image_url' => 'nullable|url|max:500',
         ]);
 
         $product = Product::create($validated);
@@ -104,6 +105,7 @@ class ProductController extends Controller
             'meta_description' => 'nullable|string|max:160',
             'meta_keywords' => 'nullable|string|max:255',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'default_image_url' => 'nullable|url|max:500',
             'remove_images' => 'nullable|array',
             'remove_images.*' => 'exists:media,id',
         ]);
@@ -141,5 +143,20 @@ class ProductController extends Controller
 
         return redirect()->route('admin.products.index')
             ->with('success', 'Produit supprimé avec succès.');
+    }
+
+    /**
+     * Delete a specific media from the product.
+     */
+    public function deleteMedia(Product $product, Media $media): RedirectResponse
+    {
+        // Vérifier que le média appartient bien au produit
+        if ($media->model_id !== $product->id) {
+            return redirect()->back()->with('error', 'Média non trouvé.');
+        }
+
+        $media->delete();
+
+        return redirect()->back()->with('success', 'Image supprimée avec succès.');
     }
 }

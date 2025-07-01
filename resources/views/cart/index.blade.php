@@ -32,8 +32,8 @@
                             <div class="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg">
                                 <!-- Product Image -->
                                 <div class="flex-shrink-0">
-                                    @if($item->product->getFirstMediaUrl())
-                                        <img src="{{ $item->product->getFirstMediaUrl() }}" alt="{{ $item->product->name }}" class="w-20 h-20 object-cover rounded">
+                                                                    @if($item->product->getFirstMediaUrl('images') && $item->product->getFirstMediaUrl('images') !== '')
+                                    <img src="{{ $item->product->getFirstMediaUrl('images') }}" alt="{{ $item->product->name }}" class="w-20 h-20 object-cover rounded">
                                     @else
                                         <div class="w-20 h-20 bg-gray-200 rounded flex items-center justify-center">
                                             <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

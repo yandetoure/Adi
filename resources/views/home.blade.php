@@ -84,13 +84,47 @@
             <p class="text-gray-600">Découvrez nos produits par catégorie</p>
         </div>
         
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
             @foreach($categories as $category)
-                <a href="{{ route('categories.show', $category) }}" class="category-card block bg-gray-50 hover:bg-blue-50 rounded-lg p-4 text-center group">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-blue-200 transition">
-                        <i class="fas fa-laptop text-blue-600 text-xl"></i>
+                <a href="{{ route('categories.show', $category) }}" class="category-card block bg-gray-50 hover:bg-blue-50 rounded-lg p-4 text-center group transition-all duration-300">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-blue-200 transition-all duration-300">
+                        @php
+                            $icon = 'fas fa-laptop';
+                            $color = 'text-blue-600';
+                            
+                            // Icônes spécifiques selon le nom de la catégorie
+                            if (stripos($category->name, 'ordinateur') !== false || stripos($category->name, 'pc') !== false) {
+                                $icon = 'fas fa-laptop';
+                                $color = 'text-blue-600';
+                            } elseif (stripos($category->name, 'téléphone') !== false || stripos($category->name, 'smartphone') !== false || stripos($category->name, 'mobile') !== false) {
+                                $icon = 'fas fa-mobile-alt';
+                                $color = 'text-green-600';
+                            } elseif (stripos($category->name, 'accessoire') !== false) {
+                                $icon = 'fas fa-headphones';
+                                $color = 'text-purple-600';
+                            } elseif (stripos($category->name, 'écran') !== false || stripos($category->name, 'moniteur') !== false) {
+                                $icon = 'fas fa-desktop';
+                                $color = 'text-indigo-600';
+                            } elseif (stripos($category->name, 'stockage') !== false || stripos($category->name, 'disque') !== false) {
+                                $icon = 'fas fa-hdd';
+                                $color = 'text-orange-600';
+                            } elseif (stripos($category->name, 'réseau') !== false || stripos($category->name, 'wifi') !== false) {
+                                $icon = 'fas fa-wifi';
+                                $color = 'text-cyan-600';
+                            } elseif (stripos($category->name, 'gaming') !== false || stripos($category->name, 'jeu') !== false) {
+                                $icon = 'fas fa-gamepad';
+                                $color = 'text-red-600';
+                            } elseif (stripos($category->name, 'imprimante') !== false) {
+                                $icon = 'fas fa-print';
+                                $color = 'text-gray-600';
+                            } else {
+                                $icon = 'fas fa-box';
+                                $color = 'text-blue-600';
+                            }
+                        @endphp
+                        <i class="{{ $icon }} {{ $color }} text-xl"></i>
                     </div>
-                    <span class="text-sm font-medium text-gray-700 group-hover:text-blue-700">{{ $category->name }}</span>
+                    <span class="text-sm font-medium text-gray-700 group-hover:text-blue-700 transition-colors duration-300">{{ $category->name }}</span>
                 </a>
             @endforeach
         </div>
@@ -122,7 +156,7 @@
                             <div class="swiper-slide">
                                 <div class="product-card bg-white rounded-lg p-4 h-full">
                                     <div class="relative mb-4">
-                                        @if($product->getFirstMediaUrl('images'))
+                                        @if($product->getFirstMediaUrl('images') && $product->getFirstMediaUrl('images') !== '')
                                             <img src="{{ $product->getFirstMediaUrl('images') }}" alt="{{ $product->name }}" class="w-full h-48 object-cover rounded-lg">
                                         @else
                                             <div class="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center">

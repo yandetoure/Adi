@@ -105,10 +105,65 @@
                     <!-- Right Icons -->
                     <div class="flex items-center space-x-6">
                         <!-- Help -->
-                        <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-600 transition group">
-                            <i class="fas fa-question-circle text-xl mb-1 nav-icon"></i>
-                            <span class="text-xs font-medium">Aide</span>
-                        </a>
+                        <div class="relative group">
+                            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-600 transition">
+                                <i class="fas fa-question-circle text-xl mb-1 nav-icon"></i>
+                                <span class="text-xs font-medium">Aide</span>
+                            </a>
+                            <!-- Help Dropdown Menu -->
+                            <div class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                <div class="py-2">
+                                    <div class="px-4 py-2 border-b border-gray-100">
+                                        <h4 class="font-semibold text-gray-900 text-sm">Centre d'aide</h4>
+                                    </div>
+                                    <a href="#" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-shopping-cart text-blue-600 mr-3"></i>
+                                            <div>
+                                                <div class="font-medium">Comment commander</div>
+                                                <div class="text-xs text-gray-500">Guide étape par étape</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-truck text-green-600 mr-3"></i>
+                                            <div>
+                                                <div class="font-medium">Suivre ma commande</div>
+                                                <div class="text-xs text-gray-500">Localiser votre colis</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-undo text-orange-600 mr-3"></i>
+                                            <div>
+                                                <div class="font-medium">Retours & Échanges</div>
+                                                <div class="text-xs text-gray-500">Politique de retour</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-credit-card text-purple-600 mr-3"></i>
+                                            <div>
+                                                <div class="font-medium">Modes de paiement</div>
+                                                <div class="text-xs text-gray-500">Paiement sécurisé</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-headset text-blue-600 mr-3"></i>
+                                            <div>
+                                                <div class="font-medium">Contact support</div>
+                                                <div class="text-xs text-gray-500">Assistance 24/7</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- Favorites -->
                         <a href="#" class="flex flex-col items-center text-gray-600 hover:text-red-500 transition group">
@@ -117,13 +172,35 @@
                         </a>
 
                         <!-- Cart -->
-                        <a href="{{ route('cart.index') }}" class="flex flex-col items-center text-gray-600 hover:text-blue-600 transition group relative">
-                            <i class="fas fa-shopping-cart text-xl mb-1 nav-icon"></i>
-                            <span class="text-xs font-medium">Panier</span>
+                        <div class="relative group">
+                            <a href="{{ route('cart.index') }}" class="flex flex-col items-center text-gray-600 hover:text-blue-600 transition relative">
+                                <i class="fas fa-shopping-cart text-xl mb-1 nav-icon"></i>
+                                <span class="text-xs font-medium">Panier</span>
+                                @if(session('cart_count', 0) > 0)
+                                    <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">{{ session('cart_count', 0) }}</span>
+                                @endif
+                            </a>
+                            <!-- Cart Dropdown Preview -->
                             @if(session('cart_count', 0) > 0)
-                                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{{ session('cart_count', 0) }}</span>
+                            <div class="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                <div class="p-4">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <h4 class="font-semibold text-gray-900">Votre panier</h4>
+                                        <span class="text-sm text-gray-500">{{ session('cart_count', 0) }} article(s)</span>
+                                    </div>
+                                    <div class="space-y-2 mb-3">
+                                        <!-- Cart items preview would go here -->
+                                        <div class="text-sm text-gray-600">Produits dans votre panier</div>
+                                    </div>
+                                    <div class="border-t border-gray-100 pt-3">
+                                        <a href="{{ route('cart.index') }}" class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-2 px-4 rounded-lg font-medium transition">
+                                            Voir le panier
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                             @endif
-                        </a>
+                        </div>
 
                         <!-- User Account -->
                         @guest

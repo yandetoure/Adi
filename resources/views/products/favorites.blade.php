@@ -27,8 +27,8 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($favorites as $product)
                 <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                    @if($product->getFirstMediaUrl())
-                        <img src="{{ $product->getFirstMediaUrl() }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
+                    @if($product->getFirstMediaUrl('images') && $product->getFirstMediaUrl('images') !== '')
+                        <img src="{{ $product->getFirstMediaUrl('images') }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
                     @else
                         <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
                             <span class="text-gray-500">Aucune image</span>

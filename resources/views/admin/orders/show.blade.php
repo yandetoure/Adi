@@ -141,15 +141,15 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0 h-10 w-10">
-                                                @if($item->product->getFirstMediaUrl('images'))
-                                                    <img class="h-10 w-10 rounded object-cover" 
-                                                         src="{{ $item->product->getFirstMediaUrl('images') }}" 
-                                                         alt="{{ $item->product->name }}">
-                                                @else
-                                                    <div class="h-10 w-10 rounded bg-gray-200 flex items-center justify-center">
-                                                        <i class="fas fa-image text-xs text-gray-400"></i>
-                                                    </div>
-                                                @endif
+                                                                                        @if($item->product->getFirstMediaUrl('images') && $item->product->getFirstMediaUrl('images') !== '')
+                                            <img class="h-10 w-10 rounded object-cover" 
+                                                 src="{{ $item->product->getFirstMediaUrl('images') }}" 
+                                                 alt="{{ $item->product->name }}">
+                                        @else
+                                            <div class="h-10 w-10 rounded bg-gray-200 flex items-center justify-center">
+                                                <i class="fas fa-image text-xs text-gray-400"></i>
+                                            </div>
+                                        @endif
                                             </div>
                                             <div class="ml-4">
                                                 <div class="text-sm font-medium text-gray-900">

@@ -68,6 +68,7 @@ Route::middleware(['auth', 'role:admin|super-admin'])->prefix('admin')->name('ad
     
     // Product management
     Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
+    Route::delete('/products/{product}/media/{media}', [\App\Http\Controllers\Admin\ProductController::class, 'deleteMedia'])->name('products.delete-media');
     
     // Category management
     Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
@@ -84,6 +85,7 @@ Route::middleware(['auth', 'assistant'])->prefix('assistant')->name('assistant.'
     Route::get('/dashboard', [\App\Http\Controllers\Assistant\DashboardController::class, 'index'])->name('dashboard');
     Route::resource('orders', \App\Http\Controllers\Assistant\OrderController::class);
     Route::resource('products', \App\Http\Controllers\Assistant\ProductController::class);
+    Route::delete('/products/{product}/media/{media}', [\App\Http\Controllers\Assistant\ProductController::class, 'deleteMedia'])->name('products.delete-media');
     Route::resource('categories', \App\Http\Controllers\Assistant\CategoryController::class);
     Route::resource('users', \App\Http\Controllers\Assistant\UserController::class);
 });

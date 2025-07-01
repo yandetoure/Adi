@@ -91,8 +91,8 @@
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200">
                     <!-- Product Image -->
                     <div class="aspect-w-1 aspect-h-1 bg-gray-200">
-                        @if($product->getFirstMediaUrl())
-                            <img src="{{ $product->getFirstMediaUrl() }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
+                        @if($product->getFirstMediaUrl('images') && $product->getFirstMediaUrl('images') !== '')
+                            <img src="{{ $product->getFirstMediaUrl('images') }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
                         @else
                             <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
                                 <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

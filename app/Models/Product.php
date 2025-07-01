@@ -181,4 +181,28 @@ class Product extends Model implements HasMedia
     {
         $this->increment('view_count');
     }
+
+    /**
+     * Get the product image URL (only uploaded images).
+     */
+    public function getImageUrlAttribute()
+    {
+        return $this->getFirstMediaUrl('images');
+    }
+
+    /**
+     * Check if product has uploaded images.
+     */
+    public function getHasImagesAttribute()
+    {
+        return $this->getFirstMediaUrl('images') !== '';
+    }
+
+    /**
+     * Check if product has uploaded images (strict check).
+     */
+    public function hasUploadedImages()
+    {
+        return $this->getFirstMediaUrl('images') && $this->getFirstMediaUrl('images') !== '';
+    }
 }

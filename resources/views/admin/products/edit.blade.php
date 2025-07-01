@@ -159,6 +159,83 @@
                 </div>
             </div>
 
+            <!-- Images Section -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Images du produit</h2>
+                
+                <!-- Images existantes -->
+                @if($product->media->count() > 0)
+                    <div class="mb-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-3">Images actuelles</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                            @foreach($product->media as $media)
+                                <div class="relative group">
+                                    <img src="{{ $media->getUrl() }}" 
+                                         alt="{{ $product->name }}" 
+                                         class="w-full h-32 object-cover rounded-lg border border-gray-200">
+                                    <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                                        <form action="{{ route('admin.products.delete-media', ['product' => $product, 'media' => $media]) }}" 
+                                              method="POST" 
+                                              class="inline"
+                                              onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette image ?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" 
+                                                    class="bg-red-500 hover:bg-red-600 text-white p-2 rounded-full">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @else
+                    <div class="mb-6 p-4 bg-gray-50 rounded-lg text-center">
+                        <i class="fas fa-image text-3xl text-gray-400 mb-2"></i>
+                        <p class="text-gray-600">Aucune image pour ce produit</p>
+                    </div>
+                @endif
+
+                <!-- Ajouter de nouvelles images -->
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-3">Ajouter de nouvelles images</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="images" class="block text-sm font-medium text-gray-700">Sélectionner des images</label>
+                            <input type="file" 
+                                   name="images[]" 
+                                   id="images" 
+                                   multiple 
+                                   accept="image/*"
+                                   class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            <p class="mt-1 text-sm text-gray-500">Vous pouvez sélectionner plusieurs images. Formats acceptés : JPG, PNG, GIF</p>
+                            @error('images')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                            @error('images.*')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- URL d'image par défaut -->
+                        <div>
+                            <label for="default_image_url" class="block text-sm font-medium text-gray-700">URL d'image par défaut</label>
+                            <input type="url" 
+                                   name="default_image_url" 
+                                   id="default_image_url" 
+                                   value="{{ old('default_image_url', $product->default_image_url) }}" 
+                                   placeholder="https://example.com/image.jpg"
+                                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            <p class="mt-1 text-sm text-gray-500">URL d'une image externe si vous n'avez pas d'image à télécharger</p>
+                            @error('default_image_url')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Submit Button -->
             <div class="flex justify-end">
                 <button type="submit" 

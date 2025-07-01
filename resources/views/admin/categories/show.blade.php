@@ -85,15 +85,15 @@
                             <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-8 w-8">
-                                        @if($product->getFirstMediaUrl('images'))
-                                            <img class="h-8 w-8 rounded object-cover" 
-                                                 src="{{ $product->getFirstMediaUrl('images') }}" 
-                                                 alt="{{ $product->name }}">
-                                        @else
-                                            <div class="h-8 w-8 rounded bg-gray-200 flex items-center justify-center">
-                                                <i class="fas fa-image text-xs text-gray-400"></i>
-                                            </div>
-                                        @endif
+                                                                            @if($product->getFirstMediaUrl('images') && $product->getFirstMediaUrl('images') !== '')
+                                        <img class="h-8 w-8 rounded object-cover" 
+                                             src="{{ $product->getFirstMediaUrl('images') }}" 
+                                             alt="{{ $product->name }}">
+                                    @else
+                                        <div class="h-8 w-8 rounded bg-gray-200 flex items-center justify-center">
+                                            <i class="fas fa-image text-xs text-gray-400"></i>
+                                        </div>
+                                    @endif
                                     </div>
                                     <div class="ml-3">
                                         <p class="text-sm font-medium text-gray-900">{{ $product->name }}</p>
