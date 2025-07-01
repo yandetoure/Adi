@@ -26,6 +26,8 @@ class SuperAdminSeeder extends Seeder
 
         $superAdmin->assignRole('super-admin');
 
+
+        
         // Créer aussi un utilisateur client de test
         $client = User::updateOrCreate(
             ['email' => 'client@adi.com'],

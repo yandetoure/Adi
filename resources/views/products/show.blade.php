@@ -122,9 +122,9 @@
             </div>
 
             <div class="flex items-center space-x-4">
-                <span class="text-3xl font-bold text-gray-900">{{ number_format($product->price, 2) }} €</span>
+                <span class="text-3xl font-bold text-gray-900">{{ number_format($product->price, 2) }} Fcfa</span>
                 @if($product->is_on_sale && $product->sale_price)
-                    <span class="text-xl text-gray-500 line-through">{{ number_format($product->sale_price, 2) }} €</span>
+                    <span class="text-xl text-gray-500 line-through">{{ number_format($product->sale_price, 2) }} Fcfa</span>
                     <span class="bg-red-100 text-red-800 text-sm px-2 py-1 rounded-full">
                         -{{ $product->discount_percentage }}%
                     </span>
@@ -165,13 +165,40 @@
                         </select>
                     </div>
 
-                    <button type="submit" 
-                            class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium">
-                        <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
-                        </svg>
-                        Ajouter au panier
-                    </button>
+                    <div class="flex space-x-3">
+                        <button type="submit" 
+                                class="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                            <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
+                            </svg>
+                            Ajouter au panier
+                        </button>
+
+                        @auth
+                            @if($isFavorite)
+                                <form action="{{ route('favorites.remove', $product) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" 
+                                            class="bg-red-600 text-white p-3 rounded-lg hover:bg-red-700 transition-colors">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                                        </svg>
+                                    </button>
+                                </form>
+                            @else
+                                <form action="{{ route('favorites.add', $product) }}" method="POST" class="inline">
+                                    @csrf
+                                    <button type="submit" 
+                                            class="bg-gray-600 text-white p-3 rounded-lg hover:bg-gray-700 transition-colors">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                        </svg>
+                                    </button>
+                                </form>
+                            @endif
+                        @endauth
+                    </div>
                 </form>
             @else
                 <div class="bg-gray-100 text-gray-600 py-3 px-6 rounded-lg text-center">
@@ -219,7 +246,7 @@
                             </h3>
                             <p class="text-gray-600 text-sm mb-2">{{ Str::limit($relatedProduct->short_description, 60) }}</p>
                             <div class="flex justify-between items-center">
-                                <span class="font-bold text-gray-900">{{ number_format($relatedProduct->price, 2) }} €</span>
+                                <span class="font-bold text-gray-900">{{ number_format($relatedProduct->price, 2) }} Fcfa</span>
                                 <a href="{{ route('products.show', $relatedProduct) }}" 
                                    class="text-blue-600 hover:text-blue-700 text-sm font-medium">
                                     Voir détails

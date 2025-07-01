@@ -76,6 +76,14 @@ class Product extends Model implements HasMedia
     }
 
     /**
+     * Get the users who favorited this product.
+     */
+    public function favoriteUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
+    }
+
+    /**
      * Get the order items for the product.
      */
     public function orderItems()

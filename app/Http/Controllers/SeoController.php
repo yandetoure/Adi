@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class SeoController extends Controller
 {
@@ -60,7 +61,13 @@ class SeoController extends Controller
             ->take(4)
             ->get();
         
-        return view('products.show', compact('product', 'relatedProducts'));
+        // Check if product is in user's favorites
+        $isFavorite = false;
+        if (Auth::check()) {
+            $isFavorite = Auth::user()->favoriteProducts()->where('product_id', $product->id)->exists();
+        }
+        
+        return view('products.show', compact('product', 'relatedProducts', 'isFavorite'));
     }
 
     /**

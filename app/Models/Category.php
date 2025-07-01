@@ -66,6 +66,14 @@ class Category extends Model implements HasMedia
     }
 
     /**
+     * Get the user that owns the category.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
      * Scope a query to only include active categories.
      */
     public function scopeActive($query)

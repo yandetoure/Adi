@@ -6,22 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class CartItem extends Model
+class Favorite extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
         'product_id',
-        'quantity',
-    ];
-
-    protected $casts = [
-        'quantity' => 'integer',
     ];
 
     /**
-     * Get the user that owns the cart item.
+     * Get the user that owns the favorite.
      */
     public function user(): BelongsTo
     {
@@ -29,7 +24,7 @@ class CartItem extends Model
     }
 
     /**
-     * Get the product that belongs to the cart item.
+     * Get the product that is favorited.
      */
     public function product(): BelongsTo
     {

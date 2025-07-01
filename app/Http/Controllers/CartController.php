@@ -7,13 +7,14 @@ use App\Models\CartItem;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
     public function index(): View
     {
         $cartItems = CartItem::with('product')
-            ->where('user_id', auth()->id())
+            ->where('user_id', Auth::id())
             ->get();
 
         $total = $cartItems->sum(function ($item) {
@@ -23,13 +24,16 @@ class CartController extends Controller
         return view('cart.index', compact('cartItems', 'total'));
     }
 
-    public function add(Request $request, Product $product): RedirectResponse
+    public function add(Request $request): RedirectResponse
     {
         $validated = $request->validate([
+            'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1|max:99',
         ]);
 
-        $cartItem = CartItem::where('user_id', auth()->id())
+        $product = Product::findOrFail($validated['product_id']);
+
+        $cartItem = CartItem::where('user_id', Auth::id())
             ->where('product_id', $product->id)
             ->first();
 
@@ -39,14 +43,14 @@ class CartController extends Controller
             ]);
         } else {
             CartItem::create([
-                'user_id' => auth()->id(),
+                'user_id' => Auth::id(),
                 'product_id' => $product->id,
                 'quantity' => $validated['quantity'],
             ]);
         }
 
         // Update cart count in session
-        $cartCount = CartItem::where('user_id', auth()->id())->sum('quantity');
+        $cartCount = CartItem::where('user_id', Auth::id())->sum('quantity');
         session(['cart_count' => $cartCount]);
 
         return redirect()->back()->with('success', 'Produit ajouté au panier.');
@@ -61,7 +65,7 @@ class CartController extends Controller
         $cartItem->update(['quantity' => $validated['quantity']]);
 
         // Update cart count in session
-        $cartCount = CartItem::where('user_id', auth()->id())->sum('quantity');
+        $cartCount = CartItem::where('user_id', Auth::id())->sum('quantity');
         session(['cart_count' => $cartCount]);
 
         return redirect()->route('cart.index')->with('success', 'Panier mis à jour.');
@@ -72,7 +76,7 @@ class CartController extends Controller
         $cartItem->delete();
 
         // Update cart count in session
-        $cartCount = CartItem::where('user_id', auth()->id())->sum('quantity');
+        $cartCount = CartItem::where('user_id', Auth::id())->sum('quantity');
         session(['cart_count' => $cartCount]);
 
         return redirect()->route('cart.index')->with('success', 'Produit retiré du panier.');
@@ -80,8 +84,8 @@ class CartController extends Controller
 
     public function clear(): RedirectResponse
     {
-        CartItem::where('user_id', auth()->id())->delete();
-        session(['cart_count' => $cartCount]);
+        CartItem::where('user_id', Auth::id())->delete();
+        session(['cart_count' => 0]);
 
         return redirect()->route('cart.index')->with('success', 'Panier vidé.');
     }

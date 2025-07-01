@@ -32,6 +32,7 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::put('/cart/update/{cartItem}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/cart/remove/{cartItem}', [CartController::class, 'remove'])->name('cart.remove');
+Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 // Authentication routes
 Route::middleware('guest')->group(function () {
@@ -50,9 +51,15 @@ Route::middleware('auth')->group(function () {
         return view('profile');
     })->name('profile');
     
+    // Orders routes
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+    
+    // Favorites routes
+    Route::get('/favorites', [ProductController::class, 'favorites'])->name('favorites.index');
+    Route::post('/favorites/add/{product}', [ProductController::class, 'addToFavorites'])->name('favorites.add');
+    Route::delete('/favorites/remove/{product}', [ProductController::class, 'removeFromFavorites'])->name('favorites.remove');
 });
 
 // Admin routes
