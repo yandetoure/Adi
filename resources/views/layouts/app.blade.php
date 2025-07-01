@@ -13,6 +13,8 @@
         .category-tab.active { border-bottom: 3px solid #3b82f6; color: #3b82f6; }
         .whatsapp-btn:hover { background-color: #25D366; color: white; }
         .cart-btn:hover { background-color: #3b82f6; color: white; }
+        .nav-icon { transition: all 0.3s ease; }
+        .nav-icon:hover { transform: scale(1.1); }
     </style>
     <title>@yield('title', 'ADI - Votre boutique en ligne')</title>
     <meta name="description" content="@yield('meta_description', 'ADI, votre boutique en ligne de confiance pour tous vos besoins. Découvrez notre sélection de produits de qualité.')">
@@ -66,57 +68,119 @@
     <div id="app">
         <!-- Navigation -->
         <nav class="bg-white shadow-sm sticky top-0 z-50">
-            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <a href="{{ route('home') }}">
-                        <img src="images/logo.png" alt="ADI Logo" class="h-10 mr-3">
-                    </a>
-                    {{-- <span class="text-xl font-bold text-blue-600">ADI Informatique</span> --}}
-                </div>
-                <!-- Navigation Links -->
-                <nav class="hidden md:flex space-x-8 ml-8">
-                    <a href="{{ route('home') }}" class="text-gray-800 hover:text-blue-600 font-medium">Accueil</a>
-                    <a href="{{ route('products.index') }}" class="text-gray-800 hover:text-blue-600 font-medium">Produits</a>
-                    <a href="{{ route('categories.index') }}" class="text-gray-800 hover:text-blue-600 font-medium">Catégories</a>
-                </nav>
-                <!-- Search Bar -->
-                <form action="{{ route('products.index') }}" method="GET" class="hidden md:flex flex-1 mx-8 max-w-md">
-                    <input type="text" name="search" placeholder="Rechercher un produit..." class="w-full px-4 py-2 rounded-l-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-lg">
-                        <i class="fas fa-search"></i>
+            <div class="container mx-auto px-4 py-3">
+                <div class="flex items-center justify-between">
+                    <!-- Logo -->
+                    <div class="flex items-center">
+                        <a href="{{ route('home') }}" class="flex items-center">
+                            <div>
+                                <img src="images/logo.png" alt="ADI Logo" class="h-10 mr-10">
+                                <p class="text-xs text-gray-600">Informatique</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Navigation Links -->
+                    <nav class="hidden md:flex space-x-6">
+                        <a href="{{ route('home') }}" class="text-gray-800 hover:text-blue-600 font-medium transition">Accueil</a>
+                        <a href="{{ route('products.index') }}" class="text-gray-800 hover:text-blue-600 font-medium transition">Produits</a>
+                        <a href="{{ route('categories.index') }}" class="text-gray-800 hover:text-blue-600 font-medium transition">Catégories</a>
+                        <a href="#" class="text-gray-800 hover:text-blue-600 font-medium transition">Promotions</a>
+                        <a href="#footer-contact" class="text-gray-800 hover:text-blue-600 font-medium transition">Contact</a>
+                    </nav>
+
+                    <!-- Search Bar -->
+                    <form action="{{ route('products.index') }}" method="GET" class="hidden md:flex flex-1 max-w-md mx-8">
+                        <div class="relative w-full">
+                            <input type="text" 
+                                   name="search" 
+                                   placeholder="Rechercher un produit..." 
+                                   class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-search text-gray-400"></i>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Right Icons -->
+                    <div class="flex items-center space-x-6">
+                        <!-- Help -->
+                        <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-600 transition group">
+                            <i class="fas fa-question-circle text-xl mb-1 nav-icon"></i>
+                            <span class="text-xs font-medium">Aide</span>
+                        </a>
+
+                        <!-- Favorites -->
+                        <a href="#" class="flex flex-col items-center text-gray-600 hover:text-red-500 transition group">
+                            <i class="fas fa-heart text-xl mb-1 nav-icon"></i>
+                            <span class="text-xs font-medium">Favoris</span>
+                        </a>
+
+                        <!-- Cart -->
+                        <a href="{{ route('cart.index') }}" class="flex flex-col items-center text-gray-600 hover:text-blue-600 transition group relative">
+                            <i class="fas fa-shopping-cart text-xl mb-1 nav-icon"></i>
+                            <span class="text-xs font-medium">Panier</span>
+                            @if(session('cart_count', 0) > 0)
+                                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{{ session('cart_count', 0) }}</span>
+                            @endif
+                        </a>
+
+                        <!-- User Account -->
+                        @guest
+                            <a href="{{ route('login') }}" class="flex flex-col items-center text-gray-600 hover:text-blue-600 transition group">
+                                <i class="fas fa-user-circle text-xl mb-1 nav-icon"></i>
+                                <span class="text-xs font-medium">Connexion</span>
+                            </a>
+                        @else
+                            <div class="relative group">
+                                <a href="{{ route('profile') }}" class="flex flex-col items-center text-gray-600 hover:text-blue-600 transition">
+                                    <i class="fas fa-user-circle text-xl mb-1 nav-icon"></i>
+                                    <span class="text-xs font-medium">Mon Compte</span>
+                                </a>
+                                <!-- Dropdown Menu -->
+                                <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                    <div class="py-2">
+                                        <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            <i class="fas fa-user mr-2"></i> Mon Profil
+                                        </a>
+                                        <a href="{{ route('orders.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            <i class="fas fa-shopping-bag mr-2"></i> Mes Commandes
+                                        </a>
+                                        <a href="{{ route('favorites.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            <i class="fas fa-heart mr-2"></i> Mes Favoris
+                                        </a>
+                                        <hr class="my-1">
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                                                <i class="fas fa-sign-out-alt mr-2"></i> Déconnexion
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endguest
+                    </div>
+
+                    <!-- Mobile menu button -->
+                    <button class="md:hidden text-gray-600 ml-4">
+                        <i class="fas fa-bars text-2xl"></i>
                     </button>
-                </form>
-                <!-- Icons -->
-                <div class="flex items-center space-x-4">
-                    <a href="{{ route('cart.index') }}" class="text-gray-600 hover:text-blue-600 relative">
-                        <i class="fas fa-shopping-cart text-lg"></i>
-                        @if(session('cart_count', 0) > 0)
-                            <span class="absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{{ session('cart_count', 0) }}</span>
-                        @endif
-                    </a>
-                    @guest
-                        <a href="{{ route('login') }}" class="text-gray-600 hover:text-blue-600">
-                            <i class="fas fa-user text-lg"></i>
-                        </a>
-                    @else
-                        <a href="{{ route('profile') }}" class="text-gray-600 hover:text-blue-600">
-                            <i class="fas fa-user text-lg"></i>
-                        </a>
-                    @endguest
                 </div>
-                <!-- Mobile menu button -->
-                <button class="md:hidden text-gray-600 ml-4">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
+
+                <!-- Mobile Search Bar -->
+                <form action="{{ route('products.index') }}" method="GET" class="flex md:hidden mt-3">
+                    <div class="relative w-full">
+                        <input type="text" 
+                               name="search" 
+                               placeholder="Rechercher un produit..." 
+                               class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <!-- Mobile Search Bar -->
-            <form action="{{ route('products.index') }}" method="GET" class="flex md:hidden px-4 pb-2">
-                <input type="text" name="search" placeholder="Rechercher un produit..." class="w-full px-4 py-2 rounded-l-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-lg">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
         </nav>
 
         <!-- Page Content -->
