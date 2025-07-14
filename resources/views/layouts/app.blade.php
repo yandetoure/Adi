@@ -15,6 +15,73 @@
         .cart-btn:hover { background-color: #3b82f6; color: white; }
         .nav-icon { transition: all 0.3s ease; }
         .nav-icon:hover { transform: scale(1.1); }
+        
+        /* Styles pour les favoris */
+        .favorite-btn { 
+            position: absolute; 
+            top: 15px; 
+            right: 15px; 
+            width: 45px; 
+            height: 45px; 
+            border-radius: 50%; 
+            background: rgba(255,255,255,0.95); 
+            border: none; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10;
+            font-size: 1.2rem;
+        }
+        .favorite-btn:hover { 
+            background: #ef4444; 
+            color: white; 
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+        }
+        .favorite-btn.favorited { 
+            background: #ef4444; 
+            color: white;
+            animation: heartBeat 0.6s ease-in-out;
+        }
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.3); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.3); }
+            70% { transform: scale(1); }
+        }
+        
+        /* Styles pour les notifications */
+        .notification {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 9999;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            transform: translateX(100%);
+        }
+        .notification.show {
+            transform: translateX(0);
+        }
+        .notification.success {
+            background-color: #10b981;
+            color: white;
+        }
+        .notification.error {
+            background-color: #ef4444;
+            color: white;
+        }
+        .notification.info {
+            background-color: #3b82f6;
+            color: white;
+        }
     </style>
     <title>@yield('title', 'ADI - Votre boutique en ligne')</title>
     <meta name="description" content="@yield('meta_description', 'ADI, votre boutique en ligne de confiance pour tous vos besoins. Découvrez notre sélection de produits de qualité.')">
@@ -325,5 +392,118 @@
 
     <!-- Scripts -->
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    
+    <!-- Scripts globaux pour les favoris -->
+    <script>
+        // Fonction pour gérer les favoris
+        function toggleFavorite(productId, button) {
+            const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const icon = button.querySelector('i');
+            const isFavorited = button.classList.contains('favorited');
+            
+            fetch('/favorites/toggle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': token,
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    product_id: productId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (data.favorited) {
+                        button.classList.add('favorited');
+                        icon.style.color = 'white';
+                        showNotification('Produit ajouté aux favoris !', 'success');
+                    } else {
+                        button.classList.remove('favorited');
+                        icon.style.color = '';
+                        showNotification('Produit retiré des favoris', 'info');
+                    }
+                } else {
+                    showNotification('Erreur lors de la gestion des favoris', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                showNotification('Erreur lors de la gestion des favoris', 'error');
+            });
+        }
+
+        // Fonction pour vérifier l'état des favoris au chargement
+        function checkFavoritesOnLoad() {
+            const favoriteButtons = document.querySelectorAll('.favorite-btn');
+            const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            
+            favoriteButtons.forEach(button => {
+                const productId = button.getAttribute('data-product-id');
+                
+                fetch(`/favorites/check?product_id=${productId}`, {
+                    headers: {
+                        'X-CSRF-TOKEN': token,
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.favorited) {
+                        button.classList.add('favorited');
+                        const icon = button.querySelector('i');
+                        icon.style.color = 'white';
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la vérification des favoris:', error);
+                });
+            });
+        }
+
+        // Vérifier les favoris au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            checkFavoritesOnLoad();
+        });
+
+        // Fonction pour afficher les notifications
+        function showNotification(message, type = 'info') {
+            // Créer l'élément de notification
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full ${
+                type === 'success' ? 'bg-green-500 text-white' : 
+                type === 'error' ? 'bg-red-500 text-white' : 
+                'bg-blue-500 text-white'
+            }`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-2"></i>
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-white hover:text-gray-200">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            
+            // Ajouter au DOM
+            document.body.appendChild(notification);
+            
+            // Animer l'entrée
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Supprimer automatiquement après 3 secondes
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.remove();
+                    }
+                }, 300);
+            }, 3000);
+        }
+    </script>
 </body>
 </html> 

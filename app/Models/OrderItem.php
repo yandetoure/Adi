@@ -13,13 +13,19 @@ class OrderItem extends Model
     protected $fillable = [
         'order_id',
         'product_id',
+        'product_name',
+        'product_sku',
         'quantity',
-        'price',
+        'unit_price',
+        'total_price',
+        'product_options',
     ];
 
     protected $casts = [
         'quantity' => 'integer',
-        'price' => 'decimal:2',
+        'unit_price' => 'decimal:2',
+        'total_price' => 'decimal:2',
+        'product_options' => 'array',
     ];
 
     /**
@@ -43,6 +49,6 @@ class OrderItem extends Model
      */
     public function getTotalAttribute(): float
     {
-        return $this->price * $this->quantity;
+        return $this->total_price;
     }
 }

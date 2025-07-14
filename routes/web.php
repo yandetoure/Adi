@@ -9,6 +9,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\SeoController;
+use App\Http\Controllers\FavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,7 @@ Route::middleware('auth')->group(function () {
     
     // Orders routes
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/create', [OrderController::class, 'create'])->name('orders.create');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
     
@@ -60,6 +62,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/favorites', [ProductController::class, 'favorites'])->name('favorites.index');
     Route::post('/favorites/add/{product}', [ProductController::class, 'addToFavorites'])->name('favorites.add');
     Route::delete('/favorites/remove/{product}', [ProductController::class, 'removeFromFavorites'])->name('favorites.remove');
+    
+    // New favorites routes with AJAX support
+    Route::post('/favorites/toggle', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
+    Route::get('/favorites/check', [FavoriteController::class, 'check'])->name('favorites.check');
 });
 
 // Admin routes

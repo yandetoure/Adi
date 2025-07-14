@@ -88,8 +88,8 @@
 
                                 <!-- Price -->
                                 <div class="text-right">
-                                    <p class="font-bold text-gray-900">{{ number_format($item->price, 2) }} Fcfa</p>
-                                    <p class="text-sm text-gray-600">Prix unitaire: {{ number_format($item->price / $item->quantity, 2) }} Fcfa</p>
+                                                            <p class="font-bold text-gray-900">{{ number_format($item->total_price, 0, ',', ' ') }} FCFA</p>
+                        <p class="text-sm text-gray-600">Prix unitaire: {{ number_format($item->unit_price, 0, ',', ' ') }} FCFA</p>
                                 </div>
                             </div>
                         @endforeach
