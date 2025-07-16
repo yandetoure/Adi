@@ -51,8 +51,17 @@ class ProductController extends Controller
             'meta_title' => 'nullable|string|max:60',
             'meta_description' => 'nullable|string|max:160',
             'meta_keywords' => 'nullable|string|max:255',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'secondary_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'default_image_url' => 'nullable|url|max:500',
+            'mode_emploi' => 'nullable|string',
+            'caracteristiques' => 'nullable|string',
+            'sku' => 'nullable|string|max:255',
+            'barcode' => 'nullable|string|max:255',
+            'weight' => 'nullable|numeric|min:0',
+            'length' => 'nullable|numeric|min:0',
+            'width' => 'nullable|numeric|min:0',
+            'height' => 'nullable|numeric|min:0',
         ]);
 
                 // Convertir les valeurs booléennes
@@ -75,8 +84,13 @@ class ProductController extends Controller
         }
 
         // Gestion des images
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
+        if ($request->hasFile('main_image')) {
+            $product->addMedia($request->file('main_image'))
+                ->toMediaCollection('main_images', 'public');
+        }
+
+        if ($request->hasFile('secondary_images')) {
+            foreach ($request->file('secondary_images') as $image) {
                 $product->addMedia($image)
                     ->toMediaCollection('images', 'public');
             }
@@ -122,10 +136,19 @@ class ProductController extends Controller
             'meta_title' => 'nullable|string|max:60',
             'meta_description' => 'nullable|string|max:160',
             'meta_keywords' => 'nullable|string|max:255',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'secondary_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'default_image_url' => 'nullable|url|max:500',
             'remove_images' => 'nullable|array',
             'remove_images.*' => 'exists:media,id',
+            'mode_emploi' => 'nullable|string',
+            'caracteristiques' => 'nullable|string',
+            'sku' => 'nullable|string|max:255',
+            'barcode' => 'nullable|string|max:255',
+            'weight' => 'nullable|numeric|min:0',
+            'length' => 'nullable|numeric|min:0',
+            'width' => 'nullable|numeric|min:0',
+            'height' => 'nullable|numeric|min:0',
         ]);
 
                 // Convertir les valeurs booléennes
@@ -157,14 +180,24 @@ class ProductController extends Controller
             }
         }
 
-        // Ajouter de nouvelles images
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
+        // Ajouter l'image principale
+        if ($request->hasFile('main_image')) {
+            // Supprimer l'ancienne image principale s'il y en a une
+            $product->clearMediaCollection('main_images');
+
+            $product->addMedia($request->file('main_image'))
+                ->toMediaCollection('main_images', 'public');
+        }
+
+        // Ajouter de nouvelles images secondaires
+        if ($request->hasFile('secondary_images')) {
+            foreach ($request->file('secondary_images') as $image) {
                 $product->addMedia($image)
                     ->toMediaCollection('images', 'public');
             }
         }
 
+        Log::info('Redirection vers admin.products.index');
         return redirect()->route('admin.products.index')
             ->with('success', 'Produit mis à jour avec succès.');
     }

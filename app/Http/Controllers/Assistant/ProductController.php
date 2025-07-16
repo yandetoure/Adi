@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Assistant;
 
-use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -18,7 +19,7 @@ class ProductController extends Controller
             ->latest()
             ->paginate(15);
 
-        return view('admin.products.index', compact('products'));
+        return view('assistant.products.index', compact('products'));
     }
 
     public function create(): View
@@ -37,19 +38,50 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
             'is_active' => 'boolean',
-            'stock' => 'required|integer|min:0',
+            'stock_quantity' => 'required|integer|min:0',
             'meta_title' => 'nullable|string|max:60',
             'meta_description' => 'nullable|string|max:160',
             'meta_keywords' => 'nullable|string|max:255',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'secondary_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'default_image_url' => 'nullable|url|max:500',
+            'mode_emploi' => 'nullable|string',
+            'caracteristiques' => 'nullable|string',
+            'sku' => 'nullable|string|max:255',
+            'barcode' => 'nullable|string|max:255',
+            'weight' => 'nullable|numeric|min:0',
+            'length' => 'nullable|numeric|min:0',
+            'width' => 'nullable|numeric|min:0',
+            'height' => 'nullable|numeric|min:0',
         ]);
 
-        $product = Product::create($validated);
+        // Convertir les valeurs booléennes
+        $validated['is_active'] = $request->has('is_active');
+
+        // Debug: Afficher les données validées
+        Log::info('Données validées pour la création du produit (Assistant):', $validated);
+
+        try {
+            $product = Product::create($validated);
+            Log::info('Produit créé avec succès (Assistant):', ['id' => $product->id, 'name' => $product->name]);
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la création du produit (Assistant):', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['error' => 'Erreur lors de la création du produit: ' . $e->getMessage()]);
+        }
 
         // Gestion des images
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
+        if ($request->hasFile('main_image')) {
+            $product->addMedia($request->file('main_image'))
+                ->toMediaCollection('main_images', 'public');
+        }
+
+        if ($request->hasFile('secondary_images')) {
+            foreach ($request->file('secondary_images') as $image) {
                 $product->addMedia($image)
                     ->toMediaCollection('images', 'public');
             }
@@ -82,17 +114,43 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
             'is_active' => 'boolean',
-            'stock' => 'required|integer|min:0',
+            'stock_quantity' => 'required|integer|min:0',
             'meta_title' => 'nullable|string|max:60',
             'meta_description' => 'nullable|string|max:160',
             'meta_keywords' => 'nullable|string|max:255',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'secondary_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'default_image_url' => 'nullable|url|max:500',
             'remove_images' => 'nullable|array',
             'remove_images.*' => 'exists:media,id',
+            'mode_emploi' => 'nullable|string',
+            'caracteristiques' => 'nullable|string',
+            'sku' => 'nullable|string|max:255',
+            'barcode' => 'nullable|string|max:255',
+            'weight' => 'nullable|numeric|min:0',
+            'length' => 'nullable|numeric|min:0',
+            'width' => 'nullable|numeric|min:0',
+            'height' => 'nullable|numeric|min:0',
         ]);
 
-        $product->update($validated);
+        // Convertir les valeurs booléennes
+        $validated['is_active'] = $request->has('is_active');
+
+        // Debug: Afficher les données validées
+        Log::info('Données validées pour la mise à jour du produit (Assistant):', $validated);
+
+        try {
+            $product->update($validated);
+            Log::info('Produit mis à jour avec succès (Assistant):', ['id' => $product->id, 'name' => $product->name]);
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la mise à jour du produit (Assistant):', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['error' => 'Erreur lors de la mise à jour du produit: ' . $e->getMessage()]);
+        }
 
         // Supprimer les images sélectionnées
         if ($request->has('remove_images')) {
@@ -104,9 +162,18 @@ class ProductController extends Controller
             }
         }
 
-        // Ajouter de nouvelles images
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
+        // Ajouter l'image principale
+        if ($request->hasFile('main_image')) {
+            // Supprimer l'ancienne image principale s'il y en a une
+            $product->clearMediaCollection('main_images');
+
+            $product->addMedia($request->file('main_image'))
+                ->toMediaCollection('main_images', 'public');
+        }
+
+        // Ajouter de nouvelles images secondaires
+        if ($request->hasFile('secondary_images')) {
+            foreach ($request->file('secondary_images') as $image) {
                 $product->addMedia($image)
                     ->toMediaCollection('images', 'public');
             }
@@ -138,4 +205,4 @@ class ProductController extends Controller
 
         return redirect()->back()->with('success', 'Image supprimée avec succès.');
     }
-} 
+}

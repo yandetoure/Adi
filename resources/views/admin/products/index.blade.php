@@ -17,11 +17,11 @@
                     </p>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.dashboard') : route('admin.dashboard') }}" 
+                    <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.dashboard') : route('admin.dashboard') }}"
                        class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm">
                         Retour au Dashboard
                     </a>
-                    <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.products.create') : route('admin.products.create') }}" 
+                    <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.products.create') : route('admin.products.create') }}"
                        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">
                         <i class="fas fa-plus mr-2"></i>Nouveau Produit
                     </a>
@@ -49,7 +49,7 @@
             <div class="px-6 py-4 border-b border-gray-200">
                 <h2 class="text-lg font-semibold text-gray-900">Liste des Produits</h2>
             </div>
-            
+
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
@@ -81,8 +81,8 @@
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
                                                                                     @if($product->getFirstMediaUrl('images') && $product->getFirstMediaUrl('images') !== '')
-                                            <img class="h-10 w-10 rounded-lg object-cover" 
-                                                 src="{{ $product->getFirstMediaUrl('images') }}" 
+                                            <img class="h-10 w-10 rounded-lg object-cover"
+                                                 src="{{ $product->getFirstMediaUrl('images') }}"
                                                  alt="{{ $product->name }}">
                                         @else
                                             <div class="h-10 w-10 rounded-lg bg-gray-200 flex items-center justify-center">
@@ -116,27 +116,27 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="text-sm text-gray-900">{{ $product->stock }}</span>
+                                    <span class="text-sm text-gray-900">{{ $product->stock_quantity }}</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                         {{ $product->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                                         {{ $product->is_active ? 'Actif' : 'Inactif' }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <div class="flex space-x-2">
-                                        <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.products.show', $product) : route('admin.products.show', $product) }}" 
+                                        <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.products.show', $product) : route('admin.products.show', $product) }}"
                                            class="text-blue-600 hover:text-blue-900">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.products.edit', $product) : route('admin.products.edit', $product) }}" 
+                                        <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.products.edit', $product) : route('admin.products.edit', $product) }}"
                                            class="text-indigo-600 hover:text-indigo-900">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         @if(auth()->user()->hasRole(['admin', 'super-admin']))
-                                            <form action="{{ route('admin.products.destroy', $product) }}" 
-                                                  method="POST" 
+                                            <form action="{{ route('admin.products.destroy', $product) }}"
+                                                  method="POST"
                                                   class="inline"
                                                   onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')">
                                                 @csrf
@@ -159,7 +159,7 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <!-- Pagination -->
             <div class="px-6 py-4 border-t border-gray-200">
                 {{ $products->links() }}
@@ -167,4 +167,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

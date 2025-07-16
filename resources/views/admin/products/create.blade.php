@@ -148,26 +148,171 @@
                 </div>
             </div>
 
-            <!-- Images -->
+                        <!-- Images -->
             <div class="mt-8">
                 <h3 class="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2 mb-4">Images</h3>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                        <input type="file" id="images" name="images[]" multiple accept="image/*" class="hidden" onchange="previewImages(this)">
-                        <label for="images" class="cursor-pointer">
-                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <p class="mt-1 text-sm text-gray-600">Cliquez pour ajouter des images</p>
-                            <p class="text-xs text-gray-500">PNG, JPG, GIF jusqu'à 2MB</p>
-                        </label>
+                <!-- Image principale -->
+                <div class="mb-6">
+                    <h4 class="text-md font-medium text-gray-800 mb-3">Image principale</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                            <input type="file" id="main_image" name="main_image" accept="image/*" class="hidden" onchange="previewMainImage(this)">
+                            <label for="main_image" class="cursor-pointer">
+                                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <p class="mt-1 text-sm text-gray-600">Image principale</p>
+                                <p class="text-xs text-gray-500">PNG, JPG, GIF jusqu'à 2MB</p>
+                            </label>
+                        </div>
+                        <div id="main-image-preview" class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                            <p class="text-gray-500">Aperçu de l'image principale</p>
+                        </div>
                     </div>
-                    <div id="image-preview" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                    @error('main_image')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
-                @error('images.*')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
+
+                <!-- Images secondaires -->
+                <div class="mb-6">
+                    <h4 class="text-md font-medium text-gray-800 mb-3">Images secondaires</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                            <input type="file" id="secondary_images" name="secondary_images[]" multiple accept="image/*" class="hidden" onchange="previewSecondaryImages(this)">
+                            <label for="secondary_images" class="cursor-pointer">
+                                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <p class="mt-1 text-sm text-gray-600">Images secondaires</p>
+                                <p class="text-xs text-gray-500">PNG, JPG, GIF jusqu'à 2MB</p>
+                            </label>
+                        </div>
+                        <div id="secondary-images-preview" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                    </div>
+                    @error('secondary_images.*')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>
+
+            <!-- Caractéristiques techniques -->
+            <div class="mt-8">
+                <h3 class="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2 mb-4">Caractéristiques techniques</h3>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Mode d'emploi -->
+                    <div>
+                        <label for="mode_emploi" class="block text-sm font-medium text-gray-700 mb-1">Mode d'emploi</label>
+                        <textarea name="mode_emploi"
+                                  id="mode_emploi"
+                                  rows="4"
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('mode_emploi') }}</textarea>
+                        @error('mode_emploi')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Caractéristiques -->
+                    <div>
+                        <label for="caracteristiques" class="block text-sm font-medium text-gray-700 mb-1">Caractéristiques</label>
+                        <textarea name="caracteristiques"
+                                  id="caracteristiques"
+                                  rows="4"
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('caracteristiques') }}</textarea>
+                        @error('caracteristiques')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Informations techniques détaillées -->
+                <div class="mt-6 space-y-4">
+                    <h4 class="text-md font-medium text-gray-800">Informations techniques</h4>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div>
+                            <label for="sku" class="block text-sm font-medium text-gray-700 mb-1">SKU</label>
+                            <input type="text"
+                                   name="sku"
+                                   id="sku"
+                                   value="{{ old('sku') }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @error('sku')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="barcode" class="block text-sm font-medium text-gray-700 mb-1">Code-barres</label>
+                            <input type="text"
+                                   name="barcode"
+                                   id="barcode"
+                                   value="{{ old('barcode') }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @error('barcode')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="weight" class="block text-sm font-medium text-gray-700 mb-1">Poids (kg)</label>
+                            <input type="number"
+                                   name="weight"
+                                   id="weight"
+                                   value="{{ old('weight') }}"
+                                   step="0.01"
+                                   min="0"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @error('weight')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="length" class="block text-sm font-medium text-gray-700 mb-1">Longueur (cm)</label>
+                            <input type="number"
+                                   name="length"
+                                   id="length"
+                                   value="{{ old('length') }}"
+                                   step="0.01"
+                                   min="0"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @error('length')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="width" class="block text-sm font-medium text-gray-700 mb-1">Largeur (cm)</label>
+                            <input type="number"
+                                   name="width"
+                                   id="width"
+                                   value="{{ old('width') }}"
+                                   step="0.01"
+                                   min="0"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @error('width')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="height" class="block text-sm font-medium text-gray-700 mb-1">Hauteur (cm)</label>
+                            <input type="number"
+                                   name="height"
+                                   id="height"
+                                   value="{{ old('height') }}"
+                                   step="0.01"
+                                   min="0"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @error('height')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- SEO -->
@@ -224,8 +369,34 @@
 </div>
 
 <script>
-function previewImages(input) {
-    const preview = document.getElementById('image-preview');
+// Prévisualisation de l'image principale
+function previewMainImage(input) {
+    const preview = document.getElementById('main-image-preview');
+
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.innerHTML = `
+                <img src="${e.target.result}" class="w-full h-32 object-cover rounded-lg">
+                <button type="button" onclick="removeMainImage()" class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">
+                    ×
+                </button>
+            `;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function removeMainImage() {
+    const input = document.getElementById('main_image');
+    input.value = '';
+    const preview = document.getElementById('main-image-preview');
+    preview.innerHTML = '<p class="text-gray-500">Aperçu de l\'image principale</p>';
+}
+
+// Prévisualisation des images secondaires
+function previewSecondaryImages(input) {
+    const preview = document.getElementById('secondary-images-preview');
     preview.innerHTML = '';
 
     if (input.files) {
@@ -236,7 +407,7 @@ function previewImages(input) {
                 div.className = 'relative';
                 div.innerHTML = `
                     <img src="${e.target.result}" class="w-full h-32 object-cover rounded-lg">
-                    <button type="button" onclick="removeImage(${index})" class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">
+                    <button type="button" onclick="removeSecondaryImage(${index})" class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">
                         ×
                     </button>
                 `;
@@ -247,8 +418,8 @@ function previewImages(input) {
     }
 }
 
-function removeImage(index) {
-    const input = document.getElementById('images');
+function removeSecondaryImage(index) {
+    const input = document.getElementById('secondary_images');
     const dt = new DataTransfer();
 
     Array.from(input.files).forEach((file, i) => {
@@ -258,7 +429,7 @@ function removeImage(index) {
     });
 
     input.files = dt.files;
-    previewImages(input);
+    previewSecondaryImages(input);
 }
 
 // Auto-génération du slug
