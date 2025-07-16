@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ProductController extends Controller
@@ -46,7 +47,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
             'is_active' => 'boolean',
-            'stock' => 'required|integer|min:0',
+            'stock_quantity' => 'required|integer|min:0',
             'meta_title' => 'nullable|string|max:60',
             'meta_description' => 'nullable|string|max:160',
             'meta_keywords' => 'nullable|string|max:255',
@@ -54,7 +55,24 @@ class ProductController extends Controller
             'default_image_url' => 'nullable|url|max:500',
         ]);
 
-        $product = Product::create($validated);
+                // Convertir les valeurs booléennes
+        $validated['is_active'] = $request->has('is_active');
+
+                // Debug: Afficher les données validées
+        Log::info('Données validées pour la création du produit:', $validated);
+
+        try {
+            $product = Product::create($validated);
+            Log::info('Produit créé avec succès:', ['id' => $product->id, 'name' => $product->name]);
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la création du produit:', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['error' => 'Erreur lors de la création du produit: ' . $e->getMessage()]);
+        }
 
         // Gestion des images
         if ($request->hasFile('images')) {
@@ -100,7 +118,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
             'is_active' => 'boolean',
-            'stock' => 'required|integer|min:0',
+            'stock_quantity' => 'required|integer|min:0',
             'meta_title' => 'nullable|string|max:60',
             'meta_description' => 'nullable|string|max:160',
             'meta_keywords' => 'nullable|string|max:255',
@@ -110,7 +128,24 @@ class ProductController extends Controller
             'remove_images.*' => 'exists:media,id',
         ]);
 
-        $product->update($validated);
+                // Convertir les valeurs booléennes
+        $validated['is_active'] = $request->has('is_active');
+
+        // Debug: Afficher les données validées
+        Log::info('Données validées pour la mise à jour du produit:', $validated);
+
+        try {
+            $product->update($validated);
+            Log::info('Produit mis à jour avec succès:', ['id' => $product->id, 'name' => $product->name]);
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la mise à jour du produit:', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['error' => 'Erreur lors de la mise à jour du produit: ' . $e->getMessage()]);
+        }
 
         // Supprimer les images sélectionnées
         if ($request->has('remove_images')) {

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1); 
+<?php declare(strict_types=1);
 
 namespace App\Models;
 
@@ -39,6 +39,7 @@ class Product extends Model implements HasMedia
         'meta_description',
         'meta_keywords',
         'view_count',
+        'default_image_url',
     ];
 
     protected $casts = [

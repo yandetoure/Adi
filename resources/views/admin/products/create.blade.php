@@ -33,11 +33,35 @@
         <form method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data" class="p-6">
             @csrf
 
+            @if($errors->any())
+                <div class="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-red-800">
+                                Erreurs lors de la création du produit
+                            </h3>
+                            <div class="mt-2 text-sm text-red-700">
+                                <ul class="list-disc pl-5 space-y-1">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <!-- Informations de base -->
                 <div class="space-y-6">
                     <h3 class="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">Informations de base</h3>
-                    
+
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nom du produit *</label>
                         <input type="text" id="name" name="name" value="{{ old('name') }}" required
@@ -78,7 +102,7 @@
                 <!-- Prix et stock -->
                 <div class="space-y-6">
                     <h3 class="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">Prix et stock</h3>
-                    
+
                     <div>
                         <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Prix *</label>
                         <div class="relative">
@@ -127,7 +151,7 @@
             <!-- Images -->
             <div class="mt-8">
                 <h3 class="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2 mb-4">Images</h3>
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
                         <input type="file" id="images" name="images[]" multiple accept="image/*" class="hidden" onchange="previewImages(this)">
@@ -149,7 +173,7 @@
             <!-- SEO -->
             <div class="mt-8">
                 <h3 class="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2 mb-4">Optimisation SEO</h3>
-                
+
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div>
                         <label for="meta_title" class="block text-sm font-medium text-gray-700 mb-1">Titre SEO</label>
@@ -186,11 +210,11 @@
 
             <!-- Actions -->
             <div class="mt-8 flex justify-end space-x-4">
-                <a href="{{ route('admin.products.index') }}" 
+                <a href="{{ route('admin.products.index') }}"
                    class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
                     Annuler
                 </a>
-                <button type="submit" 
+                <button type="submit"
                         class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                     Créer le produit
                 </button>
@@ -203,7 +227,7 @@
 function previewImages(input) {
     const preview = document.getElementById('image-preview');
     preview.innerHTML = '';
-    
+
     if (input.files) {
         Array.from(input.files).forEach((file, index) => {
             const reader = new FileReader();
@@ -226,13 +250,13 @@ function previewImages(input) {
 function removeImage(index) {
     const input = document.getElementById('images');
     const dt = new DataTransfer();
-    
+
     Array.from(input.files).forEach((file, i) => {
         if (i !== index) {
             dt.items.add(file);
         }
     });
-    
+
     input.files = dt.files;
     previewImages(input);
 }
@@ -248,4 +272,4 @@ document.getElementById('name').addEventListener('input', function() {
     document.getElementById('slug').value = slug;
 });
 </script>
-@endsection 
+@endsection
