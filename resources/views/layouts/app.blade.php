@@ -15,35 +15,35 @@
         .cart-btn:hover { background-color: #3b82f6; color: white; }
         .nav-icon { transition: all 0.3s ease; }
         .nav-icon:hover { transform: scale(1.1); }
-        
+
         /* Styles pour les favoris */
-        .favorite-btn { 
-            position: absolute; 
-            top: 15px; 
-            right: 15px; 
-            width: 45px; 
-            height: 45px; 
-            border-radius: 50%; 
-            background: rgba(255,255,255,0.95); 
-            border: none; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            cursor: pointer; 
+        .favorite-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.95);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             z-index: 10;
             font-size: 1.2rem;
         }
-        .favorite-btn:hover { 
-            background: #ef4444; 
-            color: white; 
+        .favorite-btn:hover {
+            background: #ef4444;
+            color: white;
             transform: scale(1.1);
             box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
         }
-        .favorite-btn.favorited { 
-            background: #ef4444; 
+        .favorite-btn.favorited {
+            background: #ef4444;
             color: white;
             animation: heartBeat 0.6s ease-in-out;
         }
@@ -54,7 +54,7 @@
             42% { transform: scale(1.3); }
             70% { transform: scale(1); }
         }
-        
+
         /* Styles pour les notifications */
         .notification {
             position: fixed;
@@ -89,10 +89,10 @@
     <meta name="author" content="ADI Store">
     <meta name="robots" content="index, follow">
     <meta name="language" content="{{ str_replace('_', '-', app()->getLocale()) }}">
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ url()->current() }}">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
@@ -119,7 +119,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}">
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -127,7 +127,7 @@
 
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+
     <!-- Structured Data -->
     @yield('structured_data')
 </head>
@@ -141,7 +141,7 @@
                     <div class="flex items-center">
                         <a href="{{ route('home') }}" class="flex items-center">
                             <div>
-                                <img src="images/logo.png" alt="ADI Logo" class="h-10 mr-10">
+                                <img src="{{ asset('images/logo.png') }}" alt="ADI Logo" class="h-10 mr-10">
                                 <p class="text-xs text-gray-600">Informatique</p>
                             </div>
                         </a>
@@ -159,9 +159,9 @@
                     <!-- Search Bar -->
                     <form action="{{ route('products.index') }}" method="GET" class="hidden md:flex flex-1 max-w-md mx-8">
                         <div class="relative w-full">
-                            <input type="text" 
-                                   name="search" 
-                                   placeholder="Rechercher un produit..." 
+                            <input type="text"
+                                   name="search"
+                                   placeholder="Rechercher un produit..."
                                    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i class="fas fa-search text-gray-400"></i>
@@ -233,9 +233,17 @@
                         </div>
 
                         <!-- Favorites -->
-                        <a href="#" class="flex flex-col items-center text-gray-600 hover:text-red-500 transition group">
+                        <a href="{{ route('favorites.index') }}" class="flex flex-col items-center text-gray-600 hover:text-red-500 transition group relative">
                             <i class="fas fa-heart text-xl mb-1 nav-icon"></i>
                             <span class="text-xs font-medium">Favoris</span>
+                            @auth
+                                @php
+                                    $favoritesCount = auth()->user()->favorites()->count();
+                                @endphp
+                                @if($favoritesCount > 0)
+                                    <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">{{ $favoritesCount }}</span>
+                                @endif
+                            @endauth
                         </a>
 
                         <!-- Cart -->
@@ -243,9 +251,18 @@
                             <a href="{{ route('cart.index') }}" class="flex flex-col items-center text-gray-600 hover:text-blue-600 transition relative">
                                 <i class="fas fa-shopping-cart text-xl mb-1 nav-icon"></i>
                                 <span class="text-xs font-medium">Panier</span>
-                                @if(session('cart_count', 0) > 0)
-                                    <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">{{ session('cart_count', 0) }}</span>
-                                @endif
+                                @auth
+                                    @php
+                                        $cartCount = auth()->user()->cartItems()->sum('quantity');
+                                    @endphp
+                                    @if($cartCount > 0)
+                                        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">{{ $cartCount }}</span>
+                                    @endif
+                                @else
+                                    @if(session('cart_count', 0) > 0)
+                                        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">{{ session('cart_count', 0) }}</span>
+                                    @endif
+                                @endauth
                             </a>
                             <!-- Cart Dropdown Preview -->
                             @if(session('cart_count', 0) > 0)
@@ -293,6 +310,12 @@
                                         <a href="{{ route('favorites.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                             <i class="fas fa-heart mr-2"></i> Mes Favoris
                                         </a>
+                                        @if(auth()->user()->hasRole(['admin', 'super-admin']))
+                                            <hr class="my-1">
+                                            <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                                <i class="fas fa-tachometer-alt mr-2"></i> Tableau de bord
+                                            </a>
+                                        @endif
                                         <hr class="my-1">
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
@@ -315,9 +338,9 @@
                 <!-- Mobile Search Bar -->
                 <form action="{{ route('products.index') }}" method="GET" class="flex md:hidden mt-3">
                     <div class="relative w-full">
-                        <input type="text" 
-                               name="search" 
-                               placeholder="Rechercher un produit..." 
+                        <input type="text"
+                               name="search"
+                               placeholder="Rechercher un produit..."
                                class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <i class="fas fa-search text-gray-400"></i>
@@ -338,7 +361,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                     <div>
                         <div class="flex items-center mb-4">
-                            <img src="images/logo.png" alt="ADI Logo" class="h-10 mr-3">
+                            <img src="{{ asset('images/logo.png') }}" alt="ADI Logo" class="h-10 mr-3">
                             <span class="text-xl font-bold">ADI Informatique</span>
                         </div>
                         <p class="text-gray-400 mb-4">Votre fournisseur de matériel informatique et accessoires au Sénégal.</p>
@@ -387,12 +410,12 @@
                 </div>
             </div>
         </footer>
-    
+
     </div>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    
+
     <!-- Scripts globaux pour les favoris -->
     <script>
         // Fonction pour gérer les favoris
@@ -400,7 +423,7 @@
             const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             const icon = button.querySelector('i');
             const isFavorited = button.classList.contains('favorited');
-            
+
             fetch('/favorites/toggle', {
                 method: 'POST',
                 headers: {
@@ -438,10 +461,10 @@
         function checkFavoritesOnLoad() {
             const favoriteButtons = document.querySelectorAll('.favorite-btn');
             const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            
+
             favoriteButtons.forEach(button => {
                 const productId = button.getAttribute('data-product-id');
-                
+
                 fetch(`/favorites/check?product_id=${productId}`, {
                     headers: {
                         'X-CSRF-TOKEN': token,
@@ -472,8 +495,8 @@
             // Créer l'élément de notification
             const notification = document.createElement('div');
             notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full ${
-                type === 'success' ? 'bg-green-500 text-white' : 
-                type === 'error' ? 'bg-red-500 text-white' : 
+                type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' :
                 'bg-blue-500 text-white'
             }`;
             notification.innerHTML = `
@@ -485,15 +508,15 @@
                     </button>
                 </div>
             `;
-            
+
             // Ajouter au DOM
             document.body.appendChild(notification);
-            
+
             // Animer l'entrée
             setTimeout(() => {
                 notification.classList.remove('translate-x-full');
             }, 100);
-            
+
             // Supprimer automatiquement après 3 secondes
             setTimeout(() => {
                 notification.classList.add('translate-x-full');
@@ -506,4 +529,4 @@
         }
     </script>
 </body>
-</html> 
+</html>

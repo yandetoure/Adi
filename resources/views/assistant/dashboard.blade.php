@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', 'Tableau de bord - Assistante')
+@section('meta_description', 'Tableau de bord administrateur ADI Informatique')
+
 @section('content')
 <div class="min-h-screen bg-gray-100">
     <!-- Header -->
@@ -205,7 +208,7 @@
                                     <p class="text-sm text-gray-500">{{ $order->user->name ?? 'Utilisateur inconnu' }} - {{ number_format($order->total, 0, ',', ' ') }} FCFA</p>
                                 </div>
                                 <div class="flex items-center space-x-2">
-                                    <span class="px-2 py-1 text-xs rounded-full 
+                                    <span class="px-2 py-1 text-xs rounded-full
                                         @if($order->status === 'pending') bg-yellow-100 text-yellow-800
                                         @elseif($order->status === 'processing') bg-blue-100 text-blue-800
                                         @elseif($order->status === 'completed') bg-green-100 text-green-800
@@ -227,4 +230,4 @@
         </div>
     </section>
 </div>
-@endsection 
+@endsection

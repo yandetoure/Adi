@@ -27,109 +27,109 @@
     .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     .top-banner { background: linear-gradient(90deg, #ff6b6b, #ee5a24, #ff6b6b); background-size: 200% 100%; animation: gradient 3s ease infinite; }
     @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-    
+
     /* Nouveaux styles modernes */
     .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
-    .category-item { 
-        background: white; 
-        border-radius: 16px; 
-        padding: 1.5rem 1rem; 
-        text-align: center; 
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
-        transition: all 0.3s ease; 
+    .category-item {
+        background: white;
+        border-radius: 16px;
+        padding: 1.5rem 1rem;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
         border: 2px solid transparent;
     }
-    .category-item:hover { 
-        transform: translateY(-8px); 
-        box-shadow: 0 20px 40px rgba(0,0,0,0.15); 
+    .category-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         border-color: #3b82f6;
     }
-    .category-icon { 
-        width: 60px; 
-        height: 60px; 
-        border-radius: 16px; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        margin: 0 auto 1rem; 
+    .category-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
         font-size: 1.5rem;
         transition: all 0.3s ease;
     }
     .category-item:hover .category-icon { transform: scale(1.1); }
-    
-    .product-grid { 
-        display: grid; 
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
-        gap: 1rem; 
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
     }
-    .product-item { 
+    .product-item {
         background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-        border-radius: 20px; 
-        overflow: hidden; 
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1); 
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         transition: all 0.3s ease;
         border: 2px solid transparent;
         cursor: pointer;
         position: relative;
     }
-    .product-item:hover { 
-        transform: translateY(-10px); 
+    .product-item:hover {
+        transform: translateY(-10px);
         box-shadow: 0 25px 50px rgba(0,0,0,0.2);
         border-color: #3b82f6;
     }
-    .product-image-container { 
-        position: relative; 
-        height: 180px; 
-        overflow: hidden; 
+    .product-image-container {
+        position: relative;
+        height: 180px;
+        overflow: hidden;
         background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
     }
-    .product-image { 
-        width: 100%; 
-        height: 100%; 
-        object-fit: cover; 
+    .product-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
         transition: transform 0.3s ease;
     }
     .product-item:hover .product-image { transform: scale(1.1); }
-    .product-badge { 
-        position: absolute; 
-        top: 15px; 
-        left: 15px; 
-        background: linear-gradient(45deg, #ef4444, #dc2626); 
-        color: white; 
-        padding: 0.5rem 1rem; 
-        border-radius: 25px; 
-        font-size: 0.875rem; 
+    .product-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: linear-gradient(45deg, #ef4444, #dc2626);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        font-size: 0.875rem;
         font-weight: 700;
         z-index: 10;
         box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
     }
-    .favorite-btn { 
-        position: absolute; 
-        top: 10px; 
-        right: 10px; 
-        width: 35px; 
-        height: 35px; 
-        border-radius: 50%; 
-        background: rgba(255,255,255,0.95); 
-        border: none; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        cursor: pointer; 
+    .favorite-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.95);
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
         transition: all 0.3s ease;
         backdrop-filter: blur(10px);
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         z-index: 10;
         font-size: 1rem;
     }
-    .favorite-btn:hover { 
-        background: #ef4444; 
-        color: white; 
+    .favorite-btn:hover {
+        background: #ef4444;
+        color: white;
         transform: scale(1.1);
         box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
     }
-    .favorite-btn.favorited { 
-        background: #ef4444; 
+    .favorite-btn.favorited {
+        background: #ef4444;
         color: white;
         animation: heartBeat 0.6s ease-in-out;
     }
@@ -140,15 +140,15 @@
         42% { transform: scale(1.3); }
         70% { transform: scale(1); }
     }
-    .product-content { 
-        padding: 1rem; 
+    .product-content {
+        padding: 1rem;
         background: white;
     }
-    .product-title { 
-        font-size: 1rem; 
-        font-weight: 700; 
-        color: #1f2937; 
-        margin-bottom: 0.75rem; 
+    .product-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 0.75rem;
         line-height: 1.4;
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -156,58 +156,58 @@
         overflow: hidden;
         min-height: 2.5rem;
     }
-    .product-price { 
-        font-size: 1.25rem; 
-        font-weight: 800; 
-        color: #3b82f6; 
+    .product-price {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: #3b82f6;
         margin-bottom: 0.5rem;
     }
-    .product-old-price { 
-        font-size: 1rem; 
-        color: #9ca3af; 
+    .product-old-price {
+        font-size: 1rem;
+        color: #9ca3af;
         text-decoration: line-through;
         margin-right: 1rem;
         font-weight: 500;
     }
-    .product-discount { 
-        font-size: 1rem; 
-        color: #ef4444; 
+    .product-discount {
+        font-size: 1rem;
+        color: #ef4444;
         font-weight: 700;
         background: #fef2f2;
         padding: 0.375rem 0.75rem;
         border-radius: 12px;
     }
 
-    .product-category { 
-        font-size: 0.75rem; 
-        color: #6b7280; 
-        text-transform: uppercase; 
-        font-weight: 600; 
+    .product-category {
+        font-size: 0.75rem;
+        color: #6b7280;
+        text-transform: uppercase;
+        font-weight: 600;
         letter-spacing: 0.05em;
         margin-bottom: 0.75rem;
     }
-    .section-header { 
-        text-align: center; 
+    .section-header {
+        text-align: center;
         margin-bottom: 3rem;
     }
-    .section-title { 
-        font-size: 2.5rem; 
-        font-weight: 800; 
-        color: #1f2937; 
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #1f2937;
         margin-bottom: 1rem;
     }
-    .section-subtitle { 
-        font-size: 1.125rem; 
-        color: #6b7280; 
-        max-width: 600px; 
+    .section-subtitle {
+        font-size: 1.125rem;
+        color: #6b7280;
+        max-width: 600px;
         margin: 0 auto;
     }
-    .category-count { 
-        background: #f3f4f6; 
-        color: #6b7280; 
-        padding: 0.25rem 0.75rem; 
-        border-radius: 20px; 
-        font-size: 0.75rem; 
+    .category-count {
+        background: #f3f4f6;
+        color: #6b7280;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
         font-weight: 500;
         margin-top: 0.5rem;
         display: inline-block;
@@ -229,7 +229,7 @@
                     <span class="text-yellow-300">de confiance</span>
                 </h1>
                 <p class="text-xl mb-8 text-gray-100">
-                    Ordinateurs, accessoires et matériel informatique au meilleur prix. 
+                    Ordinateurs, accessoires et matériel informatique au meilleur prix.
                     Livraison rapide dans tout le Sénégal.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
@@ -268,14 +268,14 @@
             <h2 class="section-title">Explorez nos catégories</h2>
             <p class="section-subtitle">Découvrez notre gamme complète de produits informatiques organisés par catégorie</p>
         </div>
-        
+
         <div class="category-grid">
             @foreach($categories as $category)
                 @php
                     $icon = 'fas fa-laptop';
                     $bgColor = 'bg-blue-100';
                     $textColor = 'text-blue-600';
-                    
+
                     // Icônes et couleurs spécifiques selon le nom de la catégorie
                     if (stripos($category->name, 'ordinateur') !== false || stripos($category->name, 'pc') !== false) {
                         $icon = 'fas fa-laptop';
@@ -315,7 +315,7 @@
                         $textColor = 'text-blue-600';
                     }
                 @endphp
-                
+
                 <a href="{{ route('categories.show', $category) }}" class="category-item group">
                     <div class="category-icon {{ $bgColor }} {{ $textColor }}">
                         <i class="{{ $icon }}"></i>
@@ -347,51 +347,51 @@
                         <p class="text-gray-600">Découvrez nos meilleurs produits de cette catégorie</p>
                     </div>
                     <a href="{{ route('categories.show', $category) }}" class="text-blue-600 hover:text-blue-700 font-semibold flex items-center group">
-                        Voir tout 
+                        Voir tout
                         <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </a>
                 </div>
-                
+
                 <div class="product-grid">
                     @foreach($products as $product)
                         <div class="product-item" onclick="window.location.href='{{ route('products.show', $product) }}'">
                             <div class="product-image-container">
                                 @if($product->getFirstMediaUrl('images') && $product->getFirstMediaUrl('images') !== '')
-                                    <img src="{{ $product->getFirstMediaUrl('images') }}" 
-                                         alt="{{ $product->name }}" 
+                                    <img src="{{ $product->getFirstMediaUrl('images') }}"
+                                         alt="{{ $product->name }}"
                                          class="product-image">
                                 @else
                                     <div class="w-full h-full flex items-center justify-center">
                                         <i class="fas fa-image text-4xl text-gray-300"></i>
                                     </div>
                                 @endif
-                                
+
                                 @if($product->discount_percentage > 0)
                                     <div class="product-badge">
                                         -{{ $product->discount_percentage }}%
                                     </div>
                                 @endif
-                                
-                                <button class="favorite-btn" 
+
+                                <button class="favorite-btn"
                                         onclick="event.stopPropagation(); toggleFavorite({{ $product->id }}, this)"
                                         data-product-id="{{ $product->id }}"
                                         title="Ajouter aux favoris">
                                     <i class="fas fa-heart"></i>
                                 </button>
                             </div>
-                            
+
                             <div class="product-content">
                                 <div class="product-category">{{ $category->name }}</div>
                                 <h4 class="product-title">{{ $product->name }}</h4>
-                                
+
                                 @if($product->short_description)
                                     <p class="text-gray-600 text-sm mb-3">{{ Str::limit($product->short_description, 100) }}</p>
                                 @elseif($product->description)
                                     <p class="text-gray-600 text-sm mb-3">{{ Str::limit(strip_tags($product->description), 100) }}</p>
                                 @endif
-                                
 
-                                
+
+
                                 <div class="product-price">
                                     @if($product->discount_percentage > 0)
                                         <div class="flex items-center gap-3 mb-2">
@@ -411,7 +411,7 @@
                                         </span>
                                     @endif
                                 </div>
-                                
+
                                 <div class="mt-2 text-center">
                                     <span class="text-xs text-gray-500 font-medium">Cliquez pour voir les détails</span>
                                 </div>
@@ -432,7 +432,7 @@
             <h2 class="section-title">Pourquoi choisir ADI Informatique ?</h2>
             <p class="section-subtitle">Nous nous engageons à vous offrir la meilleure expérience d'achat</p>
         </div>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div class="text-center">
                 <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -505,7 +505,7 @@
     function addToCart(productId) {
         // Créer un token CSRF
         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        
+
         fetch('/cart/add', {
             method: 'POST',
             headers: {
@@ -523,7 +523,7 @@
             if (data.success) {
                 // Afficher une notification de succès
                 showNotification('Produit ajouté au panier !', 'success');
-                
+
                 // Mettre à jour le compteur du panier si il existe
                 const cartCount = document.getElementById('cart-count');
                 if (cartCount) {
@@ -545,7 +545,7 @@
         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         const icon = button.querySelector('i');
         const isFavorited = button.classList.contains('favorited');
-        
+
         fetch('/favorites/toggle', {
             method: 'POST',
             headers: {
@@ -583,10 +583,10 @@
     function checkFavoritesOnLoad() {
         const favoriteButtons = document.querySelectorAll('.favorite-btn');
         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        
+
         favoriteButtons.forEach(button => {
             const productId = button.getAttribute('data-product-id');
-            
+
             fetch(`/favorites/check?product_id=${productId}`, {
                 headers: {
                     'X-CSRF-TOKEN': token,
@@ -617,8 +617,8 @@
         // Créer l'élément de notification
         const notification = document.createElement('div');
         notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full ${
-            type === 'success' ? 'bg-green-500 text-white' : 
-            type === 'error' ? 'bg-red-500 text-white' : 
+            type === 'success' ? 'bg-green-500 text-white' :
+            type === 'error' ? 'bg-red-500 text-white' :
             'bg-blue-500 text-white'
         }`;
         notification.innerHTML = `
@@ -630,15 +630,15 @@
                 </button>
             </div>
         `;
-        
+
         // Ajouter au DOM
         document.body.appendChild(notification);
-        
+
         // Animer l'entrée
         setTimeout(() => {
             notification.classList.remove('translate-x-full');
         }, 100);
-        
+
         // Supprimer automatiquement après 3 secondes
         setTimeout(() => {
             notification.classList.add('translate-x-full');
