@@ -112,54 +112,83 @@
         right: 30px;
     }
 
-    /* Category Carousel */
-    .categories-carousel-container {
-        position: relative;
-        overflow: hidden;
-        padding: 0 60px;
-    }
-
-    .categories-carousel {
-        display: flex;
+    /* Category Cards */
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 24px;
-        transition: transform 0.5s ease-in-out;
+        margin-top: 2rem;
     }
 
     .category-card {
-        flex-shrink: 0;
-        width: 256px;
-        min-width: 256px;
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        height: 200px;
     }
 
-    .carousel-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: white;
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
+    .category-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+
+    .category-image-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
+    }
+
+    .category-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);
+    }
+
+    .category-content {
+        position: relative;
         z-index: 10;
-        cursor: pointer;
+        text-align: center;
+        color: white;
+        padding: 20px;
     }
 
-    .carousel-nav:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        transform: translateY(-50%) scale(1.1);
+    .category-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+        font-size: 1.5rem;
+        backdrop-filter: blur(10px);
     }
 
-    .carousel-nav.prev {
-        left: 16px;
+    .category-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
 
-    .carousel-nav.next {
-        right: 16px;
+    .category-count {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        font-weight: 500;
     }
 
     /* Product Cards - Jumia Style */
@@ -185,7 +214,7 @@
 
     .product-image-container {
         position: relative;
-        height: 200px;
+        height: 250px;
         overflow: hidden;
         background: #f8f9fa;
         display: flex;
@@ -196,9 +225,8 @@
     .product-image {
         width: 100%;
         height: 100%;
-        object-fit: contain;
+        object-fit: cover;
         transition: transform 0.3s ease;
-        padding: 10px;
     }
 
     .product-card:hover .product-image {
@@ -209,13 +237,14 @@
         position: absolute;
         top: 8px;
         left: 8px;
-        background: #e74c3c;
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
         color: white;
-        padding: 4px 8px;
-        border-radius: 4px;
+        padding: 6px 10px;
+        border-radius: 6px;
         font-size: 0.75rem;
-        font-weight: 600;
+        font-weight: 700;
         z-index: 10;
+        box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
     }
 
     .favorite-btn {
@@ -238,15 +267,17 @@
     }
 
     .favorite-btn:hover {
-        background: #e74c3c;
+        background: #dc2626;
         color: white;
         transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
     }
 
     .favorite-btn.favorited {
-        background: #e74c3c;
+        background: #dc2626;
         color: white;
         animation: heartBeat 0.6s ease-in-out;
+        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
     }
 
     @keyframes heartBeat {
@@ -305,7 +336,7 @@
     .product-price {
         font-size: 1.1rem;
         font-weight: 700;
-        color: #f39c12;
+        color: #3b82f6;
         margin-bottom: 4px;
     }
 
@@ -319,34 +350,40 @@
 
     .product-discount {
         font-size: 0.75rem;
-        color: #e74c3c;
+        color: #dc2626;
         font-weight: 600;
-        background: #fdf2f2;
+        background: #fef2f2;
         padding: 2px 6px;
         border-radius: 3px;
     }
 
     .add-to-cart-btn {
         width: 100%;
-        background: #f39c12;
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
         color: white;
         border: none;
-        padding: 8px 12px;
-        border-radius: 4px;
-        font-weight: 600;
-        font-size: 0.85rem;
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
         cursor: pointer;
         transition: all 0.3s ease;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 6px;
-        margin-top: 8px;
+        gap: 8px;
+        margin-top: 12px;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
     }
 
     .add-to-cart-btn:hover {
-        background: #e67e22;
-        transform: translateY(-1px);
+        background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+    }
+
+    .add-to-cart-btn:active {
+        transform: translateY(0);
     }
 
     /* Section Headers */
@@ -472,11 +509,22 @@
             font-size: 2rem;
         }
 
-        .category-card {
-            height: 150px;
+        .categories-grid {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
         }
 
-        .category-name {
+        .category-card {
+            height: 180px;
+        }
+
+        .category-title {
+            font-size: 1.1rem;
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
             font-size: 1.2rem;
         }
 
@@ -492,6 +540,17 @@
 
         .carousel-arrow.next {
             right: 15px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .categories-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .category-card {
+            height: 160px;
         }
     }
 </style>
@@ -510,7 +569,7 @@
                 Livraison rapide dans tout le Sénégal.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#products" class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-4 px-8 rounded-lg transition duration-300 inline-block text-center transform hover:scale-105">
+                <a href="#products" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-4 px-8 rounded-lg transition duration-300 inline-block text-center transform hover:scale-105 shadow-lg hover:shadow-xl">
                     <i class="fas fa-shopping-cart mr-2"></i>
                     Acheter maintenant
                 </a>
@@ -534,7 +593,7 @@
                 Performance et qualité garanties.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#products" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-lg transition duration-300 inline-block text-center transform hover:scale-105">
+                <a href="#products" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-4 px-8 rounded-lg transition duration-300 inline-block text-center transform hover:scale-105 shadow-lg hover:shadow-xl">
                     <i class="fas fa-rocket mr-2"></i>
                     Découvrir
                 </a>
@@ -554,7 +613,7 @@
                 Votre satisfaction est notre priorité.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#features" class="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-lg transition duration-300 inline-block text-center transform hover:scale-105">
+                <a href="#features" class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-4 px-8 rounded-lg transition duration-300 inline-block text-center transform hover:scale-105 shadow-lg hover:shadow-xl">
                     <i class="fas fa-headset mr-2"></i>
                     En savoir plus
                 </a>
@@ -596,67 +655,57 @@
             <p class="text-gray-600 max-w-2xl mx-auto">Découvrez notre gamme complète de produits informatiques organisés par catégories</p>
         </div>
 
-                <div class="categories-carousel-container relative">
-                    <div class="categories-carousel flex transition-transform duration-500 ease-in-out" id="categoriesCarousel">
-                        @foreach($categories as $index => $category)
-                            @php
-                                $backgroundImages = [
-                                    'https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                                    'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                                    'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                                    'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                                    'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                                    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                                    'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                                    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-                                ];
+        <div class="categories-grid">
+            @foreach($categories as $index => $category)
+                @php
+                    $backgroundImages = [
+                        'https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                    ];
 
-                                $icon = 'fas fa-laptop';
-                                if (stripos($category->name, 'ordinateur') !== false || stripos($category->name, 'pc') !== false) {
-                                    $icon = 'fas fa-laptop';
-                                } elseif (stripos($category->name, 'téléphone') !== false || stripos($category->name, 'smartphone') !== false || stripos($category->name, 'mobile') !== false) {
-                                    $icon = 'fas fa-mobile-alt';
-                                } elseif (stripos($category->name, 'accessoire') !== false) {
-                                    $icon = 'fas fa-headphones';
-                                } elseif (stripos($category->name, 'écran') !== false || stripos($category->name, 'moniteur') !== false) {
-                                    $icon = 'fas fa-desktop';
-                                } elseif (stripos($category->name, 'stockage') !== false || stripos($category->name, 'disque') !== false) {
-                                    $icon = 'fas fa-hdd';
-                                } elseif (stripos($category->name, 'réseau') !== false || stripos($category->name, 'wifi') !== false) {
-                                    $icon = 'fas fa-wifi';
-                                } elseif (stripos($category->name, 'gaming') !== false || stripos($category->name, 'jeu') !== false) {
-                                    $icon = 'fas fa-gamepad';
-                                } elseif (stripos($category->name, 'imprimante') !== false) {
-                                    $icon = 'fas fa-print';
-                                }
-                            @endphp
+                    $icon = 'fas fa-laptop';
+                    if (stripos($category->name, 'ordinateur') !== false || stripos($category->name, 'pc') !== false) {
+                        $icon = 'fas fa-laptop';
+                    } elseif (stripos($category->name, 'téléphone') !== false || stripos($category->name, 'smartphone') !== false || stripos($category->name, 'mobile') !== false) {
+                        $icon = 'fas fa-mobile-alt';
+                    } elseif (stripos($category->name, 'accessoire') !== false) {
+                        $icon = 'fas fa-headphones';
+                    } elseif (stripos($category->name, 'écran') !== false || stripos($category->name, 'moniteur') !== false) {
+                        $icon = 'fas fa-desktop';
+                    } elseif (stripos($category->name, 'stockage') !== false || stripos($category->name, 'disque') !== false) {
+                        $icon = 'fas fa-hdd';
+                    } elseif (stripos($category->name, 'réseau') !== false || stripos($category->name, 'wifi') !== false) {
+                        $icon = 'fas fa-wifi';
+                    } elseif (stripos($category->name, 'gaming') !== false || stripos($category->name, 'jeu') !== false) {
+                        $icon = 'fas fa-gamepad';
+                    } elseif (stripos($category->name, 'imprimante') !== false) {
+                        $icon = 'fas fa-print';
+                    }
+                @endphp
 
-                            <div class="category-card">
-                                <a href="{{ route('categories.show', $category) }}" class="block group">
-                                    <div class="category-image-container"
-                                         style="background-image: url('{{ $backgroundImages[$index % count($backgroundImages)] }}');">
-                                        <div class="category-background"></div>
-                                        <div class="category-content">
-                                            <div class="category-icon">
-                                                <i class="{{ $icon }}"></i>
-                                            </div>
-                                            <h3 class="category-title">{{ $category->name }}</h3>
-                                            <p class="category-count">{{ $category->products_count }} produits</p>
-                                        </div>
-                                    </div>
-                                </a>
+                <div class="category-card">
+                    <a href="{{ route('categories.show', $category) }}" class="block group">
+                        <div class="category-image-container"
+                             style="background-image: url('{{ $backgroundImages[$index % count($backgroundImages)] }}');">
+                            <div class="category-background"></div>
+                            <div class="category-content">
+                                <div class="category-icon">
+                                    <i class="{{ $icon }}"></i>
+                                </div>
+                                <h3 class="category-title">{{ $category->name }}</h3>
+                                <p class="category-count">{{ $category->products_count }} produits</p>
                             </div>
-                        @endforeach
-                    </div>
-
-                    <!-- Navigation Arrows -->
-                    <button class="carousel-nav prev" onclick="moveCarousel(-1)">
-                        <i class="fas fa-chevron-left text-gray-600"></i>
-                    </button>
-                    <button class="carousel-nav next" onclick="moveCarousel(1)">
-                        <i class="fas fa-chevron-right text-gray-600"></i>
-                    </button>
+                        </div>
+                    </a>
                 </div>
+            @endforeach
+        </div>
         </div>
     </div>
 </section>
@@ -735,7 +784,7 @@
         </div>
 
         <div class="text-center mt-12">
-            <a href="{{ route('products.index') }}" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-lg hover:from-blue-700 hover:to-blue-800 transition duration-300 transform hover:scale-105">
+            <a href="{{ route('products.index') }}" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-lg hover:from-blue-700 hover:to-blue-800 transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
                 <i class="fas fa-th-large mr-2"></i>
                 Voir tous les produits
             </a>
@@ -847,35 +896,7 @@
     // Auto-advance carousel
     setInterval(nextSlide, 5000);
 
-    // Category Carousel functionality
-    let categoryCarouselPosition = 0;
-    const categoryCarousel = document.getElementById('categoryCarousel');
-    const categoryCards = document.querySelectorAll('.category-card');
-    const cardsPerView = window.innerWidth > 1024 ? 4 : window.innerWidth > 768 ? 3 : 2;
 
-    function moveCategoryCarousel(direction) {
-        const maxPosition = Math.max(0, categoryCards.length - cardsPerView);
-
-        if (direction === 1) {
-            categoryCarouselPosition = Math.min(categoryCarouselPosition + 1, maxPosition);
-        } else {
-            categoryCarouselPosition = Math.max(categoryCarouselPosition - 1, 0);
-        }
-
-        const translateX = -categoryCarouselPosition * (200 + 24); // card width + gap
-        categoryCarousel.style.transform = `translateX(${translateX}px)`;
-
-        // Update arrow visibility
-        document.querySelector('.category-carousel-arrow.prev').style.opacity = categoryCarouselPosition === 0 ? '0.5' : '1';
-        document.querySelector('.category-carousel-arrow.next').style.opacity = categoryCarouselPosition === maxPosition ? '0.5' : '1';
-    }
-
-    // Initialize category carousel arrows
-    document.addEventListener('DOMContentLoaded', function() {
-        if (categoryCards.length > cardsPerView) {
-            document.querySelector('.category-carousel-arrow.prev').style.opacity = '0.5';
-        }
-    });
 
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -893,37 +914,43 @@
 
     // Fonction pour ajouter au panier
     function addToCart(productId) {
+        // Vérifier si l'utilisateur est connecté
+        @guest
+            window.location.href = '{{ route("login") }}';
+            return;
+        @endguest
+
         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        fetch('/cart/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': token,
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                product_id: productId,
-                quantity: 1
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                showNotification('Produit ajouté au panier !', 'success');
-                const cartCount = document.getElementById('cart-count');
-                if (cartCount) {
-                    const currentCount = parseInt(cartCount.textContent) || 0;
-                    cartCount.textContent = currentCount + 1;
-                }
-            } else {
-                showNotification('Erreur lors de l\'ajout au panier', 'error');
-            }
-        })
-        .catch(error => {
-            console.error('Erreur:', error);
-            showNotification('Erreur lors de l\'ajout au panier', 'error');
-        });
+        // Créer un formulaire pour l'envoi
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '{{ route("cart.add") }}';
+        form.style.display = 'none';
+
+        // Ajouter le token CSRF
+        const csrfInput = document.createElement('input');
+        csrfInput.type = 'hidden';
+        csrfInput.name = '_token';
+        csrfInput.value = token;
+        form.appendChild(csrfInput);
+
+        // Ajouter les données du produit
+        const productInput = document.createElement('input');
+        productInput.type = 'hidden';
+        productInput.name = 'product_id';
+        productInput.value = productId;
+        form.appendChild(productInput);
+
+        const quantityInput = document.createElement('input');
+        quantityInput.type = 'hidden';
+        quantityInput.name = 'quantity';
+        quantityInput.value = 1;
+        form.appendChild(quantityInput);
+
+        // Ajouter le formulaire au DOM et le soumettre
+        document.body.appendChild(form);
+        form.submit();
     }
 
     // Fonction pour gérer les favoris
@@ -996,73 +1023,9 @@
     // Vérifier les favoris au chargement de la page
     document.addEventListener('DOMContentLoaded', function() {
         checkFavoritesOnLoad();
-
-        // Auto-scroll pour le carousel des catégories
-        startCategoriesAutoScroll();
     });
 
-    // Fonction pour le défilement automatique des catégories
-    let categoriesAutoScrollInterval;
-    let currentCategoryIndex = 0;
-    const categoryCards = document.querySelectorAll('.category-card');
-    const totalCategories = categoryCards.length;
 
-    function startCategoriesAutoScroll() {
-        if (totalCategories <= 4) return; // Pas besoin de défilement si moins de 4 catégories
-
-        categoriesAutoScrollInterval = setInterval(() => {
-            currentCategoryIndex = (currentCategoryIndex + 1) % totalCategories;
-            updateCategoriesCarousel();
-        }, 3000); // Défilement toutes les 3 secondes
-    }
-
-    function updateCategoriesCarousel() {
-        const carousel = document.getElementById('categoriesCarousel');
-        if (!carousel) return;
-
-        const cardWidth = 280; // 256px (largeur) + 24px (gap)
-        const translateX = -currentCategoryIndex * cardWidth;
-        carousel.style.transform = `translateX(${translateX}px)`;
-    }
-
-    function moveCarousel(direction) {
-        // Arrêter le défilement automatique temporairement
-        clearInterval(categoriesAutoScrollInterval);
-
-        currentCategoryIndex += direction;
-
-        // Gestion des limites
-        if (currentCategoryIndex < 0) {
-            currentCategoryIndex = totalCategories - 1;
-        } else if (currentCategoryIndex >= totalCategories) {
-            currentCategoryIndex = 0;
-        }
-
-        updateCategoriesCarousel();
-
-        // Redémarrer le défilement automatique après 5 secondes
-        setTimeout(() => {
-            startCategoriesAutoScroll();
-        }, 5000);
-    }
-
-    // Initialiser le carousel au chargement de la page
-    document.addEventListener('DOMContentLoaded', function() {
-        // Pause du défilement au survol
-        const carouselContainer = document.querySelector('.categories-carousel-container');
-        if (carouselContainer) {
-            carouselContainer.addEventListener('mouseenter', () => {
-                clearInterval(categoriesAutoScrollInterval);
-            });
-
-            carouselContainer.addEventListener('mouseleave', () => {
-                startCategoriesAutoScroll();
-            });
-        }
-
-        // Initialiser le carousel
-        startCategoriesAutoScroll();
-    });
 
     // Fonction pour afficher les notifications
     function showNotification(message, type = 'info') {
