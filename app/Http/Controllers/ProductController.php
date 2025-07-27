@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Favorite;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -30,9 +32,18 @@ class ProductController extends Controller
             });
         }
 
-        // Category filter
-        if ($request->filled('category')) {
-            $query->where('category_id', $request->category);
+        // Price filter
+        if ($request->filled('max_price')) {
+            $query->where('price', '<=', $request->max_price);
+        }
+
+        // Categories filter (multiple selection)
+        if ($request->filled('categories') && is_array($request->categories)) {
+            // Convert string IDs to integers if needed and filter out empty values
+            $categoryIds = array_filter(array_map('intval', $request->categories));
+            if (!empty($categoryIds)) {
+                $query->whereIn('category_id', $categoryIds);
+            }
         }
 
         // Sort
@@ -46,13 +57,25 @@ class ProductController extends Controller
             case 'name_asc':
                 $query->orderBy('name', 'asc');
                 break;
+            case 'name_desc':
+                $query->orderBy('name', 'desc');
+                break;
+            case 'popular':
+                // You can implement popularity based on views, sales, etc.
+                $query->orderBy('view_count', 'desc');
+                break;
             default:
                 $query->latest();
                 break;
         }
 
-        $products = $query->paginate(12);
-        $categories = Category::withCount('products')->get();
+                $products = $query->paginate(12);
+
+        // Get categories with count of products (same logic as CategoryController)
+        $categories = Category::withCount('products')
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get();
 
         return view('products.index', compact('products', 'categories'));
     }
@@ -60,7 +83,7 @@ class ProductController extends Controller
     public function show(Product $product): View
     {
         $product->load('category');
-        
+
         // Get related products from same category
         $relatedProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
@@ -68,47 +91,7 @@ class ProductController extends Controller
             ->limit(4)
             ->get();
 
-        // Check if product is in user's favorites
-        $isFavorite = false;
-        if (Auth::check()) {
-            $isFavorite = Auth::user()->favoriteProducts()->where('product_id', $product->id)->exists();
-        }
-
-        return view('products.show', compact('product', 'relatedProducts', 'isFavorite'));
-    }
-
-    public function favorites(): View
-    {
-        $favorites = Auth::user()->favoriteProducts()->with('category')->paginate(12);
-        return view('products.favorites', compact('favorites'));
-    }
-
-    public function addToFavorites(Product $product): RedirectResponse
-    {
-        $user = Auth::user();
-        
-        // Check if already favorited
-        if ($user->favoriteProducts()->where('product_id', $product->id)->exists()) {
-            return back()->with('info', 'Ce produit est déjà dans vos favoris.');
-        }
-
-        $user->favoriteProducts()->attach($product->id);
-
-        return back()->with('success', 'Produit ajouté aux favoris.');
-    }
-
-    public function removeFromFavorites(Product $product): RedirectResponse
-    {
-        $user = Auth::user();
-        $user->favoriteProducts()->detach($product->id);
-
-        return back()->with('success', 'Produit retiré des favoris.');
-    }
-
-    public function myProducts(): View
-    {
-        $products = Auth::user()->products()->latest()->paginate(10);
-        return view('products.my', compact('products'));
+        return view('products.show', compact('product', 'relatedProducts'));
     }
 
     public function create(): View
@@ -139,7 +122,7 @@ class ProductController extends Controller
 
         Product::create($validated);
 
-        return redirect()->route('products.my')->with('success', 'Produit créé avec succès.');
+        return redirect()->route('products.index')->with('success', 'Produit créé avec succès.');
     }
 
     public function edit(Product $product): View
@@ -171,15 +154,15 @@ class ProductController extends Controller
 
         $product->update($validated);
 
-        return redirect()->route('products.my')->with('success', 'Produit mis à jour avec succès.');
+        return redirect()->route('products.index')->with('success', 'Produit mis à jour avec succès.');
     }
 
     public function destroy(Product $product): RedirectResponse
     {
         $this->authorize('delete', $product);
-        
+
         $product->delete();
 
-        return redirect()->route('products.my')->with('success', 'Produit supprimé avec succès.');
+        return redirect()->route('products.index')->with('success', 'Produit supprimé avec succès.');
     }
 }
