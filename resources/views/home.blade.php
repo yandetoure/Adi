@@ -191,12 +191,12 @@
         font-weight: 500;
     }
 
-    /* Product Cards - Jumia Style */
+    /* Product Cards - ADI Style */
     .product-card {
         background: white;
-        border-radius: 8px;
+        border-radius: 12px;
         overflow: hidden;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
         transition: all 0.3s ease;
         cursor: pointer;
         position: relative;
@@ -204,17 +204,18 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+        max-width: 280px;
     }
 
     .product-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        border-color: #f39c12;
+        transform: translateY(-6px);
+        box-shadow: 0 12px 32px rgba(59, 130, 246, 0.15);
+        border-color: #3b82f6;
     }
 
     .product-image-container {
         position: relative;
-        height: 250px;
+        height: 200px;
         overflow: hidden;
         background: #f8f9fa;
         display: flex;
@@ -235,11 +236,11 @@
 
     .product-badge {
         position: absolute;
-        top: 8px;
-        left: 8px;
+        top: 10px;
+        left: 10px;
         background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
         color: white;
-        padding: 6px 10px;
+        padding: 4px 8px;
         border-radius: 6px;
         font-size: 0.75rem;
         font-weight: 700;
@@ -249,35 +250,36 @@
 
     .favorite-btn {
         position: absolute;
-        top: 8px;
-        right: 8px;
-        width: 32px;
-        height: 32px;
+        top: 10px;
+        right: 10px;
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
-        background: rgba(255,255,255,0.9);
+        background: rgba(255,255,255,0.95);
         border: none;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         transition: all 0.3s ease;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         z-index: 10;
         font-size: 0.9rem;
+        backdrop-filter: blur(10px);
     }
 
     .favorite-btn:hover {
         background: #dc2626;
         color: white;
         transform: scale(1.1);
-        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3);
     }
 
     .favorite-btn.favorited {
         background: #dc2626;
         color: white;
         animation: heartBeat 0.6s ease-in-out;
-        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3);
     }
 
     @keyframes heartBeat {
@@ -289,7 +291,7 @@
     }
 
     .product-content {
-        padding: 12px;
+        padding: 1rem;
         background: white;
         flex-grow: 1;
         display: flex;
@@ -297,18 +299,19 @@
     }
 
     .product-category {
-        font-size: 0.7rem;
-        color: #666;
+        font-size: 0.75rem;
+        color: #6b7280;
         text-transform: uppercase;
-        font-weight: 500;
-        margin-bottom: 8px;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.5px;
     }
 
     .product-title {
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 8px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
         line-height: 1.3;
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -318,9 +321,9 @@
     }
 
     .product-description {
-        color: #666;
+        color: #64748b;
         font-size: 0.8rem;
-        margin-bottom: 12px;
+        margin-bottom: 0.75rem;
         line-height: 1.4;
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -335,51 +338,51 @@
 
     .product-price {
         font-size: 1.1rem;
-        font-weight: 700;
-        color: #3b82f6;
-        margin-bottom: 4px;
+        font-weight: 800;
+        color: #1e40af;
+        margin-bottom: 0.25rem;
     }
 
     .product-old-price {
         font-size: 0.8rem;
-        color: #999;
+        color: #94a3b8;
         text-decoration: line-through;
-        font-weight: 400;
-        margin-right: 8px;
+        font-weight: 500;
+        margin-right: 0.5rem;
     }
 
     .product-discount {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         color: #dc2626;
-        font-weight: 600;
+        font-weight: 700;
         background: #fef2f2;
         padding: 2px 6px;
-        border-radius: 3px;
+        border-radius: 4px;
     }
 
     .add-to-cart-btn {
         width: 100%;
-        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
         color: white;
         border: none;
-        padding: 12px 16px;
+        padding: 10px 14px;
         border-radius: 8px;
         font-weight: 700;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         cursor: pointer;
         transition: all 0.3s ease;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
-        margin-top: 12px;
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        gap: 6px;
+        margin-top: 0.75rem;
+        box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
     }
 
     .add-to-cart-btn:hover {
-        background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+        background: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        box-shadow: 0 8px 20px rgba(30, 64, 175, 0.4);
     }
 
     .add-to-cart-btn:active {
@@ -569,7 +572,7 @@
                 Livraison rapide dans tout le Sénégal.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#products" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-4 px-8 rounded-lg transition duration-300 inline-block text-center transform hover:scale-105 shadow-lg hover:shadow-xl">
+                <a href="#products" class="bg-gradient-to-r from-blue-800 to-blue-900 hover:from-blue-900 hover:to-blue-950 text-white font-bold py-4 px-8 rounded-lg transition duration-300 inline-block text-center transform hover:scale-105 shadow-lg hover:shadow-xl">
                     <i class="fas fa-shopping-cart mr-2"></i>
                     Acheter maintenant
                 </a>
@@ -593,7 +596,7 @@
                 Performance et qualité garanties.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#products" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-4 px-8 rounded-lg transition duration-300 inline-block text-center transform hover:scale-105 shadow-lg hover:shadow-xl">
+                <a href="#products" class="bg-gradient-to-r from-blue-800 to-blue-900 hover:from-blue-900 hover:to-blue-950 text-white font-bold py-4 px-8 rounded-lg transition duration-300 inline-block text-center transform hover:scale-105 shadow-lg hover:shadow-xl">
                     <i class="fas fa-rocket mr-2"></i>
                     Découvrir
                 </a>
@@ -613,7 +616,7 @@
                 Votre satisfaction est notre priorité.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#features" class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-4 px-8 rounded-lg transition duration-300 inline-block text-center transform hover:scale-105 shadow-lg hover:shadow-xl">
+                <a href="#features" class="bg-gradient-to-r from-blue-800 to-blue-900 hover:from-blue-900 hover:to-blue-950 text-white font-bold py-4 px-8 rounded-lg transition duration-300 inline-block text-center transform hover:scale-105 shadow-lg hover:shadow-xl">
                     <i class="fas fa-headset mr-2"></i>
                     En savoir plus
                 </a>
@@ -718,7 +721,7 @@
             <p class="section-subtitle">Découvrez notre sélection de produits les plus populaires et les mieux notés</p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 justify-items-center">
             @foreach($featuredProducts as $product)
                 <div class="product-card" onclick="window.location.href='{{ route('products.show', $product) }}'">
                     <div class="product-image-container">
@@ -784,7 +787,7 @@
         </div>
 
         <div class="text-center mt-12">
-            <a href="{{ route('products.index') }}" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-lg hover:from-blue-700 hover:to-blue-800 transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+            <a href="{{ route('products.index') }}" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-800 to-blue-900 text-white font-bold rounded-lg hover:from-blue-900 hover:to-blue-950 transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
                 <i class="fas fa-th-large mr-2"></i>
                 Voir tous les produits
             </a>

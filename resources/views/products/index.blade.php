@@ -9,7 +9,11 @@
 <style>
     /* Hero Section */
     .hero-section {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%),
+                    url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
         position: relative;
         overflow: hidden;
     }
@@ -255,15 +259,15 @@
     /* Product Grid */
     .product-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1.25rem;
     }
 
     .product-card {
         background: white;
-        border-radius: 16px;
+        border-radius: 12px;
         overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
         transition: all 0.3s ease;
         cursor: pointer;
         position: relative;
@@ -271,17 +275,18 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+        max-width: 280px;
     }
 
     .product-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        transform: translateY(-6px);
+        box-shadow: 0 12px 32px rgba(59, 130, 246, 0.15);
         border-color: #3b82f6;
     }
 
     .product-image-container {
         position: relative;
-        height: 250px;
+        height: 200px;
         overflow: hidden;
         background: #f8f9fa;
         display: flex;
@@ -302,24 +307,24 @@
 
     .product-badge {
         position: absolute;
-        top: 12px;
-        left: 12px;
+        top: 10px;
+        left: 10px;
         background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
         color: white;
-        padding: 6px 12px;
-        border-radius: 8px;
-        font-size: 0.8rem;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 0.75rem;
         font-weight: 700;
         z-index: 10;
-        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
     }
 
     .favorite-btn {
         position: absolute;
-        top: 12px;
-        right: 12px;
-        width: 40px;
-        height: 40px;
+        top: 10px;
+        right: 10px;
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
         background: rgba(255,255,255,0.95);
         border: none;
@@ -330,7 +335,7 @@
         transition: all 0.3s ease;
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         z-index: 10;
-        font-size: 1rem;
+        font-size: 0.9rem;
         backdrop-filter: blur(10px);
     }
 
@@ -357,7 +362,7 @@
     }
 
     .product-content {
-        padding: 1.5rem;
+        padding: 1rem;
         background: white;
         flex-grow: 1;
         display: flex;
@@ -365,32 +370,32 @@
     }
 
     .product-category {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         color: #6b7280;
         text-transform: uppercase;
         font-weight: 600;
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.5rem;
         letter-spacing: 0.5px;
     }
 
     .product-title {
-        font-size: 1.1rem;
+        font-size: 0.95rem;
         font-weight: 700;
-        color: #1f2937;
-        margin-bottom: 0.75rem;
-        line-height: 1.4;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        min-height: 3rem;
+        min-height: 2.4rem;
     }
 
     .product-description {
-        color: #6b7280;
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
-        line-height: 1.5;
+        color: #64748b;
+        font-size: 0.8rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
@@ -403,52 +408,52 @@
     }
 
     .product-price {
-        font-size: 1.25rem;
+        font-size: 1.1rem;
         font-weight: 800;
-        color: #3b82f6;
-        margin-bottom: 0.5rem;
+        color: #1e40af;
+        margin-bottom: 0.25rem;
     }
 
     .product-old-price {
-        font-size: 0.9rem;
-        color: #9ca3af;
+        font-size: 0.8rem;
+        color: #94a3b8;
         text-decoration: line-through;
         font-weight: 500;
-        margin-right: 0.75rem;
+        margin-right: 0.5rem;
     }
 
     .product-discount {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
         color: #dc2626;
         font-weight: 700;
         background: #fef2f2;
-        padding: 4px 8px;
-        border-radius: 6px;
+        padding: 2px 6px;
+        border-radius: 4px;
     }
 
     .add-to-cart-btn {
         width: 100%;
-        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
         color: white;
         border: none;
-        padding: 12px 16px;
-        border-radius: 12px;
+        padding: 10px 14px;
+        border-radius: 8px;
         font-weight: 700;
-        font-size: 0.95rem;
+        font-size: 0.85rem;
         cursor: pointer;
         transition: all 0.3s ease;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
-        margin-top: 1rem;
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        gap: 6px;
+        margin-top: 0.75rem;
+        box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
     }
 
     .add-to-cart-btn:hover {
-        background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+        background: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        box-shadow: 0 8px 20px rgba(30, 64, 175, 0.4);
     }
 
     .add-to-cart-btn:active {
@@ -591,16 +596,17 @@
 </style>
 
 <!-- Hero Section -->
-<section class="hero-section text-white py-20">
+<section class="hero-section text-white py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="hero-content text-center">
-            <h1 class="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-                Nos <span class="text-yellow-300">Produits</span>
+            <div class="bg-black bg-opacity-30 backdrop-blur-sm rounded-xl p-4 md:p-6 inline-block">
+                <h1 class="text-2xl md:text-3xl font-bold mb-2 leading-tight">
+                    Nos <span class="text-blue-300">Produits</span>
             </h1>
-            <p class="text-xl md:text-2xl text-gray-100 max-w-4xl mx-auto leading-relaxed">
+                <p class="text-sm md:text-base text-gray-100 max-w-2xl mx-auto leading-relaxed">
                 Découvrez notre sélection complète de produits informatiques de qualité.
-                Trouvez exactement ce que vous cherchez parmi notre large gamme.
             </p>
+            </div>
         </div>
     </div>
 </section>
@@ -613,24 +619,24 @@
             <div class="lg:col-span-1">
                 <div class="sidebar-filters">
                     <form method="GET" action="{{ route('products.index') }}" id="filterForm">
-                        <!-- Search -->
+                    <!-- Search -->
                         <div class="filter-section">
                             <h3 class="filter-title">
                                 <i class="fas fa-search text-blue-600"></i>
                                 Recherche
                             </h3>
-                            <div class="relative">
-                                <input
-                                    type="text"
-                                    name="search"
-                                    value="{{ request('search') }}"
-                                    placeholder="Rechercher un produit..."
+                    <div class="relative">
+                        <input
+                            type="text"
+                            name="search"
+                            value="{{ request('search') }}"
+                            placeholder="Rechercher un produit..."
                                     class="search-input"
                                     id="searchInput"
-                                >
-                                <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg"></i>
+                        >
+                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg"></i>
                             </div>
-                        </div>
+                    </div>
 
                         <!-- Price Range -->
                         <div class="filter-section">
@@ -663,7 +669,7 @@
                             </h3>
                             <div class="category-filter">
                                 @if($categories->count() > 0)
-                                    @foreach($categories as $category)
+                        @foreach($categories as $category)
                                         <div class="category-item {{ in_array($category->id, request('categories', [])) ? 'selected' : '' }}"
                                              onclick="toggleCategory({{ $category->id }})">
                                             <div class="category-checkbox">
@@ -677,7 +683,7 @@
                                                    {{ in_array($category->id, request('categories', [])) ? 'checked' : '' }}
                                                    style="display: none;">
                                         </div>
-                                    @endforeach
+                        @endforeach
                                 @else
                                     <p class="text-gray-500 text-sm">Aucune catégorie disponible</p>
                                 @endif
@@ -708,147 +714,154 @@
                                         <input type="radio" name="sort" value="{{ $value }}"
                                                {{ request('sort') == $value ? 'checked' : '' }}
                                                style="display: none;">
-                                    </div>
+                </div>
                                 @endforeach
                             </div>
                         </div>
 
 
-                    </form>
+            </form>
                 </div>
-            </div>
+        </div>
 
             <!-- Products Grid -->
             <div class="lg:col-span-3">
-                <!-- Results Info -->
-                @if($products->count() > 0)
-                    <div class="results-info">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-900">
-                                    {{ $products->total() }} produit(s) trouvé(s)
-                                </h3>
-                                @if(request('search') || request('categories') || request('sort') || request('max_price'))
-                                    <p class="text-sm text-gray-600 mt-2">
-                                        Filtres appliqués
-                                        @if(request('search'))
-                                            • Recherche: "{{ request('search') }}"
-                                        @endif
-                                        @if(request('categories'))
-                                            • Catégories: {{ count(request('categories', [])) }} sélectionnée(s)
-                                        @endif
-                                        @if(request('sort'))
-                                            • Tri: {{ $sortOptions[request('sort')] ?? request('sort') }}
-                                        @endif
-                                        @if(request('max_price') && request('max_price') != 1000000)
-                                            • Prix max: {{ number_format(request('max_price'), 0, ',', ' ') }} FCFA
+        <!-- Results Info -->
+        @if($products->count() > 0)
+            <div class="results-info">
+                <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-blue-100 rounded-full p-3">
+                                    <i class="fas fa-boxes text-blue-600 text-xl"></i>
+                                </div>
+                    <div>
+                                    <h3 class="text-2xl font-bold text-gray-900">
+                                        {{ $products->total() }} produit{{ $products->total() > 1 ? 's' : '' }}
+                        </h3>
+                                    <p class="text-sm text-gray-600">
+                                        @if(request('search') || request('categories') || request('sort') || request('max_price'))
+                                Filtres appliqués
+                                @if(request('search'))
+                                    • Recherche: "{{ request('search') }}"
+                                @endif
+                                            @if(request('categories'))
+                                                • {{ count(request('categories', [])) }} catégorie{{ count(request('categories', [])) > 1 ? 's' : '' }}
+                                @endif
+                                @if(request('sort'))
+                                                • Tri: {{ $sortOptions[request('sort')] ?? request('sort') }}
+                                @endif
+                                            @if(request('max_price') && request('max_price') != 1000000)
+                                                • Prix max: {{ number_format(request('max_price'), 0, ',', ' ') }} FCFA
+                        @endif
+                                        @else
+                                            Tous nos produits
                                         @endif
                                     </p>
-                                @endif
+                    </div>
                             </div>
                             <div>
-                                <button onclick="clearFilters()" class="text-blue-600 hover:text-blue-700 font-semibold text-sm flex items-center">
-                                    <i class="fas fa-times mr-2"></i>
-                                    Effacer les filtres
+                                <button onclick="clearFilters()" class="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold text-sm flex items-center px-4 py-2 rounded-lg transition duration-200">
+                        <i class="fas fa-times mr-2"></i>
+                        Effacer les filtres
                                 </button>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+            </div>
+    </div>
                 @endif
 
                 <!-- Products -->
-                @if($products->count() > 0)
-                    <div class="product-grid">
-                        @foreach($products as $product)
-                            <div class="product-card" onclick="window.location.href='{{ route('products.show', $product) }}'">
-                                <div class="product-image-container">
-                                    @if($product->getFirstMediaUrl('images') && $product->getFirstMediaUrl('images') !== '')
-                                        <img src="{{ $product->getFirstMediaUrl('images') }}"
-                                             alt="{{ $product->name }}"
-                                             class="product-image">
-                                    @else
-                                        <div class="w-full h-full flex items-center justify-center">
-                                            <i class="fas fa-image text-8xl text-gray-300"></i>
-                                        </div>
-                                    @endif
-
-                                    @if($product->discount_percentage > 0)
-                                        <div class="product-badge">
-                                            -{{ $product->discount_percentage }}%
-                                        </div>
-                                    @endif
-
-                                    <button class="favorite-btn"
-                                            onclick="event.stopPropagation(); toggleFavorite({{ $product->id }}, this)"
-                                            data-product-id="{{ $product->id }}"
-                                            title="Ajouter aux favoris">
-                                        <i class="fas fa-heart"></i>
-                                    </button>
+        @if($products->count() > 0)
+            <div class="product-grid">
+                @foreach($products as $product)
+                    <div class="product-card" onclick="window.location.href='{{ route('products.show', $product) }}'">
+                        <div class="product-image-container">
+                            @if($product->getFirstMediaUrl('images') && $product->getFirstMediaUrl('images') !== '')
+                                <img src="{{ $product->getFirstMediaUrl('images') }}"
+                                     alt="{{ $product->name }}"
+                                     class="product-image">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center">
+                                    <i class="fas fa-image text-8xl text-gray-300"></i>
                                 </div>
+                            @endif
 
-                                <div class="product-content">
-                                    <div class="product-category">{{ $product->category->name }}</div>
-                                    <h4 class="product-title">{{ $product->name }}</h4>
+                            @if($product->discount_percentage > 0)
+                                <div class="product-badge">
+                                    -{{ $product->discount_percentage }}%
+                                </div>
+                            @endif
 
-                                    @if($product->short_description)
+                            <button class="favorite-btn"
+                                    onclick="event.stopPropagation(); toggleFavorite({{ $product->id }}, this)"
+                                    data-product-id="{{ $product->id }}"
+                                    title="Ajouter aux favoris">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+
+                        <div class="product-content">
+                            <div class="product-category">{{ $product->category->name }}</div>
+                            <h4 class="product-title">{{ $product->name }}</h4>
+
+                            @if($product->short_description)
                                         <p class="product-description">{{ Str::limit($product->short_description, 100) }}</p>
-                                    @elseif($product->description)
+                            @elseif($product->description)
                                         <p class="product-description">{{ Str::limit(strip_tags($product->description), 100) }}</p>
-                                    @endif
+                            @endif
 
-                                    <div class="product-price-container">
-                                        @if($product->discount_percentage > 0)
-                                            <span class="product-price">
-                                                {{ number_format($product->price * (1 - $product->discount_percentage / 100), 0, ',', ' ') }} FCFA
-                                            </span>
-                                            <span class="product-old-price">
-                                                {{ number_format($product->price, 0, ',', ' ') }} FCFA
-                                            </span>
-                                            <span class="product-discount">
-                                                -{{ $product->discount_percentage }}%
-                                            </span>
-                                        @else
-                                            <span class="product-price">
-                                                {{ number_format($product->price, 0, ',', ' ') }} FCFA
-                                            </span>
-                                        @endif
-                                    </div>
-
-                                    <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({{ $product->id }})">
-                                        <i class="fas fa-shopping-cart"></i>
-                                        Ajouter au panier
-                                    </button>
-                                </div>
+                            <div class="product-price-container">
+                                @if($product->discount_percentage > 0)
+                                    <span class="product-price">
+                                        {{ number_format($product->price * (1 - $product->discount_percentage / 100), 0, ',', ' ') }} FCFA
+                                    </span>
+                                    <span class="product-old-price">
+                                        {{ number_format($product->price, 0, ',', ' ') }} FCFA
+                                    </span>
+                                    <span class="product-discount">
+                                        -{{ $product->discount_percentage }}%
+                                    </span>
+                                @else
+                                    <span class="product-price">
+                                        {{ number_format($product->price, 0, ',', ' ') }} FCFA
+                                    </span>
+                                @endif
                             </div>
-                        @endforeach
-                    </div>
 
-                    <!-- Pagination -->
-                    <div class="pagination-container">
-                        {{ $products->links() }}
-                    </div>
-                @else
-                    <!-- Empty State -->
-                    <div class="empty-state">
-                        <div class="empty-state-icon">
-                            <i class="fas fa-search"></i>
+                            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({{ $product->id }})">
+                                <i class="fas fa-shopping-cart"></i>
+                                Ajouter au panier
+                            </button>
                         </div>
-                        <h3 class="text-3xl font-bold text-gray-900 mb-4">Aucun produit trouvé</h3>
-                        <p class="text-gray-600 max-w-md mx-auto mb-8 text-lg">
-                            Essayez de modifier vos critères de recherche ou parcourez toutes nos catégories.
-                        </p>
-                        <div class="space-x-4">
+                    </div>
+                @endforeach
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-container">
+                {{ $products->links() }}
+            </div>
+        @else
+            <!-- Empty State -->
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-gray-900 mb-4">Aucun produit trouvé</h3>
+                <p class="text-gray-600 max-w-md mx-auto mb-8 text-lg">
+                    Essayez de modifier vos critères de recherche ou parcourez toutes nos catégories.
+                </p>
+                <div class="space-x-4">
                             <a href="{{ route('products.index') }}" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 transition duration-300 transform hover:scale-105 shadow-lg">
-                                <i class="fas fa-home mr-2"></i>
-                                Voir tous les produits
-                            </a>
+                        <i class="fas fa-home mr-2"></i>
+                        Voir tous les produits
+                    </a>
                             <a href="{{ route('categories.index') }}" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-gray-600 to-gray-700 text-white font-semibold rounded-lg hover:from-gray-700 hover:to-gray-800 transition duration-300 transform hover:scale-105 shadow-lg">
-                                <i class="fas fa-th-large mr-2"></i>
-                                Parcourir les catégories
-                            </a>
-                        </div>
-                    </div>
-                @endif
+                        <i class="fas fa-th-large mr-2"></i>
+                        Parcourir les catégories
+                    </a>
+                </div>
+            </div>
+        @endif
             </div>
         </div>
     </div>
@@ -909,14 +922,17 @@
         if (checkbox.checked) {
             categoryItem.classList.add('selected');
             if (checkIcon) checkIcon.style.display = 'block';
-        } else {
+            } else {
             categoryItem.classList.remove('selected');
             if (checkIcon) checkIcon.style.display = 'none';
         }
 
-        // Show loading and auto-submit form
-        showLoading();
-        document.getElementById('filterForm').submit();
+        // Add a small delay to ensure the checkbox state is updated
+        setTimeout(() => {
+            // Show loading and auto-submit form
+            showLoading();
+            document.getElementById('filterForm').submit();
+        }, 100);
     }
 
     // Sort option functionality

@@ -7,20 +7,26 @@
 @section('content')
 <div class="min-h-screen bg-gray-50">
     <!-- Categories Header -->
-    <div class="category-header relative bg-gradient-to-r from-blue-600 to-purple-700 text-white py-16 overflow-hidden">
+    <div class="category-header relative bg-gradient-to-r from-blue-600 to-purple-700 text-white py-8 overflow-hidden">
         <!-- Background Image -->
-        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
-             style="background-image: url('https://images.unsplash.com/photo-1541807084-5c52b6b3adef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+             style="background-image: url('https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-attachment: fixed;">
         </div>
 
         <!-- Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-r from-blue-600/80 to-purple-700/80"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-purple-900/70"></div>
 
         <!-- Content -->
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center">
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Nos Catégories</h1>
-                <p class="text-lg md:text-xl opacity-90 hidden md:block">Découvrez notre gamme complète de produits informatiques</p>
+                <div class="bg-black bg-opacity-30 backdrop-blur-sm rounded-xl p-4 md:p-6 inline-block">
+                    <h1 class="text-2xl md:text-3xl font-bold mb-2 leading-tight">
+                        Nos <span class="text-blue-300">Catégories</span>
+                    </h1>
+                    <p class="text-sm md:text-base opacity-90 max-w-2xl mx-auto leading-relaxed">
+                        Découvrez notre gamme complète de produits informatiques
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -71,7 +77,7 @@
                                     <i class="{{ $icon }} text-4xl opacity-80"></i>
                                 </div>
                                 <h3 class="category-title text-xl font-bold mb-2">{{ $category->name }}</h3>
-                                <p class="category-count text-sm opacity-90">{{ $category->products()->where('is_active', true)->count() }} produits</p>
+                                <p class="category-count text-sm opacity-90">{{ $category->products()->where('is_active', true)->count() }} produit{{ $category->products()->where('is_active', true)->count() > 1 ? 's' : '' }}</p>
                             </div>
                         </div>
                     </a>
