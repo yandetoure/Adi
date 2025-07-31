@@ -1,4 +1,4 @@
-<?php declare(strict_types=1); 
+<?php declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
@@ -51,18 +51,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', function () {
         return view('profile');
     })->name('profile');
-    
+
     // Orders routes
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/create', [OrderController::class, 'create'])->name('orders.create');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
-    
+
     // Favorites routes
     Route::get('/favorites', [ProductController::class, 'favorites'])->name('favorites.index');
     Route::post('/favorites/add/{product}', [ProductController::class, 'addToFavorites'])->name('favorites.add');
     Route::delete('/favorites/remove/{product}', [ProductController::class, 'removeFromFavorites'])->name('favorites.remove');
-    
+
     // New favorites routes with AJAX support
     Route::post('/favorites/toggle', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
     Route::get('/favorites/check', [FavoriteController::class, 'check'])->name('favorites.check');
@@ -71,17 +71,17 @@ Route::middleware('auth')->group(function () {
 // Admin routes
 Route::middleware(['auth', 'role:admin|super-admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
+
     // Product management
     Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
     Route::delete('/products/{product}/media/{media}', [\App\Http\Controllers\Admin\ProductController::class, 'deleteMedia'])->name('products.delete-media');
-    
+
     // Category management
     Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
-    
+
     // Order management
     Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class);
-    
+
     // User management
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
 });
@@ -99,3 +99,17 @@ Route::middleware(['auth', 'assistant'])->prefix('assistant')->name('assistant.'
 // SEO routes
 Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap');
 Route::get('/robots.txt', [SeoController::class, 'robots'])->name('robots');
+
+// Sitemap
+Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index']);
+
+// Robots.txt
+Route::get('/robots.txt', function () {
+    $content = "User-agent: *\n";
+    $content .= "Allow: /\n\n";
+    $content .= "Sitemap: " . url('/sitemap.xml') . "\n";
+
+    return response($content, 200, [
+        'Content-Type' => 'text/plain'
+    ]);
+});

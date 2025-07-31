@@ -295,12 +295,16 @@
             color: white;
         }
     </style>
-    <title>@yield('title', 'ADI - Votre boutique en ligne')</title>
-    <meta name="description" content="@yield('meta_description', 'ADI, votre boutique en ligne de confiance pour tous vos besoins. Découvrez notre sélection de produits de qualité.')">
-    <meta name="keywords" content="@yield('meta_keywords', 'ADI, boutique en ligne, e-commerce, produits')">
-    <meta name="author" content="ADI Store">
+    <title>@yield('title', 'ADI Informatique - Votre boutique informatique au Sénégal')</title>
+    <meta name="description" content="@yield('meta_description', 'ADI Informatique, votre boutique en ligne de confiance pour tous vos besoins informatiques. Ordinateurs, cartouches d\'encre, accessoires et matériel informatique au meilleur prix au Sénégal. Livraison gratuite Dakar.')">
+    <meta name="keywords" content="@yield('meta_keywords', 'ADI, informatique, ordinateurs, cartouches encre, HP, Canon, Epson, accessoires informatiques, Dakar, Sénégal, boutique en ligne, e-commerce, matériel informatique, imprimantes, souris, clavier, casque')">
+    <meta name="author" content="ADI Informatique">
     <meta name="robots" content="index, follow">
     <meta name="language" content="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <meta name="geo.region" content="SN">
+    <meta name="geo.placename" content="Dakar">
+    <meta name="geo.position" content="14.7167;-17.4677">
+    <meta name="ICBM" content="14.7167, -17.4677">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ url()->current() }}">
@@ -308,17 +312,17 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="@yield('title', 'ADI - Votre boutique en ligne')">
-    <meta property="og:description" content="@yield('meta_description', 'ADI, votre boutique en ligne de confiance pour tous vos besoins.')">
+    <meta property="og:title" content="@yield('title', 'ADI Informatique - Votre boutique informatique au Sénégal')">
+    <meta property="og:description" content="@yield('meta_description', 'ADI Informatique, votre boutique en ligne de confiance pour tous vos besoins informatiques. Ordinateurs, cartouches d\'encre, accessoires et matériel informatique au meilleur prix au Sénégal.')">
     <meta property="og:image" content="@yield('og_image', asset('images/adi-logo.png'))">
-    <meta property="og:site_name" content="ADI Store">
+    <meta property="og:site_name" content="ADI Informatique">
     <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta property="twitter:title" content="@yield('title', 'ADI - Votre boutique en ligne')">
-    <meta property="twitter:description" content="@yield('meta_description', 'ADI, votre boutique en ligne de confiance pour tous vos besoins.')">
+    <meta property="twitter:title" content="@yield('title', 'ADI Informatique - Votre boutique informatique au Sénégal')">
+    <meta property="twitter:description" content="@yield('meta_description', 'ADI Informatique, votre boutique en ligne de confiance pour tous vos besoins informatiques. Ordinateurs, cartouches d\'encre, accessoires et matériel informatique au meilleur prix au Sénégal.')">
     <meta property="twitter:image" content="@yield('og_image', asset('images/adi-logo.png'))">
 
     <!-- Additional SEO meta tags -->
@@ -326,7 +330,7 @@
     <meta name="msapplication-TileColor" content="#2563eb">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="ADI Store">
+    <meta name="apple-mobile-web-app-title" content="ADI Informatique">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
@@ -340,8 +344,56 @@
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID', {
+            'page_title': '@yield("title", "ADI Informatique - Votre boutique informatique au Sénégal")',
+            'page_location': '{{ url()->current() }}'
+        });
+    </script>
+
+    <!-- Google Search Console -->
+    <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" />
+
+    <!-- Bing Webmaster Tools -->
+    <meta name="msvalidate.01" content="YOUR_BING_CODE" />
+
+    <!-- Yandex Webmaster -->
+    <meta name="yandex-verification" content="YOUR_YANDEX_CODE" />
+
     <!-- Structured Data -->
-    @yield('structured_data')
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "ADI Informatique",
+        "url": "{{ url('/') }}",
+        "logo": "{{ asset('images/adi-logo.png') }}",
+        "description": "Votre boutique informatique de confiance au Sénégal. Ordinateurs, cartouches d'encre, accessoires et matériel informatique.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Medina Rue 15 angle Blaise Diagne",
+            "addressLocality": "Dakar",
+            "addressCountry": "SN"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+221-78-630-95-81",
+            "contactType": "customer service",
+            "areaServed": "SN",
+            "availableLanguage": ["French", "Wolof"]
+        },
+        "sameAs": [
+            "https://facebook.com/adiinformatique",
+            "https://twitter.com/adiinformatique",
+            "https://instagram.com/adiinformatique"
+        ]
+    }
+    </script>
 </head>
 <body class="font-sans antialiased bg-gray-50">
     <div id="app">

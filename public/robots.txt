@@ -1,2 +1,21 @@
 User-agent: *
-Disallow:
+Allow: /
+
+# Sitemap
+Sitemap: https://adi-informatique.sn/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /login
+Disallow: /register
+Disallow: /password/
+Disallow: /_debugbar/
+
+# Allow important pages
+Allow: /products/
+Allow: /categories/
+Allow: /cart/
+Allow: /favorites/
