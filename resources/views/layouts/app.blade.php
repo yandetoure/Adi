@@ -417,7 +417,7 @@
                         <a href="{{ route('products.index') }}" class="text-gray-800 hover:text-blue-600 font-medium transition">Produits</a>
                         <a href="{{ route('categories.index') }}" class="text-gray-800 hover:text-blue-600 font-medium transition">Catégories</a>
                         <a href="#" class="text-gray-800 hover:text-blue-600 font-medium transition">Promotions</a>
-                        <a href="#footer-contact" class="text-gray-800 hover:text-blue-600 font-medium transition">Contact</a>
+                        <a href="{{ route('contact') }}" class="text-gray-800 hover:text-blue-600 font-medium transition">Contact</a>
                     </nav>
 
                     <!-- Search Bar -->
@@ -592,11 +592,11 @@
                             </div>
                         @endguest
 
-                        <!-- Mobile menu button -->
+                    <!-- Mobile menu button -->
                         <button id="mobile-menu-btn" class="md:hidden text-gray-600 p-2 rounded-lg hover:bg-gray-100 transition">
-                            <i class="fas fa-bars text-2xl"></i>
-                        </button>
-                    </div>
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
 
                 <!-- Mobile Menu Dropdown -->
                 <div id="mobile-menu" class="md:hidden hidden fixed top-0 left-0 w-4/5 h-full bg-white z-50 overflow-y-auto">
@@ -619,7 +619,7 @@
                                 <i class="fas fa-tag mr-4 text-blue-600 text-lg"></i>
                                 <span class="font-medium text-lg">Promotions</span>
                             </a>
-                            <a href="#footer-contact" class="flex items-center px-4 py-4 text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition">
+                            <a href="{{ route('contact') }}" class="flex items-center px-4 py-4 text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition">
                                 <i class="fas fa-envelope mr-4 text-blue-600 text-lg"></i>
                                 <span class="font-medium text-lg">Contact</span>
                             </a>
@@ -790,10 +790,11 @@
                     <div>
                         <h3 class="font-bold text-lg mb-4">Contact</h3>
                         <ul class="space-y-2 text-gray-400">
-                            <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-3"></i><span>Dakar, Sénégal</span></li>
-                            <li class="flex items-center"><i class="fas fa-phone-alt mr-3"></i><span>+221 77 123 45 67</span></li>
-                            <li class="flex items-center"><i class="fas fa-envelope mr-3"></i><span>contact@adi.sn</span></li>
-                            <li class="flex items-center"><i class="fab fa-whatsapp mr-3"></i><span>+221 77 123 45 67</span></li>
+                            <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-3"></i><span>Medina Rue 15 angle Blaise Diagne<br>Dakar - Sénégal</span></li>
+                            <li class="flex items-center"><i class="fas fa-phone-alt mr-3"></i><span>+221 78 630 95 81</span></li>
+                            <li class="flex items-center"><i class="fas fa-phone-alt mr-3"></i><span>+221 77 045 64 25</span></li>
+                            <li class="flex items-center"><i class="fas fa-phone mr-3"></i><span>33 821 72 87</span></li>
+                            <li class="flex items-center"><i class="fas fa-envelope mr-3"></i><span>adinformatique88@gmail.com</span></li>
                         </ul>
                     </div>
                 </div>
@@ -885,6 +886,9 @@
             });
         });
     </script>
+
+    <!-- WhatsApp Float Button -->
+    <x-whatsapp-float />
 
     <!-- Scripts globaux pour les favoris -->
     <script>

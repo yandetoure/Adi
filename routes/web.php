@@ -10,6 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\SeoController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +96,9 @@ Route::middleware(['auth', 'assistant'])->prefix('assistant')->name('assistant.'
     Route::resource('categories', \App\Http\Controllers\Assistant\CategoryController::class);
     Route::resource('users', \App\Http\Controllers\Assistant\UserController::class);
 });
+
+// Contact route
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
 // SEO routes
 Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap');

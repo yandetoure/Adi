@@ -829,4 +829,7 @@ document.querySelectorAll('.tab-button').forEach(button => {
         document.getElementById('quantity-input').value = this.value;
     });
 </script>
+
+<!-- WhatsApp Button for Product Inquiry -->
+<x-whatsapp-button :product="$product" />
 @endsection
