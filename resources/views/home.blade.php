@@ -852,10 +852,10 @@
     </div>
 </section>
 
-<!-- Floating WhatsApp Button -->
+{{-- <!-- Floating WhatsApp Button -->
 <a href="https://wa.me/221771234567" class="fixed bottom-8 right-8 bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-110 z-50" target="_blank">
     <i class="fab fa-whatsapp"></i>
-</a>
+</a> --}}
 
 <!-- Carousel Script -->
 <script>

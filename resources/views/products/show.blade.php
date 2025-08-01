@@ -503,7 +503,7 @@
                             <!-- Action Buttons -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <!-- WhatsApp Button -->
-                                <a href="https://wa.me/221771234567?text={{ urlencode('Bonjour, je souhaite acheter '. $product->name .' (SKU : '. $product->sku .') au prix de '. number_format($product->discount_percentage > 0 ? $product->price * (1 - $product->discount_percentage / 100) : $product->price, 0, ',', ' ') .' FCFA sur ADI Informatique.') }}"
+                                <a href="https://wa.me/221786309581?text={{ urlencode('Bonjour, je souhaite acheter '. $product->name .' (SKU : '. $product->sku .') au prix de '. number_format($product->discount_percentage > 0 ? $product->price * (1 - $product->discount_percentage / 100) : $product->price, 0, ',', ' ') .' FCFA sur ADI Informatique.') }}"
                                    target="_blank"
                                    class="whatsapp-btn text-white py-3 px-4 rounded-lg font-bold text-center transition-all duration-300 hover:shadow-lg text-sm flex items-center justify-center">
                                     <i class="fab fa-whatsapp mr-2 text-lg"></i>
@@ -831,5 +831,14 @@ document.querySelectorAll('.tab-button').forEach(button => {
 </script>
 
 <!-- WhatsApp Button for Product Inquiry -->
-<x-whatsapp-button :product="$product" />
+{{-- <div class="fixed bottom-6 right-6 z-50">
+    <a href="https://wa.me/221786309581?text=Bonjour, je suis intéressé par le produit {{ $product->name }} (Prix: {{ number_format($product->price, 0, ',', ' ') }} FCFA) - {{ url()->current() }}" target="_blank" 
+       class="flex items-center px-4 py-3 bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105 group">
+        <i class="fab fa-whatsapp mr-2 text-xl"></i>
+        <span class="hidden sm:inline font-medium">Demander sur WhatsApp</span>
+        <span class="absolute right-full mr-3 px-3 py-1 bg-green-600 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+            +221 78 630 95 81
+        </span>
+    </a>
+</div> --}}
 @endsection

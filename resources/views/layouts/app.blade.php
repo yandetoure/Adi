@@ -887,8 +887,10 @@
         });
     </script>
 
-    <!-- WhatsApp Float Button -->
-    <x-whatsapp-float />
+    <!-- WhatsApp Float Button (not on product detail pages) -->
+    @if(!request()->routeIs('products.show'))
+        <x-whatsapp-float />
+    @endif
 
     <!-- Scripts globaux pour les favoris -->
     <script>
