@@ -722,7 +722,7 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 justify-items-center">
-            @foreach($featuredProducts->take(15) as $product)
+            @foreach($featuredProducts->take(30) as $product)
                 <div class="product-card" onclick="window.location.href='{{ route('products.show', $product) }}'">
                     <div class="product-image-container">
                         @if($product->getFirstMediaUrl('images') && $product->getFirstMediaUrl('images') !== '')

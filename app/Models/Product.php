@@ -188,7 +188,13 @@ class Product extends Model implements HasMedia
      */
     public function getImageUrlAttribute()
     {
-        return $this->getFirstMediaUrl('images');
+        $imageUrl = $this->getFirstMediaUrl('images');
+        if ($imageUrl && $imageUrl !== '') {
+            return $imageUrl;
+        }
+        
+        // Fallback to default image URL if no uploaded image
+        return $this->default_image_url ?: asset('images/placeholder-product.png');
     }
 
     /**
@@ -196,7 +202,8 @@ class Product extends Model implements HasMedia
      */
     public function getHasImagesAttribute()
     {
-        return $this->getFirstMediaUrl('images') !== '';
+        $imageUrl = $this->getFirstMediaUrl('images');
+        return $imageUrl && $imageUrl !== '';
     }
 
     /**
@@ -204,6 +211,35 @@ class Product extends Model implements HasMedia
      */
     public function hasUploadedImages()
     {
-        return $this->getFirstMediaUrl('images') && $this->getFirstMediaUrl('images') !== '';
+        $imageUrl = $this->getFirstMediaUrl('images');
+        return $imageUrl && $imageUrl !== '';
+    }
+
+    /**
+     * Get all product images.
+     */
+    public function getAllImages()
+    {
+        return $this->getMedia('images');
+    }
+
+    /**
+     * Get product images URLs.
+     */
+    public function getImagesUrls()
+    {
+        return $this->getMedia('images')->map(function ($media) {
+            return $media->getUrl();
+        });
+    }
+
+    /**
+     * Register media collections.
+     */
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('images')
+            ->singleFile()
+            ->useDisk('public');
     }
 }

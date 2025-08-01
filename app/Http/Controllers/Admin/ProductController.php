@@ -86,7 +86,7 @@ class ProductController extends Controller
         // Gestion des images
         if ($request->hasFile('main_image')) {
             $product->addMedia($request->file('main_image'))
-                ->toMediaCollection('main_images', 'public');
+                ->toMediaCollection('images', 'public');
         }
 
         if ($request->hasFile('secondary_images')) {
@@ -183,10 +183,10 @@ class ProductController extends Controller
         // Ajouter l'image principale
         if ($request->hasFile('main_image')) {
             // Supprimer l'ancienne image principale s'il y en a une
-            $product->clearMediaCollection('main_images');
+            $product->clearMediaCollection('images');
 
             $product->addMedia($request->file('main_image'))
-                ->toMediaCollection('main_images', 'public');
+                ->toMediaCollection('images', 'public');
         }
 
         // Ajouter de nouvelles images secondaires
