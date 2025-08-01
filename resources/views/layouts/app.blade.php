@@ -416,7 +416,7 @@
                         <a href="{{ route('home') }}" class="text-gray-800 hover:text-blue-600 font-medium transition">Accueil</a>
                         <a href="{{ route('products.index') }}" class="text-gray-800 hover:text-blue-600 font-medium transition">Produits</a>
                         <a href="{{ route('categories.index') }}" class="text-gray-800 hover:text-blue-600 font-medium transition">Catégories</a>
-                        <a href="#" class="text-gray-800 hover:text-blue-600 font-medium transition">Promotions</a>
+                        <a href="{{ route('help.customer-support') }}" class="text-gray-800 hover:text-blue-600 font-medium transition">Support client</a>
                         <a href="{{ route('contact') }}" class="text-gray-800 hover:text-blue-600 font-medium transition">Contact</a>
                     </nav>
 
@@ -447,7 +447,16 @@
                                     <div class="px-4 py-2 border-b border-gray-100">
                                         <h4 class="font-semibold text-gray-900 text-sm">Centre d'aide</h4>
                                     </div>
-                                    <a href="#" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
+                                    <a href="{{ route('help.index') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-question-circle text-blue-600 mr-3"></i>
+                                            <div>
+                                                <div class="font-medium">Centre d'aide</div>
+                                                <div class="text-xs text-gray-500">Toutes nos ressources d'aide</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="{{ route('help.how-to-order') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
                                         <div class="flex items-center">
                                             <i class="fas fa-shopping-cart text-blue-600 mr-3"></i>
                                             <div>
@@ -456,7 +465,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="#" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
+                                    <a href="{{ route('help.track-order') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
                                         <div class="flex items-center">
                                             <i class="fas fa-truck text-green-600 mr-3"></i>
                                             <div>
@@ -465,33 +474,43 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="#" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
+                                    <a href="{{ route('help.shipping') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
                                         <div class="flex items-center">
-                                            <i class="fas fa-undo text-orange-600 mr-3"></i>
+                                            <i class="fas fa-shipping-fast text-indigo-600 mr-3"></i>
                                             <div>
-                                                <div class="font-medium">Retours & Échanges</div>
+                                                <div class="font-medium">Livraison</div>
+                                                <div class="text-xs text-gray-500">Options et délais</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="{{ route('help.payment-methods') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-credit-card text-green-600 mr-3"></i>
+                                            <div>
+                                                <div class="font-medium">Modes de paiement</div>
+                                                <div class="text-xs text-gray-500">Comptant, livraison, Wave</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="{{ route('help.returns') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-undo text-red-600 mr-3"></i>
+                                            <div>
+                                                <div class="font-medium">Retours</div>
                                                 <div class="text-xs text-gray-500">Politique de retour</div>
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="#" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
+                                    <a href="{{ route('help.customer-support') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
                                         <div class="flex items-center">
-                                            <i class="fas fa-credit-card text-purple-600 mr-3"></i>
+                                            <i class="fas fa-headset text-purple-600 mr-3"></i>
                                             <div>
-                                                <div class="font-medium">Modes de paiement</div>
-                                                <div class="text-xs text-gray-500">Paiement sécurisé</div>
+                                                <div class="font-medium">Support client</div>
+                                                <div class="text-xs text-gray-500">Contactez-nous</div>
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="#" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
-                                        <div class="flex items-center">
-                                            <i class="fas fa-headset text-blue-600 mr-3"></i>
-                                            <div>
-                                                <div class="font-medium">Contact support</div>
-                                                <div class="text-xs text-gray-500">Assistance 24/7</div>
-                                            </div>
-                                        </div>
-                                    </a>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -621,9 +640,9 @@
                                 <i class="fas fa-th-large mr-4 text-blue-600 text-lg"></i>
                                 <span class="font-medium text-lg">Catégories</span>
                             </a>
-                            <a href="#" class="flex items-center px-4 py-4 text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition">
-                                <i class="fas fa-tag mr-4 text-blue-600 text-lg"></i>
-                                <span class="font-medium text-lg">Promotions</span>
+                            <a href="{{ route('help.customer-support') }}" class="flex items-center px-4 py-4 text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition">
+                                <i class="fas fa-headset mr-4 text-blue-600 text-lg"></i>
+                                <span class="font-medium text-lg">Support client</span>
                             </a>
                             <a href="{{ route('contact') }}" class="flex items-center px-4 py-4 text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition">
                                 <i class="fas fa-envelope mr-4 text-blue-600 text-lg"></i>
@@ -736,16 +755,32 @@
                             <div class="mobile-section-header">
                                 <h4 class="font-semibold text-gray-900 text-lg">Centre d'aide</h4>
                             </div>
-                            <a href="#" class="flex items-center px-4 py-4 text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition">
+                            <a href="{{ route('help.index') }}" class="flex items-center px-4 py-4 text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition">
                                 <i class="fas fa-question-circle mr-4 text-blue-600 text-lg"></i>
+                                <span class="font-medium text-lg">Centre d'aide</span>
+                            </a>
+                            <a href="{{ route('help.how-to-order') }}" class="flex items-center px-4 py-4 text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition">
+                                <i class="fas fa-shopping-cart mr-4 text-blue-600 text-lg"></i>
                                 <span class="font-medium text-lg">Comment commander</span>
                             </a>
-                            <a href="#" class="flex items-center px-4 py-4 text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition">
+                            <a href="{{ route('help.track-order') }}" class="flex items-center px-4 py-4 text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition">
                                 <i class="fas fa-truck mr-4 text-green-600 text-lg"></i>
                                 <span class="font-medium text-lg">Suivre ma commande</span>
                             </a>
-                            <a href="#" class="flex items-center px-4 py-4 text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition">
-                                <i class="fas fa-headset mr-4 text-blue-600 text-lg"></i>
+                            <a href="{{ route('help.shipping') }}" class="flex items-center px-4 py-4 text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition">
+                                <i class="fas fa-shipping-fast mr-4 text-indigo-600 text-lg"></i>
+                                <span class="font-medium text-lg">Livraison</span>
+                            </a>
+                            <a href="{{ route('help.payment-methods') }}" class="flex items-center px-4 py-4 text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition">
+                                <i class="fas fa-credit-card mr-4 text-green-600 text-lg"></i>
+                                <span class="font-medium text-lg">Modes de paiement</span>
+                            </a>
+                            <a href="{{ route('help.returns') }}" class="flex items-center px-4 py-4 text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition">
+                                <i class="fas fa-undo mr-4 text-red-600 text-lg"></i>
+                                <span class="font-medium text-lg">Retours</span>
+                            </a>
+                            <a href="{{ route('help.customer-support') }}" class="flex items-center px-4 py-4 text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition">
+                                <i class="fas fa-headset mr-4 text-purple-600 text-lg"></i>
                                 <span class="font-medium text-lg">Support client</span>
                             </a>
                         </div>
@@ -786,7 +821,7 @@
                         <ul class="space-y-2">
                             <li><a href="{{ route('home') }}" class="text-gray-400 hover:text-white">Accueil</a></li>
                             <li><a href="{{ route('products.index') }}" class="text-gray-400 hover:text-white">Produits</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-white">Promotions</a></li>
+                            <li><a href="{{ route('help.customer-support') }}" class="text-gray-400 hover:text-white">Support client</a></li>
                             <li><a href="{{ route('categories.index') }}" class="text-gray-400 hover:text-white">Catégories</a></li>
                             <li><a href="#footer-contact" class="text-gray-400 hover:text-white">Contact</a></li>
                         </ul>

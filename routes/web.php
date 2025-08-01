@@ -53,6 +53,20 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [\App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('profile.password');
 
+    // Help routes
+    Route::prefix('help')->name('help.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\HelpController::class, 'index'])->name('index');
+        Route::get('/how-to-order', [\App\Http\Controllers\HelpController::class, 'howToOrder'])->name('how-to-order');
+        Route::get('/track-order', [\App\Http\Controllers\HelpController::class, 'trackOrder'])->name('track-order');
+        Route::get('/customer-support', [\App\Http\Controllers\HelpController::class, 'customerSupport'])->name('customer-support');
+        Route::get('/faq', [\App\Http\Controllers\HelpController::class, 'faq'])->name('faq');
+        Route::get('/shipping', [\App\Http\Controllers\HelpController::class, 'shipping'])->name('shipping');
+        Route::get('/returns', [\App\Http\Controllers\HelpController::class, 'returns'])->name('returns');
+        Route::get('/payment-methods', [\App\Http\Controllers\HelpController::class, 'paymentMethods'])->name('payment-methods');
+        Route::get('/privacy', [\App\Http\Controllers\HelpController::class, 'privacy'])->name('privacy');
+        Route::get('/terms', [\App\Http\Controllers\HelpController::class, 'terms'])->name('terms');
+    });
+
     // Orders routes
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/create', [OrderController::class, 'create'])->name('orders.create');
