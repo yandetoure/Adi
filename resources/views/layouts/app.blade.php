@@ -558,14 +558,14 @@
                             </a>
                         @else
                             <div class="relative group hidden md:block">
-                                <a href="{{ route('profile') }}" class="flex flex-col items-center text-gray-600 hover:text-blue-600 transition">
+                                <a href="{{ route('profile.index') }}" class="flex flex-col items-center text-gray-600 hover:text-blue-600 transition">
                                     <i class="fas fa-user-circle text-xl mb-1 nav-icon"></i>
                                     <span class="text-xs font-medium">Mon Compte</span>
                                 </a>
                                 <!-- Dropdown Menu -->
                                 <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 hidden md:block">
                                     <div class="py-2">
-                                        <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        <a href="{{ route('profile.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                             <i class="fas fa-user mr-2"></i> Mon Profil
                                         </a>
                                         <a href="{{ route('orders.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
@@ -658,7 +658,7 @@
                                     </div>
                                 </div>
 
-                                <a href="{{ route('profile') }}" class="flex items-center px-4 py-4 text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition">
+                                <a href="{{ route('profile.index') }}" class="flex items-center px-4 py-4 text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition">
                                     <i class="fas fa-user mr-4 text-blue-600 text-lg"></i>
                                     <span class="font-medium text-lg">Mon Profil</span>
                                 </a>

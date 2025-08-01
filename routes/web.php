@@ -49,9 +49,9 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->midd
 
 // Protected routes
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', function () {
-        return view('profile');
-    })->name('profile');
+    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [\App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('profile.password');
 
     // Orders routes
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
