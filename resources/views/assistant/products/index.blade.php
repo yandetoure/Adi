@@ -112,7 +112,7 @@
                                 <span class="text-sm text-gray-900">{{ $product->category->name ?? 'Sans catégorie' }}</span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="text-sm font-medium text-gray-900">{{ number_format($product->price, 2) }} €</span>
+                                <span class="text-sm font-medium text-gray-900">{{ number_format($product->price, 0, ',', ' ') }} FCFA</span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="text-sm text-gray-900">{{ $product->stock_quantity }}</span>

@@ -192,8 +192,8 @@
                         </div>
                         <div class="flex items-center justify-between">
                             <div>
-                                <span class="text-gray-500 line-through mr-2">€299</span>
-                                <span class="font-bold text-indigo-600">€239</span>
+                                <span class="text-gray-500 line-through mr-2">FCFA299</span>
+                                <span class="font-bold text-indigo-600">FCFA239</span>
                             </div>
                             <button class="bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700">
                                 <i class="fas fa-shopping-cart"></i>
@@ -225,7 +225,7 @@
                             <span class="text-gray-500 text-sm ml-2">(36)</span>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span class="font-bold text-indigo-600">€129</span>
+                            <span class="font-bold text-indigo-600">FCFA129</span>
                             <button class="bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700">
                                 <i class="fas fa-shopping-cart"></i>
                             </button>
@@ -259,7 +259,7 @@
                             <span class="text-gray-500 text-sm ml-2">(28)</span>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span class="font-bold text-indigo-600">€189</span>
+                            <span class="font-bold text-indigo-600">FCFA189</span>
                             <button class="bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700">
                                 <i class="fas fa-shopping-cart"></i>
                             </button>
@@ -290,7 +290,7 @@
                             <span class="text-gray-500 text-sm ml-2">(51)</span>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span class="font-bold text-indigo-600">€159</span>
+                            <span class="font-bold text-indigo-600">FCFA159</span>
                             <button class="bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700">
                                 <i class="fas fa-shopping-cart"></i>
                             </button>
@@ -357,8 +357,8 @@
                                 </div>
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <span class="text-gray-500 line-through mr-2">€249</span>
-                                        <span class="font-bold text-indigo-600">€211</span>
+                                        <span class="text-gray-500 line-through mr-2">FCFA249</span>
+                                        <span class="font-bold text-indigo-600">FCFA211</span>
                                     </div>
                                     <button class="bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700">
                                         <i class="fas fa-shopping-cart"></i>
@@ -395,7 +395,7 @@
                                     <span class="text-gray-500 text-sm ml-2">(47)</span>
                                 </div>
                                 <div class="flex items-center justify-between">
-                                    <span class="font-bold text-indigo-600">€179</span>
+                                    <span class="font-bold text-indigo-600">FCFA179</span>
                                     <button class="bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700">
                                         <i class="fas fa-shopping-cart"></i>
                                     </button>
@@ -428,7 +428,7 @@
                                     <span class="text-gray-500 text-sm ml-2">(23)</span>
                                 </div>
                                 <div class="flex items-center justify-between">
-                                    <span class="font-bold text-indigo-600">€89</span>
+                                    <span class="font-bold text-indigo-600">FCFA89</span>
                                     <button class="bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700">
                                         <i class="fas fa-shopping-cart"></i>
                                     </button>
@@ -465,8 +465,8 @@
                                 </div>
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <span class="text-gray-500 line-through mr-2">€149</span>
-                                        <span class="font-bold text-indigo-600">€104</span>
+                                        <span class="text-gray-500 line-through mr-2">FCFA149</span>
+                                        <span class="font-bold text-indigo-600">FCFA104</span>
                                     </div>
                                     <button class="bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700">
                                         <i class="fas fa-shopping-cart"></i>
@@ -500,7 +500,7 @@
                                     <span class="text-gray-500 text-sm ml-2">(18)</span>
                                 </div>
                                 <div class="flex items-center justify-between">
-                                    <span class="font-bold text-indigo-600">€49</span>
+                                    <span class="font-bold text-indigo-600">FCFA49</span>
                                     <button class="bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700">
                                         <i class="fas fa-shopping-cart"></i>
                                     </button>

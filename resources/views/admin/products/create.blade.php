@@ -108,7 +108,7 @@
                         <div class="relative">
                             <input type="number" id="price" name="price" value="{{ old('price') }}" step="0.01" min="0" required
                                    class="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <span class="absolute left-3 top-2 text-gray-500">€</span>
+                            <span class="absolute left-3 top-2 text-gray-500">FCFA</span>
                         </div>
                         @error('price')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>

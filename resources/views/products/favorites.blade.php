@@ -38,7 +38,7 @@
                     <div class="p-4">
                         <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ $product->name }}</h3>
                         <p class="text-gray-600 text-sm mb-2">{{ Str::limit($product->description, 100) }}</p>
-                        <p class="text-lg font-bold text-blue-600 mb-3">{{ number_format($product->price, 2) }} €</p>
+                        <p class="text-lg font-bold text-blue-600 mb-3">{{ number_format($product->price, 0, ',', ' ') }} FCFA</p>
                         
                         <div class="flex items-center justify-between">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $product->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
