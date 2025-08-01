@@ -23,9 +23,9 @@
         </div>
     @endif
 
-    @if($favorites->count() > 0)
+    @if($products->count() > 0)
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @foreach($favorites as $product)
+            @foreach($products as $product)
                 <div class="bg-white rounded-lg shadow-md overflow-hidden">
                     @if($product->getFirstMediaUrl('images') && $product->getFirstMediaUrl('images') !== '')
                         <img src="{{ $product->getFirstMediaUrl('images') }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
@@ -70,7 +70,7 @@
         </div>
         
         <div class="mt-6">
-            {{ $favorites->links() }}
+            {{ $products->links() }}
         </div>
     @else
         <div class="text-center py-12">

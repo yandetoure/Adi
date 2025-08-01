@@ -577,7 +577,13 @@
                                         @if(auth()->user()->hasRole(['admin', 'super-admin']))
                                             <hr class="my-1">
                                             <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                                <i class="fas fa-tachometer-alt mr-2"></i> Tableau de bord
+                                                <i class="fas fa-tachometer-alt mr-2"></i> Tableau de bord Admin
+                                            </a>
+                                        @endif
+                                        @if(auth()->user()->hasRole(['assistant']))
+                                            <hr class="my-1">
+                                            <a href="{{ route('assistant.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                                <i class="fas fa-tachometer-alt mr-2"></i> Tableau de bord Assistant
                                             </a>
                                         @endif
                                         <hr class="my-1">
@@ -663,7 +669,13 @@
                                 @if(auth()->user()->hasRole(['admin', 'super-admin']))
                                     <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-4 text-gray-800 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition">
                                         <i class="fas fa-tachometer-alt mr-4 text-purple-600 text-lg"></i>
-                                        <span class="font-medium text-lg">Tableau de bord</span>
+                                        <span class="font-medium text-lg">Tableau de bord Admin</span>
+                                    </a>
+                                @endif
+                                @if(auth()->user()->hasRole(['assistant']))
+                                    <a href="{{ route('assistant.dashboard') }}" class="flex items-center px-4 py-4 text-gray-800 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition">
+                                        <i class="fas fa-tachometer-alt mr-4 text-purple-600 text-lg"></i>
+                                        <span class="font-medium text-lg">Tableau de bord Assistant</span>
                                     </a>
                                 @endif
                                 <form method="POST" action="{{ route('logout') }}" class="block">

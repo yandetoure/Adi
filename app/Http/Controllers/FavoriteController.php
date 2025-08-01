@@ -6,6 +6,7 @@ use App\Models\Favorite;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
@@ -18,7 +19,7 @@ class FavoriteController extends Controller
             'product_id' => 'required|exists:products,id'
         ]);
 
-        $user = auth()->user();
+        $user = Auth::user();
         if (!$user) {
             return response()->json([
                 'success' => false,
@@ -58,14 +59,84 @@ class FavoriteController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
+        $user = Auth::user();
         if (!$user) {
             return redirect()->route('login');
         }
 
         $favorites = $user->favorites()->with('product')->get();
+        $products = $favorites->map(function ($favorite) {
+            return $favorite->product;
+        })->filter();
         
-        return view('products.favorites', compact('favorites'));
+        return view('products.favorites', compact('products'));
+    }
+
+    /**
+     * Add a product to favorites
+     */
+    public function add(Product $product): JsonResponse
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vous devez être connecté pour ajouter des favoris'
+            ], 401);
+        }
+
+        $existingFavorite = Favorite::where('user_id', $user->id)
+            ->where('product_id', $product->id)
+            ->first();
+
+        if ($existingFavorite) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ce produit est déjà dans vos favoris'
+            ]);
+        }
+
+        Favorite::create([
+            'user_id' => $user->id,
+            'product_id' => $product->id
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Produit ajouté aux favoris'
+        ]);
+    }
+
+    /**
+     * Remove a product from favorites
+     */
+    public function remove(Product $product): JsonResponse
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vous devez être connecté pour gérer vos favoris'
+            ], 401);
+        }
+
+        $favorite = Favorite::where('user_id', $user->id)
+            ->where('product_id', $product->id)
+            ->first();
+
+        if (!$favorite) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ce produit n\'est pas dans vos favoris'
+            ]);
+        }
+
+        $favorite->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Produit retiré des favoris'
+        ]);
     }
 
     /**
@@ -73,7 +144,7 @@ class FavoriteController extends Controller
      */
     public function check(Request $request): JsonResponse
     {
-        $user = auth()->user();
+        $user = Auth::user();
         if (!$user) {
             return response()->json(['favorited' => false]);
         }

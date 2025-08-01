@@ -48,7 +48,7 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'is_active' => 'boolean',
             'stock_quantity' => 'required|integer|min:0',
-            'meta_title' => 'nullable|string|max:60',
+            'meta_title' => 'nullable|string|max:100',
             'meta_description' => 'nullable|string|max:160',
             'meta_keywords' => 'nullable|string|max:255',
             'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
@@ -63,6 +63,29 @@ class ProductController extends Controller
             'width' => 'nullable|numeric|min:0',
             'height' => 'nullable|numeric|min:0',
         ]);
+
+        // Génération automatique des métadonnées SEO si vides
+        if (empty($validated['meta_title'])) {
+            $validated['meta_title'] = $validated['name'] . ' - ADI Informatique Dakar';
+            if (strlen($validated['meta_title']) > 60) {
+                $validated['meta_title'] = substr($validated["meta_title"], 0, 97) . '...';
+            }
+        }
+
+        if (empty($validated['meta_description'])) {
+            $category = Category::find($validated['category_id']);
+            $categoryName = $category ? $category->name : 'produit informatique';
+            $validated['meta_description'] = $validated['name'] . ' - ' . $categoryName . ' disponible chez ADI Informatique à Dakar. Prix: ' . number_format($validated['price'], 0, ',', ' ') . ' FCFA. Livraison gratuite.';
+            if (strlen($validated['meta_description']) > 160) {
+                $validated['meta_description'] = substr($validated['meta_description'], 0, 157) . '...';
+            }
+        }
+
+        if (empty($validated['meta_keywords'])) {
+            $category = Category::find($validated['category_id']);
+            $categoryName = $category ? $category->name : 'informatique';
+            $validated['meta_keywords'] = $validated['name'] . ', ' . $categoryName . ', ADI, Dakar, Sénégal, informatique, ' . strtolower($categoryName);
+        }
 
                 // Convertir les valeurs booléennes
         $validated['is_active'] = $request->has('is_active');
@@ -133,7 +156,7 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'is_active' => 'boolean',
             'stock_quantity' => 'required|integer|min:0',
-            'meta_title' => 'nullable|string|max:60',
+            'meta_title' => 'nullable|string|max:100',
             'meta_description' => 'nullable|string|max:160',
             'meta_keywords' => 'nullable|string|max:255',
             'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
@@ -150,6 +173,29 @@ class ProductController extends Controller
             'width' => 'nullable|numeric|min:0',
             'height' => 'nullable|numeric|min:0',
         ]);
+
+        // Génération automatique des métadonnées SEO si vides
+        if (empty($validated['meta_title'])) {
+            $validated['meta_title'] = $validated['name'] . ' - ADI Informatique Dakar';
+            if (strlen($validated['meta_title']) > 60) {
+                $validated['meta_title'] = substr($validated["meta_title"], 0, 97) . '...';
+            }
+        }
+
+        if (empty($validated['meta_description'])) {
+            $category = Category::find($validated['category_id']);
+            $categoryName = $category ? $category->name : 'produit informatique';
+            $validated['meta_description'] = $validated['name'] . ' - ' . $categoryName . ' disponible chez ADI Informatique à Dakar. Prix: ' . number_format($validated['price'], 0, ',', ' ') . ' FCFA. Livraison gratuite.';
+            if (strlen($validated['meta_description']) > 160) {
+                $validated['meta_description'] = substr($validated['meta_description'], 0, 157) . '...';
+            }
+        }
+
+        if (empty($validated['meta_keywords'])) {
+            $category = Category::find($validated['category_id']);
+            $categoryName = $category ? $category->name : 'informatique';
+            $validated['meta_keywords'] = $validated['name'] . ', ' . $categoryName . ', ADI, Dakar, Sénégal, informatique, ' . strtolower($categoryName);
+        }
 
                 // Convertir les valeurs booléennes
         $validated['is_active'] = $request->has('is_active');

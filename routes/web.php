@@ -60,9 +60,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
 
     // Favorites routes
-    Route::get('/favorites', [ProductController::class, 'favorites'])->name('favorites.index');
-    Route::post('/favorites/add/{product}', [ProductController::class, 'addToFavorites'])->name('favorites.add');
-    Route::delete('/favorites/remove/{product}', [ProductController::class, 'removeFromFavorites'])->name('favorites.remove');
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+    Route::post('/favorites/add/{product}', [FavoriteController::class, 'add'])->name('favorites.add');
+    Route::delete('/favorites/remove/{product}', [FavoriteController::class, 'remove'])->name('favorites.remove');
 
     // New favorites routes with AJAX support
     Route::post('/favorites/toggle', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
