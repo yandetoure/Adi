@@ -721,8 +721,8 @@
             <p class="section-subtitle">Découvrez notre sélection de produits les plus populaires et les mieux notés</p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 justify-items-center">
-            @foreach($featuredProducts as $product)
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 justify-items-center">
+            @foreach($featuredProducts->take(15) as $product)
                 <div class="product-card" onclick="window.location.href='{{ route('products.show', $product) }}'">
                     <div class="product-image-container">
                         @if($product->getFirstMediaUrl('images') && $product->getFirstMediaUrl('images') !== '')
@@ -792,6 +792,94 @@
                 Voir tous les produits
             </a>
         </div>
+    </div>
+</section>
+
+<!-- Products by Category Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        @foreach($categories->take(3) as $category)
+            @if($category->products()->where('is_active', true)->count() > 0)
+                <div class="mb-16">
+                    <div class="section-header mb-8">
+                        <h2 class="section-title">{{ $category->name }}</h2>
+                        <p class="section-subtitle">Découvrez notre sélection de {{ strtolower($category->name) }}</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 justify-items-center">
+                        @foreach($category->products()->where('is_active', true)->take(10)->get() as $product)
+                            <div class="product-card" onclick="window.location.href='{{ route('products.show', $product) }}'">
+                                <div class="product-image-container">
+                                    @if($product->getFirstMediaUrl('images') && $product->getFirstMediaUrl('images') !== '')
+                                        <img src="{{ $product->getFirstMediaUrl('images') }}"
+                                             alt="{{ $product->name }}"
+                                             class="product-image">
+                                    @else
+                                        <div class="w-full h-full flex items-center justify-center">
+                                            <i class="fas fa-image text-6xl text-gray-300"></i>
+                                        </div>
+                                    @endif
+
+                                    @if($product->discount_percentage > 0)
+                                        <div class="product-badge">
+                                            -{{ $product->discount_percentage }}%
+                                        </div>
+                                    @endif
+
+                                    <button class="favorite-btn"
+                                            onclick="event.stopPropagation(); toggleFavorite({{ $product->id }}, this)"
+                                            data-product-id="{{ $product->id }}"
+                                            title="Ajouter aux favoris">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+
+                                <div class="product-content">
+                                    <div class="product-category">{{ $product->category->name }}</div>
+                                    <h4 class="product-title">{{ $product->name }}</h4>
+
+                                    @if($product->short_description)
+                                        <p class="product-description">{{ Str::limit($product->short_description, 80) }}</p>
+                                    @elseif($product->description)
+                                        <p class="product-description">{{ Str::limit(strip_tags($product->description), 80) }}</p>
+                                    @endif
+
+                                    <div class="product-price-container">
+                                        @if($product->discount_percentage > 0)
+                                            <span class="product-price">
+                                                {{ number_format($product->price * (1 - $product->discount_percentage / 100), 0, ',', ' ') }} FCFA
+                                            </span>
+                                            <span class="product-old-price">
+                                                {{ number_format($product->price, 0, ',', ' ') }} FCFA
+                                            </span>
+                                            <span class="product-discount">
+                                                -{{ $product->discount_percentage }}%
+                                            </span>
+                                        @else
+                                            <span class="product-price">
+                                                {{ number_format($product->price, 0, ',', ' ') }} FCFA
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({{ $product->id }})">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        Ajouter au panier
+                                    </button>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="text-center mt-8">
+                        <a href="{{ route('categories.show', $category) }}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white font-semibold rounded-lg hover:from-gray-700 hover:to-gray-800 transition duration-300 transform hover:scale-105 shadow-lg">
+                            <i class="fas fa-arrow-right mr-2"></i>
+                            Voir tous les {{ strtolower($category->name) }}
+                        </a>
+                    </div>
+                </div>
+            @endif
+        @endforeach
     </div>
 </section>
 

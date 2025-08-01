@@ -331,6 +331,134 @@
         transform: scale(1.05);
     }
 
+    /* Similar Products Styles */
+    .similar-product-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        border: 1px solid #f0f0f0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .similar-product-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+        border-color: #3b82f6;
+    }
+
+    .similar-product-image-container {
+        position: relative;
+        height: 140px;
+        overflow: hidden;
+        background: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .similar-product-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .similar-product-card:hover .similar-product-image {
+        transform: scale(1.05);
+    }
+
+    .similar-product-badge {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        color: white;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.625rem;
+        font-weight: 700;
+        z-index: 10;
+        box-shadow: 0 2px 4px rgba(220, 38, 38, 0.3);
+    }
+
+    .similar-favorite-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.95);
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        z-index: 10;
+        font-size: 0.75rem;
+        backdrop-filter: blur(10px);
+    }
+
+    .similar-favorite-btn:hover {
+        background: #dc2626;
+        color: white;
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+    }
+
+    .similar-favorite-btn.favorited {
+        background: #dc2626;
+        color: white;
+    }
+
+    .similar-product-content {
+        padding: 0.75rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .similar-product-title {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        min-height: 2.4rem;
+    }
+
+    .similar-product-price {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        flex-wrap: wrap;
+    }
+
+    .similar-current-price {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: #059669;
+    }
+
+    .similar-old-price {
+        font-size: 0.75rem;
+        color: #9ca3af;
+        text-decoration: line-through;
+    }
+
     /* Quantity Selector */
     .quantity-selector {
         background: white;
@@ -760,27 +888,48 @@
         @if($product->category && $product->category->products()->where('id', '!=', $product->id)->count() > 0)
         <div class="product-card p-8">
             <h2 class="text-2xl font-bold text-gray-900 mb-6">Produits similaires</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                @foreach($product->category->products()->where('id', '!=', $product->id)->where('is_active', true)->take(4)->get() as $similarProduct)
-                    <div class="product-card-compact">
-                        <div class="product-image-container">
-                            <img src="{{ $similarProduct->image_url }}"
-                                 alt="{{ $similarProduct->name }}"
-                                 class="product-image">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                @foreach($product->category->products()->where('id', '!=', $product->id)->where('is_active', true)->take(12)->get() as $similarProduct)
+                    <div class="similar-product-card" onclick="window.location.href='{{ route('products.show', $similarProduct) }}'">
+                        <div class="similar-product-image-container">
+                            @if($similarProduct->getFirstMediaUrl('images') && $similarProduct->getFirstMediaUrl('images') !== '')
+                                <img src="{{ $similarProduct->getFirstMediaUrl('images') }}"
+                                     alt="{{ $similarProduct->name }}"
+                                     class="similar-product-image">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center">
+                                    <i class="fas fa-image text-4xl text-gray-300"></i>
+                                </div>
+                            @endif
+
                             @if($similarProduct->discount_percentage > 0)
-                                <div class="discount-badge-compact">
+                                <div class="similar-product-badge">
                                     -{{ $similarProduct->discount_percentage }}%
                                 </div>
                             @endif
+
+                            <button class="similar-favorite-btn"
+                                    onclick="event.stopPropagation(); toggleFavorite({{ $similarProduct->id }}, this)"
+                                    data-product-id="{{ $similarProduct->id }}"
+                                    title="Ajouter aux favoris">
+                                <i class="fas fa-heart"></i>
+                            </button>
                         </div>
-                        <div class="product-info-compact">
-                            <h3 class="product-title-compact">{{ $similarProduct->name }}</h3>
-                            <div class="price-section-compact">
+
+                        <div class="similar-product-content">
+                            <h4 class="similar-product-title">{{ Str::limit($similarProduct->name, 40) }}</h4>
+                            <div class="similar-product-price">
                                 @if($similarProduct->discount_percentage > 0)
-                                    <span class="current-price-compact">{{ number_format($similarProduct->price * (1 - $similarProduct->discount_percentage / 100), 0, ',', ' ') }} FCFA</span>
-                                    <span class="original-price-compact">{{ number_format($similarProduct->price, 0, ',', ' ') }} FCFA</span>
+                                    <span class="similar-current-price">
+                                        {{ number_format($similarProduct->price * (1 - $similarProduct->discount_percentage / 100), 0, ',', ' ') }} FCFA
+                                    </span>
+                                    <span class="similar-old-price">
+                                        {{ number_format($similarProduct->price, 0, ',', ' ') }}
+                                    </span>
                                 @else
-                                    <span class="current-price-compact">{{ number_format($similarProduct->price, 0, ',', ' ') }} FCFA</span>
+                                    <span class="similar-current-price">
+                                        {{ number_format($similarProduct->price, 0, ',', ' ') }} FCFA
+                                    </span>
                                 @endif
                             </div>
                         </div>

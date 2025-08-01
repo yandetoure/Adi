@@ -591,6 +591,7 @@
     @media (max-width: 480px) {
         .product-grid {
             grid-template-columns: 1fr;
+            justify-items: center;
         }
     }
 </style>

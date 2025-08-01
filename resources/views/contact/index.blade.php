@@ -85,14 +85,18 @@
                             <div class="ml-4">
                                 <h3 class="text-lg font-semibold text-gray-900 mb-2">WhatsApp</h3>
                                 <div class="space-y-2">
-                                    <a href="https://wa.me/221786309581" target="_blank" class="inline-flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
-                                        <i class="fab fa-whatsapp mr-2"></i>
-                                        +221 78 630 95 81
-                                    </a>
-                                    <a href="https://wa.me/221770456425" target="_blank" class="inline-flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition ml-2">
-                                        <i class="fab fa-whatsapp mr-2"></i>
-                                        +221 77 045 64 25
-                                    </a>
+                                    <div class="flex flex-col sm:flex-row gap-2">
+                                        <a href="https://wa.me/221786309581" target="_blank" class="inline-flex items-center px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition text-sm">
+                                            <i class="fab fa-whatsapp mr-2"></i>
+                                            <span class="hidden sm:inline">+221 78 630 95 81</span>
+                                            <span class="sm:hidden">78 630 95 81</span>
+                                        </a>
+                                        <a href="https://wa.me/221770456425" target="_blank" class="inline-flex items-center px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition text-sm">
+                                            <i class="fab fa-whatsapp mr-2"></i>
+                                            <span class="hidden sm:inline">+221 77 045 64 25</span>
+                                            <span class="sm:hidden">77 045 64 25</span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -248,33 +252,33 @@
             <p class="text-lg text-gray-300">Restez connectés avec ADI INFORMATIQUE</p>
         </div>
 
-        <div class="flex justify-center space-x-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto">
             <!-- Facebook -->
             <a href="https://www.facebook.com/share/1BAMFAU833/?mibextid=wwXIfr" target="_blank" 
-               class="flex flex-col items-center p-6 bg-blue-600 rounded-xl hover:bg-blue-700 transition duration-300 transform hover:scale-105">
-                <i class="fab fa-facebook-f text-3xl mb-2"></i>
-                <span class="font-semibold">Facebook</span>
+               class="flex flex-col items-center p-4 md:p-6 bg-blue-600 rounded-xl hover:bg-blue-700 transition duration-300 transform hover:scale-105">
+                <i class="fab fa-facebook-f text-2xl md:text-3xl mb-2"></i>
+                <span class="font-semibold text-sm md:text-base">Facebook</span>
             </a>
 
             <!-- WhatsApp -->
             <a href="https://wa.me/221786309581" target="_blank" 
-               class="flex flex-col items-center p-6 bg-green-600 rounded-xl hover:bg-green-700 transition duration-300 transform hover:scale-105">
-                <i class="fab fa-whatsapp text-3xl mb-2"></i>
-                <span class="font-semibold">WhatsApp</span>
+               class="flex flex-col items-center p-4 md:p-6 bg-green-600 rounded-xl hover:bg-green-700 transition duration-300 transform hover:scale-105">
+                <i class="fab fa-whatsapp text-2xl md:text-3xl mb-2"></i>
+                <span class="font-semibold text-sm md:text-base">WhatsApp</span>
             </a>
 
             <!-- Instagram -->
             <a href="#" target="_blank" 
-               class="flex flex-col items-center p-6 bg-pink-600 rounded-xl hover:bg-pink-700 transition duration-300 transform hover:scale-105">
-                <i class="fab fa-instagram text-3xl mb-2"></i>
-                <span class="font-semibold">Instagram</span>
+               class="flex flex-col items-center p-4 md:p-6 bg-pink-600 rounded-xl hover:bg-pink-700 transition duration-300 transform hover:scale-105">
+                <i class="fab fa-instagram text-2xl md:text-3xl mb-2"></i>
+                <span class="font-semibold text-sm md:text-base">Instagram</span>
             </a>
 
             <!-- LinkedIn -->
             <a href="#" target="_blank" 
-               class="flex flex-col items-center p-6 bg-blue-700 rounded-xl hover:bg-blue-800 transition duration-300 transform hover:scale-105">
-                <i class="fab fa-linkedin-in text-3xl mb-2"></i>
-                <span class="font-semibold">LinkedIn</span>
+               class="flex flex-col items-center p-4 md:p-6 bg-blue-700 rounded-xl hover:bg-blue-800 transition duration-300 transform hover:scale-105">
+                <i class="fab fa-linkedin-in text-2xl md:text-3xl mb-2"></i>
+                <span class="font-semibold text-sm md:text-base">LinkedIn</span>
             </a>
         </div>
     </div>
