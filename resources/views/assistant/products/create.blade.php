@@ -37,7 +37,7 @@
                 <!-- Informations de base -->
                 <div class="space-y-6">
                     <h3 class="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">Informations de base</h3>
-                    
+
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nom du produit *</label>
                         <input type="text" id="name" name="name" value="{{ old('name') }}" required
@@ -78,13 +78,14 @@
                 <!-- Prix et stock -->
                 <div class="space-y-6">
                     <h3 class="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">Prix et stock</h3>
-                    
+
                     <div>
                         <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Prix *</label>
                         <div class="relative">
                             <input type="number" id="price" name="price" value="{{ old('price') }}" step="0.01" min="0" required
-                                   class="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <span class="absolute left-3 top-2 text-gray-500">FCFA</span>
+                                   class="w-full pl-12 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                                   placeholder="0.00">
+                            <span class="absolute left-3 top-2 text-gray-500 text-sm">FCFA</span>
                         </div>
                         @error('price')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -127,7 +128,7 @@
             <!-- Images -->
             <div class="mt-8">
                 <h3 class="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2 mb-4">Images</h3>
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
                         <input type="file" id="images" name="images[]" multiple accept="image/*" class="hidden" onchange="previewImages(this)">
@@ -149,7 +150,7 @@
             <!-- SEO -->
             <div class="mt-8">
                 <h3 class="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2 mb-4">Optimisation SEO</h3>
-                
+
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div>
                         <label for="meta_title" class="block text-sm font-medium text-gray-700 mb-1">Titre SEO</label>
@@ -175,7 +176,7 @@
 
                 <div class="mt-4">
                     <label for="meta_description" class="block text-sm font-medium text-gray-700 mb-1">Description SEO</label>
-                    <textarea id="meta_description" name="meta_description" rows="3" maxlength="160"
+                    <textarea id="meta_description" name="meta_description" rows="6" maxlength="160"
                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">{{ old('meta_description') }}</textarea>
                     <p class="text-xs text-gray-500 mt-1">Maximum 160 caractères</p>
                     @error('meta_description')
@@ -186,11 +187,11 @@
 
             <!-- Actions -->
             <div class="mt-8 flex justify-end space-x-4">
-                <a href="{{ route('assistant.products.index') }}" 
+                <a href="{{ route('assistant.products.index') }}"
                    class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
                     Annuler
                 </a>
-                <button type="submit" 
+                <button type="submit"
                         class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
                     Créer le produit
                 </button>
@@ -203,7 +204,7 @@
 function previewImages(input) {
     const preview = document.getElementById('image-preview');
     preview.innerHTML = '';
-    
+
     if (input.files) {
         Array.from(input.files).forEach((file, index) => {
             const reader = new FileReader();
@@ -226,13 +227,13 @@ function previewImages(input) {
 function removeImage(index) {
     const input = document.getElementById('images');
     const dt = new DataTransfer();
-    
+
     Array.from(input.files).forEach((file, i) => {
         if (i !== index) {
             dt.items.add(file);
         }
     });
-    
+
     input.files = dt.files;
     previewImages(input);
 }
@@ -248,4 +249,4 @@ document.getElementById('name').addEventListener('input', function() {
     document.getElementById('slug').value = slug;
 });
 </script>
-@endsection 
+@endsection
