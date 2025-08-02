@@ -17,7 +17,7 @@
                     </p>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.dashboard') : route('admin.dashboard') }}" 
+                    <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.dashboard') : route('admin.dashboard') }}"
                        class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm">
                         Retour au Dashboard
                     </a>
@@ -45,7 +45,7 @@
             <div class="px-6 py-4 border-b border-gray-200">
                 <h2 class="text-lg font-semibold text-gray-900">Liste des Commandes</h2>
             </div>
-            
+
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
@@ -85,7 +85,7 @@
                                                 #{{ $order->id }}
                                             </div>
                                             <div class="text-sm text-gray-500">
-                                                {{ $order->items->count() }} articles
+                                                {{ $order->orderItems->count() }} articles
                                             </div>
                                         </div>
                                     </div>
@@ -100,7 +100,7 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                         @if($order->status === 'pending') bg-yellow-100 text-yellow-800
                                         @elseif($order->status === 'processing') bg-blue-100 text-blue-800
                                         @elseif($order->status === 'completed') bg-green-100 text-green-800
@@ -115,11 +115,11 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <div class="flex space-x-2">
-                                        <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.orders.show', $order) : route('admin.orders.show', $order) }}" 
+                                        <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.orders.show', $order) : route('admin.orders.show', $order) }}"
                                            class="text-blue-600 hover:text-blue-900">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.orders.edit', $order) : route('admin.orders.edit', $order) }}" 
+                                        <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.orders.edit', $order) : route('admin.orders.edit', $order) }}"
                                            class="text-indigo-600 hover:text-indigo-900">
                                             <i class="fas fa-edit"></i>
                                         </a>
@@ -136,7 +136,7 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <!-- Pagination -->
             <div class="px-6 py-4 border-t border-gray-200">
                 {{ $orders->links() }}
@@ -144,4 +144,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

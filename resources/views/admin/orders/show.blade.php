@@ -17,11 +17,11 @@
                     </p>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.orders.index') : route('admin.orders.index') }}" 
+                    <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.orders.index') : route('admin.orders.index') }}"
                        class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm">
                         Retour à la liste
                     </a>
-                    <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.orders.edit', $order) : route('admin.orders.edit', $order) }}" 
+                    <a href="{{ auth()->user()->hasRole('assistant') ? route('assistant.orders.edit', $order) : route('admin.orders.edit', $order) }}"
                        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">
                         <i class="fas fa-edit mr-2"></i>Modifier
                     </a>
@@ -36,7 +36,7 @@
             <!-- Order Details -->
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">Informations de la commande</h2>
-                
+
                 <div class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Numéro de commande</label>
@@ -45,7 +45,7 @@
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Statut</label>
-                        <span class="mt-1 px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                        <span class="mt-1 px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                             @if($order->status === 'pending') bg-yellow-100 text-yellow-800
                             @elseif($order->status === 'processing') bg-blue-100 text-blue-800
                             @elseif($order->status === 'completed') bg-green-100 text-green-800
@@ -85,7 +85,7 @@
             <!-- Customer Information -->
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">Informations client</h2>
-                
+
                 <div class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Nom</label>
@@ -115,8 +115,8 @@
         <!-- Order Items -->
         <div class="mt-8 bg-white rounded-lg shadow-md p-6">
             <h2 class="text-xl font-semibold text-gray-900 mb-4">Articles commandés</h2>
-            
-            @if($order->items->count() > 0)
+
+            @if($order->orderItems->count() > 0)
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
@@ -136,14 +136,14 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach($order->items as $item)
+                            @foreach($order->orderItems as $item)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0 h-10 w-10">
                                                                                         @if($item->product->getFirstMediaUrl('images') && $item->product->getFirstMediaUrl('images') !== '')
-                                            <img class="h-10 w-10 rounded object-cover" 
-                                                 src="{{ $item->product->getFirstMediaUrl('images') }}" 
+                                            <img class="h-10 w-10 rounded object-cover"
+                                                 src="{{ $item->product->getFirstMediaUrl('images') }}"
                                                  alt="{{ $item->product->name }}">
                                         @else
                                             <div class="h-10 w-10 rounded bg-gray-200 flex items-center justify-center">
@@ -184,4 +184,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

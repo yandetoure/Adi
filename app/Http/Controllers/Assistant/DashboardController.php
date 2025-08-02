@@ -13,14 +13,29 @@ class DashboardController extends Controller
 {
     public function index(): View
     {
+        // Statistiques de base
         $stats = [
             'totalProducts' => Product::count(),
             'totalCategories' => Category::count(),
             'totalOrders' => Order::count(),
             'pendingOrders' => Order::where('status', 'pending')->count(),
             'processingOrders' => Order::where('status', 'processing')->count(),
-            'completedOrders' => Order::where('status', 'completed')->count(),
+            'shippedOrders' => Order::where('status', 'shipped')->count(),
+            'deliveredOrders' => Order::where('status', 'delivered')->count(),
+            'cancelledOrders' => Order::where('status', 'cancelled')->count(),
             'totalUsers' => User::count(),
+        ];
+
+        // Statistiques de ventes
+        $salesStats = [
+            'totalRevenue' => Order::whereIn('status', ['delivered', 'shipped'])->sum('total_amount'),
+            'monthlyRevenue' => Order::whereIn('status', ['delivered', 'shipped'])
+                ->whereMonth('created_at', now()->month)
+                ->sum('total_amount'),
+            'weeklyRevenue' => Order::whereIn('status', ['delivered', 'shipped'])
+                ->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])
+                ->sum('total_amount'),
+            'averageOrderValue' => Order::whereIn('status', ['delivered', 'shipped'])->avg('total_amount') ?? 0,
         ];
 
         $recentOrders = Order::with('user')
@@ -28,10 +43,11 @@ class DashboardController extends Controller
             ->limit(10)
             ->get();
 
-        $recentProducts = Product::latest()
-            ->limit(5)
+        $popularProducts = Product::with('category')
+            ->orderBy('created_at', 'desc')
+            ->limit(6)
             ->get();
 
-        return view('assistant.dashboard', compact('stats', 'recentOrders', 'recentProducts'));
+        return view('assistant.dashboard', compact('stats', 'salesStats', 'recentOrders', 'popularProducts'));
     }
 }

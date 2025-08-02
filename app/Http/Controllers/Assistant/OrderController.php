@@ -12,7 +12,7 @@ class OrderController extends Controller
 {
     public function index(): View
     {
-        $orders = Order::with(['user', 'items.product'])
+        $orders = Order::with(['user', 'orderItems.product'])
             ->latest()
             ->paginate(15);
         return view('assistant.orders.index', compact('orders'));
@@ -20,13 +20,13 @@ class OrderController extends Controller
 
     public function show(Order $order): View
     {
-        $order->load(['user', 'items.product']);
+        $order->load(['user', 'orderItems.product']);
         return view('assistant.orders.show', compact('order'));
     }
 
     public function edit(Order $order): View
     {
-        $order->load(['user', 'items.product']);
+        $order->load(['user', 'orderItems.product']);
         return view('assistant.orders.edit', compact('order'));
     }
 

@@ -4,17 +4,17 @@
 @section('meta_description', 'Tableau de bord assistant ADI Informatique')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+<div class="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
     <!-- Header moderne -->
     <div class="bg-white shadow-lg border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-6">
                 <div class="flex items-center space-x-4">
-                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                    <div class="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center">
                         <i class="fas fa-user-tie text-white text-xl"></i>
                     </div>
                     <div>
-                        <h1 class="text-3xl font-bold text-gray-900">Dashboard Assistant</h1>
+                        <h1 class="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Dashboard Assistant</h1>
                         <p class="text-gray-600">Gestion simplifiée des produits et commandes</p>
                     </div>
                 </div>
@@ -106,6 +106,85 @@
         </div>
     </section>
 
+    <!-- Statistiques de ventes -->
+    <section class="py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Statistiques de ventes</h2>
+                <p class="text-gray-600">Performance des ventes du site</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Chiffre d'affaires total -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500 mb-1">CA Total</p>
+                            <p class="text-2xl font-bold text-emerald-600">{{ number_format($salesStats['totalRevenue'], 0, ',', ' ') }} FCFA</p>
+                            <p class="text-xs text-emerald-600 mt-1">
+                                <i class="fas fa-chart-line mr-1"></i>Commandes livrées
+                            </p>
+                        </div>
+                        <div class="w-16 h-16 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-money-bill-wave text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CA du mois -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500 mb-1">CA du mois</p>
+                            <p class="text-2xl font-bold text-blue-600">{{ number_format($salesStats['monthlyRevenue'], 0, ',', ' ') }} FCFA</p>
+                            <p class="text-xs text-blue-600 mt-1">
+                                <i class="fas fa-calendar mr-1"></i>{{ now()->format('M Y') }}
+                            </p>
+                        </div>
+                        <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-calendar-alt text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CA de la semaine -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500 mb-1">CA de la semaine</p>
+                            <p class="text-2xl font-bold text-orange-600">{{ number_format($salesStats['weeklyRevenue'], 0, ',', ' ') }} FCFA</p>
+                            <p class="text-xs text-orange-600 mt-1">
+                                <i class="fas fa-clock mr-1"></i>Cette semaine
+                            </p>
+                        </div>
+                        <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-clock text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panier moyen -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500 mb-1">Panier moyen</p>
+                            <p class="text-2xl font-bold text-purple-600">{{ number_format($salesStats['averageOrderValue'], 0, ',', ' ') }} FCFA</p>
+                            <p class="text-xs text-purple-600 mt-1">
+                                <i class="fas fa-shopping-bag mr-1"></i>Par commande
+                            </p>
+                        </div>
+                        <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-shopping-bag text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+            </div>
+        </div>
+    </section>
+
     <!-- Actions rapides avec design moderne -->
     <section class="py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,7 +192,7 @@
                 <h2 class="text-2xl font-bold text-gray-900 mb-2">Actions rapides</h2>
                 <p class="text-gray-600">Gérez vos produits et commandes en quelques clics</p>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Ajouter un produit -->
                 <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition duration-300 transform hover:-translate-y-1 cursor-pointer" onclick="window.location.href='{{ route('assistant.products.create') }}'">
@@ -233,7 +312,7 @@
                 <h2 class="text-2xl font-bold text-gray-900 mb-2">Commandes récentes</h2>
                 <p class="text-gray-600">Suivez les dernières commandes</p>
             </div>
-            
+
             <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-200">
                     <div class="flex items-center justify-between">
@@ -243,7 +322,7 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="divide-y divide-gray-200">
                     @forelse($recentOrders ?? [] as $order)
                     <div class="px-6 py-4 hover:bg-gray-50 transition duration-200">
@@ -258,12 +337,15 @@
                                 </div>
                             </div>
                             <div class="text-right">
-                                <p class="font-semibold text-gray-900">{{ number_format($order->total, 0, ',', ' ') }} FCFA</p>
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                                <p class="font-semibold text-gray-900">{{ number_format($order->total_amount, 0, ',', ' ') }} FCFA</p>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                                     @if($order->status === 'pending') bg-yellow-100 text-yellow-800
-                                    @elseif($order->status === 'completed') bg-green-100 text-green-800
+                                    @elseif($order->status === 'processing') bg-blue-100 text-blue-800
+                                    @elseif($order->status === 'shipped') bg-purple-100 text-purple-800
+                                    @elseif($order->status === 'delivered') bg-green-100 text-green-800
+                                    @elseif($order->status === 'cancelled') bg-red-100 text-red-800
                                     @else bg-gray-100 text-gray-800 @endif">
-                                    {{ ucfirst($order->status) }}
+                                    {{ $order->status_label }}
                                 </span>
                             </div>
                         </div>
@@ -286,7 +368,7 @@
                 <h2 class="text-2xl font-bold text-gray-900 mb-2">Produits populaires</h2>
                 <p class="text-gray-600">Les produits les plus consultés</p>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @forelse($popularProducts ?? [] as $product)
                 <div class="bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
@@ -318,11 +400,11 @@
     .hover\:shadow-xl:hover {
         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
-    
+
     .transform {
         transition: transform 0.3s ease;
     }
-    
+
     .hover\:-translate-y-1:hover {
         transform: translateY(-4px);
     }
