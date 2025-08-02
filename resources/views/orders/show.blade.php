@@ -125,7 +125,12 @@
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <h2 class="text-xl font-semibold text-gray-900 mb-4">Adresse de livraison</h2>
                         <div class="text-gray-600">
+                            <p><strong>{{ $order->shipping_first_name }} {{ $order->shipping_last_name }}</strong></p>
                             <p>{{ $order->shipping_address }}</p>
+                            <p>{{ $order->shipping_city }}, {{ $order->shipping_state }} {{ $order->shipping_postal_code }}</p>
+                            <p>{{ $order->shipping_country }}</p>
+                            <p><strong>Téléphone:</strong> {{ $order->shipping_phone }}</p>
+                            <p><strong>Email:</strong> {{ $order->shipping_email }}</p>
                         </div>
                     </div>
                 @endif
@@ -136,8 +141,8 @@
                     <div class="space-y-2 text-gray-600">
                         <p><strong>Nom:</strong> {{ $order->user->name }}</p>
                         <p><strong>Email:</strong> {{ $order->user->email }}</p>
-                        @if($order->phone)
-                            <p><strong>Téléphone:</strong> {{ $order->phone }}</p>
+                        @if($order->shipping_phone)
+                            <p><strong>Téléphone:</strong> {{ $order->shipping_phone }}</p>
                         @endif
                     </div>
                 </div>

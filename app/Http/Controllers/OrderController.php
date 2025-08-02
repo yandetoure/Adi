@@ -73,15 +73,40 @@ class OrderController extends Controller
         // Generate unique order number
         $orderNumber = 'ADI-' . date('Ymd') . '-' . strtoupper(uniqid());
 
-        // Create order
+        // Get user information
+        $user = Auth::user();
+
+        // Create order with proper address fields
         $order = Order::create([
-            'user_id' => Auth::user()->id,
+            'user_id' => $user->id,
             'order_number' => $orderNumber,
+            'subtotal' => $total,
             'total_amount' => $total,
             'status' => 'pending',
-            'shipping_address' => $validated['shipping_address'],
-            'phone' => $validated['phone'],
+            'payment_status' => 'pending',
             'notes' => $validated['notes'] ?? null,
+            
+            // Billing address (using user info)
+            'billing_first_name' => $user->first_name ?? $user->name,
+            'billing_last_name' => $user->last_name ?? '',
+            'billing_email' => $user->email,
+            'billing_phone' => $validated['phone'],
+            'billing_address' => $validated['shipping_address'],
+            'billing_city' => 'Dakar', // Default value
+            'billing_state' => 'Dakar', // Default value
+            'billing_postal_code' => '00000', // Default value
+            'billing_country' => 'Sénégal', // Default value
+            
+            // Shipping address (using provided info)
+            'shipping_first_name' => $user->first_name ?? $user->name,
+            'shipping_last_name' => $user->last_name ?? '',
+            'shipping_email' => $user->email,
+            'shipping_phone' => $validated['phone'],
+            'shipping_address' => $validated['shipping_address'],
+            'shipping_city' => 'Dakar', // Default value
+            'shipping_state' => 'Dakar', // Default value
+            'shipping_postal_code' => '00000', // Default value
+            'shipping_country' => 'Sénégal', // Default value
         ]);
 
         // Create order items

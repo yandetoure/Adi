@@ -15,10 +15,40 @@ class Order extends Model
         'user_id',
         'order_number',
         'status',
+        'subtotal',
+        'tax_amount',
+        'shipping_amount',
+        'discount_amount',
         'total_amount',
-        'shipping_address',
-        'phone',
+        'payment_method',
+        'payment_status',
+        'shipping_method',
         'notes',
+        
+        // Billing address fields
+        'billing_first_name',
+        'billing_last_name',
+        'billing_email',
+        'billing_phone',
+        'billing_address',
+        'billing_city',
+        'billing_state',
+        'billing_postal_code',
+        'billing_country',
+        
+        // Shipping address fields
+        'shipping_first_name',
+        'shipping_last_name',
+        'shipping_email',
+        'shipping_phone',
+        'shipping_address',
+        'shipping_city',
+        'shipping_state',
+        'shipping_postal_code',
+        'shipping_country',
+        
+        'shipped_at',
+        'delivered_at',
     ];
 
     protected $casts = [
