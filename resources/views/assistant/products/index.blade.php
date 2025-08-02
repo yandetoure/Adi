@@ -92,8 +92,8 @@
                                         @endif
                                     </div>
                                     <div class="ml-4 min-w-0 flex-1">
-                                        <div class="text-sm font-medium text-gray-900 truncate">{{ $product->name }}</div>
-                                        {{-- <div class="text-sm text-gray-500 truncate">{{ Str::limit($product->short_description, 20) }}</div> --}}
+                                        <div class="text-sm font-medium text-gray-900 truncate">{{ Str::limit($product->name, 35) }}</div>
+                                        <div class="text-sm text-gray-500 truncate">{{ Str::limit($product->short_description, 40) }}</div>
                                     </div>
                                 </div>
                             </td>
