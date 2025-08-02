@@ -83,8 +83,7 @@
                         <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Prix *</label>
                         <div class="relative">
                             <input type="number" id="price" name="price" value="{{ old('price') }}" step="0.01" min="0" required
-                                   class="w-full pl-12 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                                   placeholder="0.00">
+                                   class="w-full pl-12 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
                             <span class="absolute left-3 top-2 text-gray-500 text-sm">FCFA</span>
                         </div>
                         @error('price')
