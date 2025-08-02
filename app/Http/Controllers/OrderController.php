@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\CartItem;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 class OrderController extends Controller
 {
@@ -85,7 +85,7 @@ class OrderController extends Controller
             'status' => 'pending',
             'payment_status' => 'pending',
             'notes' => $validated['notes'] ?? null,
-            
+
             // Billing address (using user info)
             'billing_first_name' => $user->first_name ?? $user->name,
             'billing_last_name' => $user->last_name ?? '',
@@ -96,7 +96,7 @@ class OrderController extends Controller
             'billing_state' => 'Dakar', // Default value
             'billing_postal_code' => '00000', // Default value
             'billing_country' => 'Sénégal', // Default value
-            
+
             // Shipping address (using provided info)
             'shipping_first_name' => $user->first_name ?? $user->name,
             'shipping_last_name' => $user->last_name ?? '',

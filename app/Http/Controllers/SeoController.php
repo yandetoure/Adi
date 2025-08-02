@@ -14,13 +14,13 @@ class SeoController extends Controller
     /**
      * Générer le sitemap XML
      */
-    public function sitemap(): Response
+    public function sitemap()
     {
-        $products = Product::active()->get();
+        $products = Product::with('category')->get();
         $categories = Category::all();
-        
+
         return response()->view('sitemap', compact('products', 'categories'))
-            ->header('Content-Type', 'application/xml');
+                        ->header('Content-Type', 'application/xml');
     }
 
     /**
@@ -39,7 +39,7 @@ class SeoController extends Controller
     {
         $featuredProducts = Product::active()->featured()->take(8)->get();
         $popularCategories = Category::withCount('products')->orderBy('products_count', 'desc')->take(6)->get();
-        
+
         return view('home', compact('featuredProducts', 'popularCategories'));
     }
 
@@ -50,23 +50,23 @@ class SeoController extends Controller
     {
         // Incrémenter le compteur de vues
         $product->incrementViewCount();
-        
+
         // Charger les relations
         $product->load(['category', 'media']);
-        
+
         // Produits similaires
         $relatedProducts = Product::active()
             ->where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->take(4)
             ->get();
-        
+
         // Check if product is in user's favorites
         $isFavorite = false;
         if (Auth::check()) {
             $isFavorite = Auth::user()->favoriteProducts()->where('product_id', $product->id)->exists();
         }
-        
+
         return view('products.show', compact('product', 'relatedProducts', 'isFavorite'));
     }
 
@@ -78,7 +78,7 @@ class SeoController extends Controller
         $products = Product::active()
             ->where('category_id', $category->id)
             ->paginate(12);
-        
+
         return view('categories.show', compact('category', 'products'));
     }
 
@@ -88,25 +88,25 @@ class SeoController extends Controller
     public function products(Request $request): View
     {
         $query = Product::active()->with('category');
-        
+
         // Filtres
         if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->search . '%')
                   ->orWhere('description', 'like', '%' . $request->search . '%');
         }
-        
+
         if ($request->filled('category')) {
             $query->where('category_id', $request->category);
         }
-        
+
         if ($request->filled('min_price')) {
             $query->where('price', '>=', $request->min_price);
         }
-        
+
         if ($request->filled('max_price')) {
             $query->where('price', '<=', $request->max_price);
         }
-        
+
         // Tri
         $sort = $request->get('sort', 'latest');
         switch ($sort) {
@@ -125,10 +125,28 @@ class SeoController extends Controller
             default:
                 $query->latest();
         }
-        
+
         $products = $query->paginate(12)->withQueryString();
         $categories = Category::all();
-        
+
         return view('products.index', compact('products', 'categories'));
     }
-} 
+
+    public function googleVerification()
+    {
+        return response('google-site-verification: google1234567890.html')
+                ->header('Content-Type', 'text/plain');
+    }
+
+    public function bingVerification()
+    {
+        return response('BingSiteAuth.xml')
+                ->header('Content-Type', 'text/plain');
+    }
+
+    public function yandexVerification()
+    {
+        return response('yandex_verification.html')
+                ->header('Content-Type', 'text/plain');
+    }
+}

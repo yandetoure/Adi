@@ -165,4 +165,49 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')->with('success', 'Produit supprimé avec succès.');
     }
+
+    public function imprimantes(): View
+    {
+        $imprimantes = Product::with(['category', 'media'])
+            ->whereHas('category', function ($query) {
+                $query->where('name', 'like', '%imprimante%')
+                      ->orWhere('name', 'like', '%printer%');
+            })
+            ->orWhere('name', 'like', '%imprimante%')
+            ->orWhere('name', 'like', '%printer%')
+            ->orWhere('description', 'like', '%imprimante%')
+            ->paginate(12);
+
+        return view('products.imprimantes', compact('imprimantes'));
+    }
+
+    public function ordinateurs(): View
+    {
+        $ordinateurs = Product::with(['category', 'media'])
+            ->whereHas('category', function ($query) {
+                $query->where('name', 'like', '%ordinateur%')
+                      ->orWhere('name', 'like', '%computer%')
+                      ->orWhere('name', 'like', '%laptop%');
+            })
+            ->orWhere('name', 'like', '%ordinateur%')
+            ->orWhere('name', 'like', '%computer%')
+            ->orWhere('name', 'like', '%laptop%')
+            ->orWhere('description', 'like', '%ordinateur%')
+            ->paginate(12);
+
+        return view('products.ordinateurs', compact('ordinateurs'));
+    }
+
+    public function scanners(): View
+    {
+        $scanners = Product::with(['category', 'media'])
+            ->whereHas('category', function ($query) {
+                $query->where('name', 'like', '%scanner%');
+            })
+            ->orWhere('name', 'like', '%scanner%')
+            ->orWhere('description', 'like', '%scanner%')
+            ->paginate(12);
+
+        return view('products.scanners', compact('scanners'));
+    }
 }

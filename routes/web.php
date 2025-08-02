@@ -25,6 +25,16 @@ Route::get('/', [SeoController::class, 'home'])->name('home');
 Route::get('/products', [SeoController::class, 'products'])->name('products.index');
 Route::get('/products/{product:slug}', [SeoController::class, 'product'])->name('products.show');
 
+// SEO Optimized Product Pages
+Route::get('/imprimantes', [ProductController::class, 'imprimantes'])->name('products.imprimantes');
+Route::get('/ordinateurs', [ProductController::class, 'ordinateurs'])->name('products.ordinateurs');
+Route::get('/scanners', [ProductController::class, 'scanners'])->name('products.scanners');
+
+// Search Engine Verification Files
+Route::get('/google1234567890.html', [SeoController::class, 'googleVerification']);
+Route::get('/BingSiteAuth.xml', [SeoController::class, 'bingVerification']);
+Route::get('/yandex_verification.html', [SeoController::class, 'yandexVerification']);
+
 // Category routes
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::get('/categories/{category:slug}', [SeoController::class, 'category'])->name('categories.show');

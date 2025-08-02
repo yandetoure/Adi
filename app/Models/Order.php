@@ -24,7 +24,7 @@ class Order extends Model
         'payment_status',
         'shipping_method',
         'notes',
-        
+
         // Billing address fields
         'billing_first_name',
         'billing_last_name',
@@ -35,7 +35,7 @@ class Order extends Model
         'billing_state',
         'billing_postal_code',
         'billing_country',
-        
+
         // Shipping address fields
         'shipping_first_name',
         'shipping_last_name',
@@ -46,7 +46,7 @@ class Order extends Model
         'shipping_state',
         'shipping_postal_code',
         'shipping_country',
-        
+
         'shipped_at',
         'delivered_at',
     ];

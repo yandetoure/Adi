@@ -2,20 +2,39 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://adi-informatique.sn/sitemap.xml
+Sitemap: https://aditechnologies.sn/sitemap.xml
 
-# Crawl-delay
-Crawl-delay: 1
-
-# Disallow admin areas
+# Disallow admin and private areas
 Disallow: /admin/
-Disallow: /login
-Disallow: /register
-Disallow: /password/
-Disallow: /_debugbar/
+Disallow: /assistant/
+Disallow: /storage/
+Disallow: /vendor/
+Disallow: /bootstrap/
+Disallow: /config/
+Disallow: /database/
+Disallow: /resources/
+Disallow: /routes/
+Disallow: /tests/
+Disallow: /app/
+Disallow: /artisan
+Disallow: /composer.json
+Disallow: /composer.lock
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /phpunit.xml
+Disallow: /README.md
+Disallow: /tailwind.config.js
+Disallow: /vite.config.js
+Disallow: /postcss.config.js
 
 # Allow important pages
-Allow: /products/
-Allow: /categories/
-Allow: /cart/
-Allow: /favorites/
+Allow: /imprimantes
+Allow: /ordinateurs
+Allow: /scanners
+Allow: /products
+Allow: /categories
+Allow: /contact
+Allow: /help
+
+# Crawl delay (optional)
+Crawl-delay: 1

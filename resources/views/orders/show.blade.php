@@ -26,7 +26,7 @@
                     <h2 class="text-xl font-semibold text-gray-900 mb-4">Statut de la commande</h2>
                     <div class="flex items-center justify-between">
                         <div>
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium 
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
                                 @if($order->status === 'pending') bg-yellow-100 text-yellow-800
                                 @elseif($order->status === 'processing') bg-blue-100 text-blue-800
                                 @elseif($order->status === 'shipped') bg-purple-100 text-purple-800
@@ -150,4 +150,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

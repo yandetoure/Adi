@@ -295,42 +295,44 @@
             color: white;
         }
     </style>
-    <title>@yield('title', 'ADI Informatique - Votre boutique informatique au Sénégal')</title>
-    <meta name="description" content="@yield('meta_description', 'ADI Informatique, votre boutique en ligne de confiance pour tous vos besoins informatiques. Ordinateurs, cartouches d\'encre, accessoires et matériel informatique au meilleur prix au Sénégal. Livraison gratuite Dakar.')">
-    <meta name="keywords" content="@yield('meta_keywords', 'ADI, informatique, ordinateurs, cartouches encre, HP, Canon, Epson, accessoires informatiques, Dakar, Sénégal, boutique en ligne, e-commerce, matériel informatique, imprimantes, souris, clavier, casque')">
-    <meta name="author" content="ADI Informatique">
-    <meta name="robots" content="index, follow">
+    <title>@yield('title', 'ADI Technologies - Votre boutique informatique au Sénégal | Ordinateurs, Imprimantes, Cartouches')</title>
+    <meta name="description" content="@yield('meta_description', 'ADI Technologies - Votre boutique informatique de confiance au Sénégal. Ordinateurs, imprimantes, cartouches d\'encre, scanners et accessoires informatiques. Livraison gratuite Dakar. Prix compétitifs et service client exceptionnel.')">
+    <meta name="keywords" content="@yield('meta_keywords', 'ADI, ADI Technologies, ADI Global, informatique, ordinateurs, imprimantes, cartouches encre, scanners, HP, Canon, Epson, accessoires informatiques, Dakar, Sénégal, boutique en ligne, e-commerce, matériel informatique, souris, clavier, casque, technologie')">
+    <meta name="author" content="ADI Technologies">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="language" content="{{ str_replace('_', '-', app()->getLocale()) }}">
     <meta name="geo.region" content="SN">
     <meta name="geo.placename" content="Dakar">
     <meta name="geo.position" content="14.7167;-17.4677">
     <meta name="ICBM" content="14.7167, -17.4677">
 
-    <!-- Canonical URL -->
-    <link rel="canonical" href="{{ url()->current() }}">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="@yield('title', 'ADI Informatique - Votre boutique informatique au Sénégal')">
-    <meta property="og:description" content="@yield('meta_description', 'ADI Informatique, votre boutique en ligne de confiance pour tous vos besoins informatiques. Ordinateurs, cartouches d\'encre, accessoires et matériel informatique au meilleur prix au Sénégal.')">
-    <meta property="og:image" content="@yield('og_image', asset('images/adi-logo.png'))">
-    <meta property="og:site_name" content="ADI Informatique">
-    <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta property="twitter:title" content="@yield('title', 'ADI Informatique - Votre boutique informatique au Sénégal')">
-    <meta property="twitter:description" content="@yield('meta_description', 'ADI Informatique, votre boutique en ligne de confiance pour tous vos besoins informatiques. Ordinateurs, cartouches d\'encre, accessoires et matériel informatique au meilleur prix au Sénégal.')">
-    <meta property="twitter:image" content="@yield('og_image', asset('images/adi-logo.png'))">
-
     <!-- Additional SEO meta tags -->
     <meta name="theme-color" content="#2563eb">
     <meta name="msapplication-TileColor" content="#2563eb">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="ADI Informatique">
+    <meta name="apple-mobile-web-app-title" content="ADI Technologies">
+
+    <!-- Enhanced Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="@yield('title', 'ADI Technologies - Votre boutique informatique au Sénégal | Ordinateurs, Imprimantes, Cartouches')">
+    <meta property="og:description" content="@yield('meta_description', 'ADI Technologies - Votre boutique informatique de confiance au Sénégal. Ordinateurs, imprimantes, cartouches d\'encre, scanners et accessoires informatiques. Livraison gratuite Dakar.')">
+    <meta property="og:image" content="@yield('og_image', asset('images/adi-logo.png'))">
+    <meta property="og:site_name" content="ADI Technologies">
+    <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Enhanced Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="@yield('title', 'ADI Technologies - Votre boutique informatique au Sénégal | Ordinateurs, Imprimantes, Cartouches')">
+    <meta property="twitter:description" content="@yield('meta_description', 'ADI Technologies - Votre boutique informatique de confiance au Sénégal. Ordinateurs, imprimantes, cartouches d\'encre, scanners et accessoires informatiques. Livraison gratuite Dakar.')">
+    <meta property="twitter:image" content="@yield('og_image', asset('images/adi-logo.png'))">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url()->current() }}">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
@@ -345,14 +347,18 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'GA_MEASUREMENT_ID', {
-            'page_title': '@yield("title", "ADI Informatique - Votre boutique informatique au Sénégal")',
-            'page_location': '{{ url()->current() }}'
+        gtag('config', 'G-XXXXXXXXXX', {
+            'page_title': '@yield("title", "ADI Technologies - Votre boutique informatique au Sénégal | Ordinateurs, Imprimantes, Cartouches")',
+            'page_location': '{{ url()->current() }}',
+            'custom_map': {
+                'custom_dimension1': 'user_type',
+                'custom_dimension2': 'product_category'
+            }
         });
     </script>
 
@@ -365,33 +371,140 @@
     <!-- Yandex Webmaster -->
     <meta name="yandex-verification" content="YOUR_YANDEX_CODE" />
 
-    <!-- Structured Data -->
+    <!-- Facebook Pixel -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'YOUR_FACEBOOK_PIXEL_ID');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+             src="https://www.facebook.com/tr?id=YOUR_FACEBOOK_PIXEL_ID&ev=PageView&noscript=1"/>
+    </noscript>
+
+    <!-- Enhanced Structured Data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "ADI Informatique",
+        "name": "ADI Technologies",
+        "alternateName": ["ADI Global", "ADI Informatique"],
         "url": "{{ url('/') }}",
         "logo": "{{ asset('images/adi-logo.png') }}",
-        "description": "Votre boutique informatique de confiance au Sénégal. Ordinateurs, cartouches d'encre, accessoires et matériel informatique.",
+        "description": "Votre boutique informatique de confiance au Sénégal. Ordinateurs, imprimantes, cartouches d'encre, scanners et accessoires informatiques. Livraison gratuite Dakar.",
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "Medina Rue 15 angle Blaise Diagne",
             "addressLocality": "Dakar",
-            "addressCountry": "SN"
+            "addressRegion": "Dakar",
+            "addressCountry": "SN",
+            "postalCode": "10000"
         },
         "contactPoint": {
             "@type": "ContactPoint",
             "telephone": "+221-78-630-95-81",
             "contactType": "customer service",
             "areaServed": "SN",
-            "availableLanguage": ["French", "Wolof"]
+            "availableLanguage": ["French", "Wolof"],
+            "hoursAvailable": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                "opens": "08:00",
+                "closes": "18:00"
+            }
         },
         "sameAs": [
             "https://facebook.com/adiinformatique",
             "https://twitter.com/adiinformatique",
             "https://instagram.com/adiinformatique"
-        ]
+        ],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Produits informatiques",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Product",
+                        "name": "Ordinateurs",
+                        "description": "Ordinateurs portables et de bureau"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Product",
+                        "name": "Imprimantes",
+                        "description": "Imprimantes HP, Canon, Epson"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Product",
+                        "name": "Cartouches d'encre",
+                        "description": "Cartouches d'encre originales et compatibles"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Product",
+                        "name": "Scanners",
+                        "description": "Scanners de bureau et professionnels"
+                    }
+                }
+            ]
+        }
+    }
+    </script>
+
+    <!-- Local Business Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "ADI Technologies",
+        "image": "{{ asset('images/adi-logo.png') }}",
+        "description": "Boutique informatique spécialisée dans la vente d'ordinateurs, imprimantes, cartouches d'encre et accessoires informatiques au Sénégal.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Medina Rue 15 angle Blaise Diagne",
+            "addressLocality": "Dakar",
+            "addressRegion": "Dakar",
+            "addressCountry": "SN"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 14.7167,
+            "longitude": -17.4677
+        },
+        "url": "{{ url('/') }}",
+        "telephone": "+221-78-630-95-81",
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "08:00",
+                "closes": "18:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "09:00",
+                "closes": "17:00"
+            }
+        ],
+        "priceRange": "$$",
+        "paymentAccepted": ["Cash", "Credit Card", "Mobile Money"],
+        "currenciesAccepted": "XOF"
     }
     </script>
 </head>
@@ -510,7 +623,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                   
+
                                 </div>
                             </div>
                         </div>
