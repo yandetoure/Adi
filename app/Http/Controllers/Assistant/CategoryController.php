@@ -2,32 +2,35 @@
 
 namespace App\Http\Controllers\Assistant;
 
-use App\Http\Controllers\Controller;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 
 class CategoryController extends Controller
 {
     public function index(): View
     {
-        $categories = Category::withCount('products')->latest()->paginate(10);
-        return view('admin.categories.index', compact('categories'));
+        $categories = Category::withCount('products')->paginate(15);
+        return view('assistant.categories.index', compact('categories'));
     }
 
     public function create(): View
     {
-        return view('admin.categories.create');
+        return view('assistant.categories.create');
     }
 
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:categories',
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:categories',
             'description' => 'nullable|string',
             'is_active' => 'boolean',
         ]);
+
+        $validated['is_active'] = $request->has('is_active');
 
         Category::create($validated);
 
@@ -37,22 +40,28 @@ class CategoryController extends Controller
 
     public function show(Category $category): View
     {
-        $category->load('products');
-        return view('admin.categories.show', compact('category'));
+        $category->load(['products' => function ($query) {
+            $query->latest()->limit(10);
+        }]);
+
+        return view('assistant.categories.show', compact('category'));
     }
 
     public function edit(Category $category): View
     {
-        return view('admin.categories.edit', compact('category'));
+        return view('assistant.categories.edit', compact('category'));
     }
 
     public function update(Request $request, Category $category): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:categories,slug,' . $category->id,
             'description' => 'nullable|string',
             'is_active' => 'boolean',
         ]);
+
+        $validated['is_active'] = $request->has('is_active');
 
         $category->update($validated);
 

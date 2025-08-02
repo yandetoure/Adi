@@ -4,260 +4,279 @@
 @section('meta_description', 'Modifiez les informations du produit')
 
 @section('content')
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="mb-6">
-        <nav class="flex" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                <li class="inline-flex items-center">
-                    <a href="{{ route('assistant.products.index') }}" class="text-gray-700 hover:text-green-600">
-                        Produits
-                    </a>
-                </li>
-                <li>
-                    <div class="flex items-center">
-                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        <span class="ml-1 text-gray-500 md:ml-2">{{ $product->name }}</span>
-                    </div>
-                </li>
-            </ol>
-        </nav>
-    </div>
+<div class="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header moderne -->
+        <div class="mb-8">
+            <nav class="flex items-center space-x-2 text-sm text-gray-600 mb-4">
+                <a href="{{ route('assistant.products.index') }}" class="hover:text-emerald-600 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                </a>
+                <span class="text-gray-400">/</span>
+                <a href="{{ route('assistant.products.index') }}" class="hover:text-emerald-600 transition-colors">Produits</a>
+                <span class="text-gray-400">/</span>
+                <span class="text-gray-900 font-medium">{{ $product->name }}</span>
+            </nav>
 
-    <div class="bg-white rounded-lg shadow">
-        <div class="px-6 py-4 border-b border-gray-200">
-            <h1 class="text-2xl font-bold text-gray-900">Modifier le produit</h1>
+            <div class="flex items-center space-x-4">
+                <div class="p-4 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl shadow-lg">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Modifier le produit</h1>
+                    <p class="text-gray-600 mt-1">Mettez à jour les informations de votre produit</p>
+                </div>
+            </div>
         </div>
 
-        <form method="POST" action="{{ route('assistant.products.update', $product) }}" enctype="multipart/form-data" class="p-6">
-            @csrf
-            @method('PUT')
+        <!-- Formulaire moderne -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+            <form method="POST" action="{{ route('assistant.products.update', $product) }}" enctype="multipart/form-data" class="p-8">
+                @csrf
+                @method('PUT')
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Informations de base -->
-                <div class="space-y-6">
-                    <h3 class="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">Informations de base</h3>
-
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nom du produit *</label>
-                        <input type="text" id="name" name="name" value="{{ old('name', $product->name) }}" required
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                        @error('name')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div>
-                        <label for="slug" class="block text-sm font-medium text-gray-700 mb-1">Slug *</label>
-                        <input type="text" id="slug" name="slug" value="{{ old('slug', $product->slug) }}" required
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                        @error('slug')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div>
-                        <label for="short_description" class="block text-sm font-medium text-gray-700 mb-1">Description courte</label>
-                        <textarea id="short_description" name="short_description" rows="3"
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">{{ old('short_description', $product->short_description) }}</textarea>
-                        @error('short_description')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div>
-                        <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description complète</label>
-                        <textarea id="description" name="description" rows="6"
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">{{ old('description', $product->description) }}</textarea>
-                        @error('description')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <!-- Prix et stock -->
-                <div class="space-y-6">
-                    <h3 class="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">Prix et stock</h3>
-
-                    <div>
-                        <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Prix *</label>
-                        <div class="relative">
-                            <input type="number" id="price" name="price" value="{{ old('price', $product->price) }}" step="0.01" min="0" required
-                                   class="w-full pl-12 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <span class="absolute left-3 top-2 text-gray-500 text-sm">FCFA</span>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Informations de base -->
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <div class="w-3 h-10 bg-gradient-to-b from-emerald-400 to-teal-500 rounded-full shadow-lg"></div>
+                            <h3 class="text-xl font-bold text-gray-900">Informations de base</h3>
                         </div>
-                        @error('price')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
+
+                        <div class="space-y-5">
+                            <div>
+                                <label for="name" class="block text-sm font-bold text-gray-700 mb-2">Nom du produit *</label>
+                                <input type="text" id="name" name="name" value="{{ old('name', $product->name) }}" required
+                                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-300 transition-all duration-300 bg-white hover:bg-gray-50 shadow-sm">
+                                @error('name')
+                                    <p class="text-red-500 text-sm mt-2 flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label for="slug" class="block text-sm font-bold text-gray-700 mb-2">Slug *</label>
+                                <input type="text" id="slug" name="slug" value="{{ old('slug', $product->slug) }}" required
+                                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-300 transition-all duration-300 bg-white hover:bg-gray-50 shadow-sm">
+                                @error('slug')
+                                    <p class="text-red-500 text-sm mt-2 flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label for="short_description" class="block text-sm font-bold text-gray-700 mb-2">Description courte</label>
+                                <textarea id="short_description" name="short_description" rows="3"
+                                          class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-300 transition-all duration-300 bg-white hover:bg-gray-50 shadow-sm resize-none">{{ old('short_description', $product->short_description) }}</textarea>
+                                @error('short_description')
+                                    <p class="text-red-500 text-sm mt-2 flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label for="description" class="block text-sm font-bold text-gray-700 mb-2">Description complète</label>
+                                <textarea id="description" name="description" rows="6"
+                                          class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-300 transition-all duration-300 bg-white hover:bg-gray-50 shadow-sm resize-none">{{ old('description', $product->description) }}</textarea>
+                                @error('description')
+                                    <p class="text-red-500 text-sm mt-2 flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
 
-                    <div>
-                        <label for="stock_quantity" class="block text-sm font-medium text-gray-700 mb-1">Stock *</label>
-                        <input type="number" id="stock_quantity" name="stock_quantity" value="{{ old('stock_quantity', $product->stock_quantity) }}" min="0" required
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                        @error('stock_quantity')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    <!-- Prix et stock -->
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <div class="w-3 h-10 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-full shadow-lg"></div>
+                            <h3 class="text-xl font-bold text-gray-900">Prix et stock</h3>
+                        </div>
 
-                    <div>
-                        <label for="category_id" class="block text-sm font-medium text-gray-700 mb-1">Catégorie *</label>
-                        <select id="category_id" name="category_id" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <option value="">Sélectionner une catégorie</option>
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('category_id')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                        <div class="space-y-5">
+                            <div>
+                                <label for="price" class="block text-sm font-bold text-gray-700 mb-2">Prix *</label>
+                                <div class="relative">
+                                    <input type="number" id="price" name="price" value="{{ old('price', $product->price) }}" step="0.01" min="0" required
+                                           class="w-full pl-16 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-300 transition-all duration-300 bg-white hover:bg-gray-50 shadow-sm">
+                                    <span class="absolute left-4 top-3 text-emerald-600 font-bold">FCFA</span>
+                                </div>
+                                @error('price')
+                                    <p class="text-red-500 text-sm mt-2 flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
 
-                    <div class="flex items-center">
-                        <input type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active', $product->is_active) ? 'checked' : '' }}
-                               class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
-                        <label for="is_active" class="ml-2 block text-sm text-gray-900">Produit actif</label>
+                            <div>
+                                <label for="stock_quantity" class="block text-sm font-bold text-gray-700 mb-2">Stock *</label>
+                                <input type="number" id="stock_quantity" name="stock_quantity" value="{{ old('stock_quantity', $product->stock_quantity) }}" min="0" required
+                                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-300 transition-all duration-300 bg-white hover:bg-gray-50 shadow-sm">
+                                @error('stock_quantity')
+                                    <p class="text-red-500 text-sm mt-2 flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label for="category_id" class="block text-sm font-bold text-gray-700 mb-2">Catégorie *</label>
+                                <select id="category_id" name="category_id" required
+                                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-300 transition-all duration-300 bg-white hover:bg-gray-50 shadow-sm">
+                                    <option value="">Sélectionner une catégorie</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('category_id')
+                                    <p class="text-red-500 text-sm mt-2 flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+
+                            <div class="flex items-center space-x-3 p-4 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl border-2 border-emerald-200 shadow-sm">
+                                <input type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active', $product->is_active) ? 'checked' : '' }}
+                                       class="h-5 w-5 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded">
+                                <label for="is_active" class="text-sm font-bold text-gray-900">Produit actif</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Images existantes -->
-            @if($product->media->count() > 0)
-                <div class="mt-8">
-                    <h3 class="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2 mb-4">Images existantes</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                        @foreach($product->media as $media)
+                <!-- Images -->
+                <div class="mt-8 pt-6 border-t-2 border-gray-200">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-3 h-10 bg-gradient-to-b from-orange-400 to-red-500 rounded-full shadow-lg"></div>
+                        <h3 class="text-xl font-bold text-gray-900">Images du produit</h3>
+                    </div>
+
+                    <!-- Images existantes -->
+                    @if($product->getMedia('images')->count() > 0)
+                    <div class="mb-6">
+                        <h4 class="text-lg font-bold text-gray-800 mb-4">Images actuelles</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            @foreach($product->getMedia('images') as $media)
                             <div class="relative group">
-                                <img src="{{ $media->getUrl() }}" alt="{{ $product->name }}" class="w-full h-24 object-cover rounded-lg">
-                                <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
-                                    <label class="flex items-center text-white text-sm cursor-pointer">
-                                        <input type="checkbox" name="remove_images[]" value="{{ $media->id }}" class="mr-2">
+                                <img src="{{ $media->getUrl() }}" alt="{{ $product->name }}"
+                                     class="w-full h-32 object-cover rounded-xl border-2 border-gray-200">
+                                <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center">
+                                    <button type="button" onclick="deleteImage({{ $media->id }})"
+                                            class="text-white text-sm font-bold bg-red-500 hover:bg-red-600 px-3 py-1 rounded-lg transition-colors">
                                         Supprimer
-                                    </label>
+                                    </button>
                                 </div>
                             </div>
-                        @endforeach
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Image principale -->
+                        <div>
+                            <label for="main_image" class="block text-sm font-bold text-gray-700 mb-2">Nouvelle image principale</label>
+                            <div class="relative">
+                                <input type="file" id="main_image" name="main_image" accept="image/*"
+                                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-300 transition-all duration-300 bg-white hover:bg-gray-50 shadow-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
+                                <div class="mt-2 text-xs text-gray-500">Formats acceptés : JPG, PNG, WEBP. Taille max : 5MB</div>
+                            </div>
+                            @error('main_image')
+                                <p class="text-red-500 text-sm mt-2 flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        </div>
+
+                        <!-- Images supplémentaires -->
+                        <div>
+                            <label for="additional_images" class="block text-sm font-bold text-gray-700 mb-2">Nouvelles images supplémentaires</label>
+                            <div class="relative">
+                                <input type="file" id="additional_images" name="additional_images[]" accept="image/*" multiple
+                                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-300 transition-all duration-300 bg-white hover:bg-gray-50 shadow-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
+                                <div class="mt-2 text-xs text-gray-500">Vous pouvez sélectionner plusieurs images</div>
+                            </div>
+                            @error('additional_images')
+                                <p class="text-red-500 text-sm mt-2 flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Aperçu des nouvelles images -->
+                    <div id="image-preview" class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 hidden">
+                        <div class="relative group">
+                            <img id="main-preview" class="w-full h-32 object-cover rounded-xl border-2 border-gray-200" alt="Aperçu nouvelle image principale">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center">
+                                <span class="text-white text-sm font-bold">Nouvelle image principale</span>
+                            </div>
+                        </div>
+                        <div id="additional-previews" class="grid grid-cols-2 gap-2">
+                            <!-- Les aperçus des nouvelles images supplémentaires seront ajoutés ici -->
+                        </div>
                     </div>
                 </div>
-            @endif
 
-            <!-- Nouvelles images -->
-            <div class="mt-8">
-                <h3 class="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2 mb-4">Ajouter de nouvelles images</h3>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                        <input type="file" id="images" name="images[]" multiple accept="image/*" class="hidden" onchange="previewImages(this)">
-                        <label for="images" class="cursor-pointer">
-                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <!-- Actions -->
+                <div class="mt-8 pt-6 border-t-2 border-gray-200">
+                    <div class="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-4">
+                        <a href="{{ route('assistant.products.index') }}"
+                           class="px-6 py-3 border-2 border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition-all duration-300 font-bold shadow-sm">
+                            Annuler
+                        </a>
+                        <button type="submit"
+                                class="px-8 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl hover:from-emerald-600 hover:to-teal-700 transition-all duration-300 font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                            <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
-                            <p class="mt-1 text-sm text-gray-600">Cliquez pour ajouter des images</p>
-                            <p class="text-xs text-gray-500">PNG, JPG, GIF jusqu'à 2MB</p>
-                        </label>
-                    </div>
-                    <div id="image-preview" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-                </div>
-                @error('images.*')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- SEO -->
-            <div class="mt-8">
-                <h3 class="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2 mb-4">Optimisation SEO</h3>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div>
-                        <label for="meta_title" class="block text-sm font-medium text-gray-700 mb-1">Titre SEO</label>
-                        <input type="text" id="meta_title" name="meta_title" value="{{ old('meta_title', $product->meta_title) }}" maxlength="60"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                        <p class="text-xs text-gray-500 mt-1">Maximum 60 caractères</p>
-                        @error('meta_title')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div>
-                        <label for="meta_keywords" class="block text-sm font-medium text-gray-700 mb-1">Mots-clés</label>
-                        <input type="text" id="meta_keywords" name="meta_keywords" value="{{ old('meta_keywords', $product->meta_keywords) }}"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                               placeholder="mot-clé1, mot-clé2, mot-clé3">
-                        <p class="text-xs text-gray-500 mt-1">Séparés par des virgules</p>
-                        @error('meta_keywords')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
+                            Mettre à jour
+                        </button>
                     </div>
                 </div>
-
-                <div class="mt-4">
-                    <label for="meta_description" class="block text-sm font-medium text-gray-700 mb-1">Description SEO</label>
-                    <textarea id="meta_description" name="meta_description" rows="6" maxlength="160"
-                              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">{{ old('meta_description', $product->meta_description) }}</textarea>
-                    <p class="text-xs text-gray-500 mt-1">Maximum 160 caractères</p>
-                    @error('meta_description')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-            </div>
-
-            <!-- Actions -->
-            <div class="mt-8 flex justify-end space-x-4">
-                <a href="{{ route('assistant.products.index') }}"
-                   class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
-                    Annuler
-                </a>
-                <button type="submit"
-                        class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
-                    Mettre à jour
-                </button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 
 <script>
-function previewImages(input) {
-    const preview = document.getElementById('image-preview');
-    preview.innerHTML = '';
-
-    if (input.files) {
-        Array.from(input.files).forEach((file, index) => {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const div = document.createElement('div');
-                div.className = 'relative';
-                div.innerHTML = `
-                    <img src="${e.target.result}" class="w-full h-32 object-cover rounded-lg">
-                    <button type="button" onclick="removeImage(${index})" class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">
-                        ×
-                    </button>
-                `;
-                preview.appendChild(div);
-            };
-            reader.readAsDataURL(file);
-        });
-    }
-}
-
-function removeImage(index) {
-    const input = document.getElementById('images');
-    const dt = new DataTransfer();
-
-    Array.from(input.files).forEach((file, i) => {
-        if (i !== index) {
-            dt.items.add(file);
-        }
-    });
-
-    input.files = dt.files;
-    previewImages(input);
-}
-
 // Auto-génération du slug
 document.getElementById('name').addEventListener('input', function() {
     const slug = this.value
@@ -268,5 +287,66 @@ document.getElementById('name').addEventListener('input', function() {
         .trim('-');
     document.getElementById('slug').value = slug;
 });
+
+// Aperçu des nouvelles images
+document.getElementById('main_image').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('main-preview').src = e.target.result;
+            document.getElementById('image-preview').classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+document.getElementById('additional_images').addEventListener('change', function(e) {
+    const files = e.target.files;
+    const previewContainer = document.getElementById('additional-previews');
+    previewContainer.innerHTML = '';
+
+    Array.from(files).forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.className = 'w-full h-16 object-cover rounded-lg border border-gray-200';
+            img.alt = `Nouvelle image supplémentaire ${index + 1}`;
+            previewContainer.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+    });
+
+    if (files.length > 0) {
+        document.getElementById('image-preview').classList.remove('hidden');
+    }
+});
+
+// Suppression d'image
+function deleteImage(mediaId) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette image ?')) {
+        fetch(`/assistant/products/{{ $product->id }}/images/${mediaId}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Erreur lors de la suppression de l\'image');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Erreur lors de la suppression de l\'image');
+        });
+    }
+}
 </script>
 @endsection

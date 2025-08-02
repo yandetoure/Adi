@@ -25,7 +25,7 @@ class ProductController extends Controller
     public function create(): View
     {
         $categories = Category::all();
-        return view('admin.products.create', compact('categories'));
+        return view('assistant.products.create', compact('categories'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -74,28 +74,54 @@ class ProductController extends Controller
                 ->withErrors(['error' => 'Erreur lors de la création du produit: ' . $e->getMessage()]);
         }
 
-        // Génération automatique des métadonnées SEO si vides
-        if (empty($validated['meta_title'])) {
-            $validated['meta_title'] = $validated['name'] . ' - ADI Informatique Dakar';
-            if (strlen($validated['meta_title']) > 60) {
-                $validated['meta_title'] = substr($validated["meta_title"], 0, 97) . '...';
-            }
+        // Génération automatique des métadonnées SEO
+        $category = Category::find($validated['category_id']);
+        $categoryName = $category ? $category->name : 'produit informatique';
+
+        // Meta Title - Nom du produit + ADI Technologies
+        $validated['meta_title'] = $validated['name'] . ' - ADI Technologies Dakar';
+        if (strlen($validated['meta_title']) > 60) {
+            $validated['meta_title'] = substr($validated['meta_title'], 0, 57) . '...';
         }
 
-        if (empty($validated['meta_description'])) {
-            $category = Category::find($validated['category_id']);
-            $categoryName = $category ? $category->name : 'produit informatique';
-            $validated['meta_description'] = $validated['name'] . ' - ' . $categoryName . ' disponible chez ADI Informatique à Dakar. Prix: ' . number_format($validated['price'], 0, ',', ' ') . ' FCFA. Livraison gratuite.';
-            if (strlen($validated['meta_description']) > 160) {
-                $validated['meta_description'] = substr($validated['meta_description'], 0, 157) . '...';
-            }
+        // Meta Description - Description complète avec prix et localisation
+        $price = number_format((float) $validated['price'], 0, ',', ' ');
+        $validated['meta_description'] = $validated['name'] . ' - ' . $categoryName . ' disponible chez ADI Technologies à Dakar. Prix: ' . $price . ' FCFA. Livraison gratuite Dakar. Service client exceptionnel.';
+        if (strlen($validated['meta_description']) > 160) {
+            $validated['meta_description'] = substr($validated['meta_description'], 0, 157) . '...';
         }
 
-        if (empty($validated['meta_keywords'])) {
-            $category = Category::find($validated['category_id']);
-            $categoryName = $category ? $category->name : 'informatique';
-            $validated['meta_keywords'] = $validated['name'] . ', ' . $categoryName . ', ADI, Dakar, Sénégal, informatique, ' . strtolower($categoryName);
+        // Meta Keywords - Mots-clés optimisés pour le référencement
+        $keywords = [
+            $validated['name'],
+            $categoryName,
+            'ADI Technologies',
+            'ADI Global',
+            'Dakar',
+            'Sénégal',
+            'informatique',
+            'ordinateur',
+            'imprimante',
+            'scanner',
+            'accessoires informatiques'
+        ];
+
+        // Ajouter des mots-clés spécifiques selon la catégorie
+        if (stripos($categoryName, 'imprimante') !== false) {
+            $keywords[] = 'imprimante';
+            $keywords[] = 'printer';
+            $keywords[] = 'cartouches';
+        } elseif (stripos($categoryName, 'ordinateur') !== false) {
+            $keywords[] = 'ordinateur';
+            $keywords[] = 'computer';
+            $keywords[] = 'laptop';
+            $keywords[] = 'portable';
+        } elseif (stripos($categoryName, 'scanner') !== false) {
+            $keywords[] = 'scanner';
+            $keywords[] = 'numérisation';
         }
+
+        $validated['meta_keywords'] = implode(', ', array_unique($keywords));
 
         // Gestion des images
         if ($request->hasFile('main_image')) {
@@ -117,14 +143,14 @@ class ProductController extends Controller
     public function show(Product $product): View
     {
         $product->load(['category', 'media']);
-        return view('admin.products.show', compact('product'));
+        return view('assistant.products.show', compact('product'));
     }
 
     public function edit(Product $product): View
     {
         $categories = Category::all();
         $product->load('media');
-        return view('admin.products.edit', compact('product', 'categories'));
+        return view('assistant.products.edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, Product $product): RedirectResponse
@@ -156,28 +182,54 @@ class ProductController extends Controller
             'height' => 'nullable|numeric|min:0',
         ]);
 
-        // Génération automatique des métadonnées SEO si vides
-        if (empty($validated['meta_title'])) {
-            $validated['meta_title'] = $validated['name'] . ' - ADI Informatique Dakar';
-            if (strlen($validated['meta_title']) > 60) {
-                $validated['meta_title'] = substr($validated["meta_title"], 0, 97) . '...';
-            }
+        // Génération automatique des métadonnées SEO
+        $category = Category::find($validated['category_id']);
+        $categoryName = $category ? $category->name : 'produit informatique';
+
+        // Meta Title - Nom du produit + ADI Technologies
+        $validated['meta_title'] = $validated['name'] . ' - ADI Technologies Dakar';
+        if (strlen($validated['meta_title']) > 60) {
+            $validated['meta_title'] = substr($validated['meta_title'], 0, 57) . '...';
         }
 
-        if (empty($validated['meta_description'])) {
-            $category = Category::find($validated['category_id']);
-            $categoryName = $category ? $category->name : 'produit informatique';
-            $validated['meta_description'] = $validated['name'] . ' - ' . $categoryName . ' disponible chez ADI Informatique à Dakar. Prix: ' . number_format($validated['price'], 0, ',', ' ') . ' FCFA. Livraison gratuite.';
-            if (strlen($validated['meta_description']) > 160) {
-                $validated['meta_description'] = substr($validated['meta_description'], 0, 157) . '...';
-            }
+        // Meta Description - Description complète avec prix et localisation
+        $price = number_format((float) $validated['price'], 0, ',', ' ');
+        $validated['meta_description'] = $validated['name'] . ' - ' . $categoryName . ' disponible chez ADI Technologies à Dakar. Prix: ' . $price . ' FCFA. Livraison gratuite Dakar. Service client exceptionnel.';
+        if (strlen($validated['meta_description']) > 160) {
+            $validated['meta_description'] = substr($validated['meta_description'], 0, 157) . '...';
         }
 
-        if (empty($validated['meta_keywords'])) {
-            $category = Category::find($validated['category_id']);
-            $categoryName = $category ? $category->name : 'informatique';
-            $validated['meta_keywords'] = $validated['name'] . ', ' . $categoryName . ', ADI, Dakar, Sénégal, informatique, ' . strtolower($categoryName);
+        // Meta Keywords - Mots-clés optimisés pour le référencement
+        $keywords = [
+            $validated['name'],
+            $categoryName,
+            'ADI Technologies',
+            'ADI Global',
+            'Dakar',
+            'Sénégal',
+            'informatique',
+            'ordinateur',
+            'imprimante',
+            'scanner',
+            'accessoires informatiques'
+        ];
+
+        // Ajouter des mots-clés spécifiques selon la catégorie
+        if (stripos($categoryName, 'imprimante') !== false) {
+            $keywords[] = 'imprimante';
+            $keywords[] = 'printer';
+            $keywords[] = 'cartouches';
+        } elseif (stripos($categoryName, 'ordinateur') !== false) {
+            $keywords[] = 'ordinateur';
+            $keywords[] = 'computer';
+            $keywords[] = 'laptop';
+            $keywords[] = 'portable';
+        } elseif (stripos($categoryName, 'scanner') !== false) {
+            $keywords[] = 'scanner';
+            $keywords[] = 'numérisation';
         }
+
+        $validated['meta_keywords'] = implode(', ', array_unique($keywords));
 
         // Convertir les valeurs booléennes
         $validated['is_active'] = $request->has('is_active');
